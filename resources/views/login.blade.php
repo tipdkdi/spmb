@@ -15,7 +15,7 @@ License: For each use you must have a valid license purchased only from above li
 <!--begin::Head-->
 
 <head>
-    <title>Ceres HTML Pro- Bootstrap 5 HTML Multipurpose Admin Dashboard Theme by Keenthemes</title>
+    <title>APLIKASI UJIAN IAIN KENDARI</title>
     <meta charset="utf-8" />
     <meta name="description" content="Ceres admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets." />
     <meta name="keywords" content="Ceres theme, bootstrap, bootstrap 5, admin themes, free admin themes, bootstrap admin, bootstrap dashboard" />
@@ -26,7 +26,8 @@ License: For each use you must have a valid license purchased only from above li
     <meta property="og:url" content="https://keenthemes.com/products/ceres-html-pro" />
     <meta property="og:site_name" content="Keenthemes | Ceres HTML Pro" />
     <link rel="canonical" href="https://preview.keenthemes.com/ceres-html-pro" />
-    <link rel="shortcut icon" href="/ceres-html-pro/assets/media/logos/favicon.ico" />
+    <!-- <link rel="shortcut icon" href="/ceres-html-pro/assets/media/logos/favicon.ico" /> -->
+    <link rel="shortcut icon" href="{{asset('/')}}assets/images/favicon.ico" />
 
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" /> <!--end::Fonts-->
