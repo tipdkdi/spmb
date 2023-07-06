@@ -36,22 +36,25 @@
                         <td>{{$item->dataDiri->no_hp}}</td>
                         <td>{{$item->dataDiri->lahir_tanggal}}</td>
                         <td>
-                            @if($item->is_aktif== 0 && $item->status==0)
-                            <span class="fs-8 badge bg-danger me-2 mb-2 card-rounded">Belum Aktif</span>
-                            @elseif($item->status==0)
-                            <span class="fs-8 badge bg-warning me-2 mb-2 card-rounded">Belum Mulai</span>
-                            @elseif($item->status==1)
-                            <span class="fs-8 badge bg-info me-2 mb-2 card-rounded">Mengerjakan Soal</span>
+                            <div id="status_{{$item->id}}">
+
+                                @if($item->is_aktif== 0 && $item->status==0)
+                                <span class="fs-8 badge bg-danger me-2 mb-2 card-rounded">Belum Aktif</span>
+                                @elseif($item->status==0)
+                                <span class="fs-8 badge bg-warning me-2 mb-2 card-rounded">Belum Mulai</span>
+                                @elseif($item->status==1)
+                                <span class="fs-8 badge bg-info me-2 mb-2 card-rounded">Mengerjakan Soal</span>
 
 
-                            @else
-                            <span class="fs-8 badge bg-success me-2 mb-2 card-rounded">Selesai Mengerjakan</span>
+                                @else
+                                <span class="fs-8 badge bg-success me-2 mb-2 card-rounded">Selesai Mengerjakan</span>
 
-                            @endif
+                                @endif
+                            </div>
                         </td>
                         <td>
                             <div class="form-check form-switch form-check-custom form-check-solid">
-                                <input class="form-check-input" onclick="aktifkan(event)" type="checkbox" value="1" name="aktif" data-id="{{$item->id}}" id="aktif_{{$item->id}}" {{($item->is_aktif==1)?  "checked='checked'" : ""}} />
+                                <input class="form-check-input" onclick="aktifkan(event,'{{$item->id}}')" type="checkbox" value="1" name="aktif" data-id="{{$item->id}}" id="aktif_{{$item->id}}" {{($item->is_aktif==1)?  "checked='checked'" : ""}} />
                             </div>
                         </td>
                     </tr>
@@ -69,11 +72,13 @@
 @section('script')
 <script>
     // init()
+
+
     function refreshPage() {
         location.reload();
     }
 
-    async function aktifkan(e) {
+    async function aktifkan(e, id) {
         let value = 0;
         if (e.target.checked) {
             value = 1
@@ -88,6 +93,22 @@
         })
         let response = await sendRequest.json()
         console.log(response);
+        if (response.status == true) {
+            const status = document.querySelector(`#status_${id}`)
+            status.innerHTML = ''
+            if (response.data.is_aktif == 0 && response.data.status == 0)
+                status.innerHTML = '<span class="fs-8 badge bg-danger me-2 mb-2 card-rounded">Belum Aktif</span>'
+            else if (response.data.is_aktif == 0 && response.data.status == 1)
+                status.innerHTML = '<span class="fs-8 badge bg-danger me-2 mb-2 card-rounded">Belum Aktif</span>'
+            else if (response.data.status == 0)
+                status.innerHTML = '<span class="fs-8 badge bg-warning me-2 mb-2 card-rounded">Belum Mulai</span>'
+            else if (response.data.status == 1)
+                status.innerHTML = '<span class="fs-8 badge bg-info me-2 mb-2 card-rounded">Mengerjakan Soal</span>'
+            else
+                status.innerHTML = '<span class="fs-8 badge bg-success me-2 mb-2 card-rounded">Selesai Mengerjakan</span>'
+
+
+        }
     }
 
     async function init() {

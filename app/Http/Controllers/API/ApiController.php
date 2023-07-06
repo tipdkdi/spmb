@@ -23,11 +23,24 @@ class ApiController extends Controller
 
     public function updateAktif(Request $request)
     {
-        $peserta = UjianSesiPeserta::find($request->id);
-        $peserta->is_aktif = $request->is_aktif;
-        $peserta->save();
-        return $peserta;
-        return "ggwp";
+        try {
+            //code...
+            $peserta = UjianSesiPeserta::find($request->id);
+            $peserta->is_aktif = $request->is_aktif;
+            $peserta->save();
+            return response()->json([
+                'status' => true,
+                'message' => 'sukses',
+                'data' => $peserta,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'gagal',
+                'data' => $th,
+            ], 500);
+            //throw $th;
+        }
     }
 
     public function updateSelesai(Request $request)

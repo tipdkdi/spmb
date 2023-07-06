@@ -271,6 +271,7 @@
         document.querySelector('#refresh').parentNode.removeChild(document.querySelector('#refresh'))
 
         tombolMulaiUjian.addEventListener("click", async function() {
+            tombolMulaiUjian.setAttribute('disabled', 'disabled');
 
             let url = "{{route('create.soal.peserta')}}";
             // url = url.replace(':id', sesiPesertaId)
@@ -284,8 +285,11 @@
             })
             let response = await sendRequest.json()
             console.log(response);
-            if (response.status == true)
+            if (response.status == true) {
+                tombolMulaiUjian.innerHTML = `<span><i class="fa fa-spinner"></i> Memuat Soal...</span>`
                 return window.location.href = "{{route('peserta.form.ujian',1)}}";
+
+            }
             return alert('ada kesalahan coba lagi')
 
         });

@@ -258,6 +258,7 @@
         bagianUrutan = bagian_urutan
         pertanyaanUrutan = pertanyaan_urutan
         showPertanyaan.innerHTML = ''
+        showPilihan.innerHTML = ""
         let dataSend = new FormData()
         dataSend.append('ujian_id', "{{$sesi[0]->ujianSesiRuangan->ujianSesi->ujian_id}}")
         dataSend.append('ujian_peserta_id', "{{$sesi[0]->id}}")
