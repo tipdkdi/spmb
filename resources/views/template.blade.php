@@ -96,12 +96,12 @@ License: For each use you must have a valid license purchased only from above li
                                             <!-- <img id="foto-profil" alt="Pic" src="{{asset('/')}}assets/ceres-template/media/avatars/150-26.jpg" /> -->
                                         </div>
                                         <!--begin::Menu-->
-                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
+                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-auto" data-kt-menu="true">
                                             <!--begin::Menu item-->
 
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
-                                            <div class="menu-item px-5">
+                                            <div class="d-flex flex-center flex-column">
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="mx-3">
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger px-5">Logout</button>

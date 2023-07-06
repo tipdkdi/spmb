@@ -7,6 +7,8 @@
         <!--begin::Card title-->
         <h3 class="card-title fw-bolder text-gray-800 fs-2">Dashboard</h3>
         <!--end::Card title-->
+        <button class="btn btn-dark" onclick="refreshPage()">Refresh Halaman</button>
+
     </div>
     <!--end::Header-->
     <!--begin::Body-->
@@ -67,6 +69,9 @@
 @section('script')
 <script>
     // init()
+    function refreshPage() {
+        location.reload();
+    }
 
     async function aktifkan(e) {
         let value = 0;

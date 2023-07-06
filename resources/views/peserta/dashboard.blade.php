@@ -8,13 +8,9 @@
     <div class="flex-column flex-lg-row-auto w-100 w-xl-325px mb-10">
         <!--begin::Card-->
         <div class="card card-flush" data-kt-sticky="true" data-kt-sticky-name="account-navbar" data-kt-sticky-offset="{default: false, xl: '80px'}" data-kt-sticky-width="{lg: '250px', xl: '325px'}" data-kt-sticky-left="auto" data-kt-sticky-top="90px" data-kt-sticky-animation="false" data-kt-sticky-zindex="95">
-            <!--begin::Card header-->
-            <div class="card-header justify-content-end">
 
-            </div>
-            <!--end::Card header-->
             <!--begin::Card body-->
-            <div class="card-body pt-0 p-10">
+            <div class="card-body p-10">
                 <!--begin::Summary-->
                 <div class="d-flex flex-center flex-column mb-10">
                     <!--begin::Avatar-->
@@ -24,7 +20,7 @@
                     <!--end::Avatar-->
                     <!--begin::Name-->
                     <span class="fs-2 text-gray-800 text-hover-primary fw-bolder mb-1">{{$data->dataDiri->nama_lengkap}}</span>
-                    <span class="fs-2 text-gray-800 text-hover-primary fw-bolder mb-1">{{$data->no_test}}</span>
+                    <span class="fs-5 badge bg-primary me-2 mb-2 card-rounded">No. Ujian : {{$data->no_test}}</span>
                     <span class="fs-2 text-gray-800 text-hover-primary fw-bolder mb-1">{{$data->dataDiri->lahir_tempat}}, {{\Carbon\Carbon::parse($data->dataDiri->lahir_tanggal)->format('d M Y')}}</span>
                     <!--end::Name-->
                     <!--begin::Position-->
@@ -54,6 +50,9 @@
                 <!--end::Card title-->
                 <!--begin::Action-->
                 <!-- <a href="#" class="btn btn-primary align-self-center">Edit Profile</a> -->
+                <button type="button" class="btn btn-info btn-sm align-self-center" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+                    Baca Tata Tertib
+                </button>
                 <!--end::Action-->
             </div>
             <!--begin::Card header-->
@@ -61,7 +60,7 @@
             <div class="card-body p-9">
                 <!-- {{$data}} -->
                 <!--begin::Row-->
-                <div class="row mb-7">
+                <div class="row mb-4">
                     <!--begin::Label-->
                     <label class="col-lg-4 fw-bold text-muted">Nama Ujian</label>
                     <!--end::Label-->
@@ -73,7 +72,7 @@
                 </div>
                 <!--end::Row-->
                 <!--begin::Input group-->
-                <div class="row mb-7">
+                <div class="row mb-4">
                     <!--begin::Label-->
                     <label class="col-lg-4 fw-bold text-muted">Lokasi Gedung</label>
                     <!--end::Label-->
@@ -85,7 +84,7 @@
                 </div>
                 <!--end::Input group-->
                 <!--begin::Input group-->
-                <div class="row mb-7">
+                <div class="row mb-4">
                     <!--begin::Label-->
                     <label class="col-lg-4 fw-bold text-muted">Sesi</label>
                     <!-- <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Phone number must be active"></i></label> -->
@@ -99,7 +98,7 @@
                 </div>
                 <!--end::Input group-->
                 <!--begin::Input group-->
-                <div class="row mb-7">
+                <div class="row mb-4">
                     <!--begin::Label-->
                     <label class="col-lg-4 fw-bold text-muted">Kode Ruangan</label>
                     <!--end::Label-->
@@ -111,7 +110,7 @@
                 </div>
                 <!--end::Input group-->
                 <!--begin::Input group-->
-                <div class="row mb-7">
+                <div class="row mb-4">
                     <!--begin::Label-->
                     <label class="col-lg-4 fw-bold text-muted">Ruangan
                         <!-- <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Country of origination"></i> -->
@@ -125,7 +124,7 @@
                 </div>
                 <!--end::Input group-->
                 <!--begin::Input group-->
-                <div class="row mb-7">
+                <div class="row mb-4">
                     <!--begin::Label-->
                     <label class="col-lg-4 fw-bold text-muted">Tanggal Ujian</label>
                     <!--end::Label-->
@@ -151,11 +150,12 @@
                 @if($data->is_aktif==1 && $data->status==2)
                 <button class="btn btn-dark btn-sm" disabled>Anda Sudah Selesai Ujian</button>
                 @else
-                <button class="btn btn-primary btn-sm" id="tombolMulaiUjian" disabled>Anda belum aktif</button>
+                <button class="btn btn-primary" id="tombolMulaiUjian" disabled>Anda belum aktif</button>
+                <!-- <button class="btn btn-primary btn-sm" id="tombolMulaiUjian" disabled>Anda belum aktif</button> -->
+                <button id="refresh" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success btn-sm" onclick="refreshPage()">Refresh Halaman</button>
+
                 @endif
-                <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
-                    Baca Tata Tertib
-                </button>
+
                 <!--end::Input group-->
 
             </div>
@@ -248,18 +248,27 @@
 </div>
 
 
-
-<script>
-
-</script>
 @endsection
 @section('script')
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script>
+    // Munculkan modal ketika halaman selesai dimuat
+    $(document).ready(function() {
+        $('#kt_modal_1').modal('show');
+    });
+</script>
+<script>
+    function refreshPage() {
+        location.reload();
+    }
+
     const tombolMulaiUjian = document.querySelector('#tombolMulaiUjian');
     var isAktif = "{{$data->is_aktif}}";
     if (isAktif == 1) {
         tombolMulaiUjian.removeAttribute('disabled');
         tombolMulaiUjian.innerText = "Mulai Ujian"
+        document.querySelector('#refresh').parentNode.removeChild(document.querySelector('#refresh'))
 
         tombolMulaiUjian.addEventListener("click", async function() {
 
@@ -281,28 +290,7 @@
 
         });
     }
-
-    // init()
-
-    // async function init() {
-    //     let url = "https://sia.iainkendari.ac.id/konseling_api/data_siswa/{{$data->iddata}}";
-    //     // url = url.replace(':id', sesiPesertaId)
-    //     let sendRequest = await fetch(url)
-    //     let response = await sendRequest.json()
-    //     console.log(response);
-    //     document.querySelector('#no_pendaftaran').innerText = response[0].iddata
-    //     document.querySelector('#nama').innerText = response[0].nama
-    //     document.querySelector('#ttl').innerText = `${response[0].tmplahir}, ${response[0].tgllahir}`
-    // }
 </script>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script>
-    // Munculkan modal ketika halaman selesai dimuat
-    $(document).ready(function() {
-        $('#kt_modal_1').modal('show');
-    });
-</script>
+
 @endsection
