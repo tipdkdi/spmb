@@ -272,6 +272,7 @@
 
         tombolMulaiUjian.addEventListener("click", async function() {
             tombolMulaiUjian.setAttribute('disabled', 'disabled');
+            tombolMulaiUjian.innerHTML = `<span><i class="fa fa-spinner"></i> Memuat Soal...</span>`
 
             let url = "{{route('create.soal.peserta')}}";
             // url = url.replace(':id', sesiPesertaId)
@@ -286,7 +287,6 @@
             let response = await sendRequest.json()
             console.log(response);
             if (response.status == true) {
-                tombolMulaiUjian.innerHTML = `<span><i class="fa fa-spinner"></i> Memuat Soal...</span>`
                 return window.location.href = "{{route('peserta.form.ujian',1)}}";
 
             }
