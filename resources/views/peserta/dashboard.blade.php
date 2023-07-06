@@ -59,7 +59,7 @@
             <!--begin::Card header-->
             <!--begin::Card body-->
             <div class="card-body p-9">
-                {{$data}}
+                <!-- {{$data}} -->
                 <!--begin::Row-->
                 <div class="row mb-7">
                     <!--begin::Label-->
