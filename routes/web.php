@@ -24,8 +24,8 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/admin/create-akun-pengawas', [AdminController::class, 'createAkunPengawas'])->name('admin.create.akun.pengawas');
 Route::get('/admin/import-soal', [ApiController::class, 'importSoal'])->name('admin.import.soal');
 
-Route::get('/login', [LoginController::class, 'index'])->name('login.index');
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
+Route::get('/', [LoginController::class, 'index'])->name('login.index');
+Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
