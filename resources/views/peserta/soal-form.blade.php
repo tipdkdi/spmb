@@ -136,7 +136,7 @@
         <div class="card mb-5 mb-xl-10">
             <!--begin::Card header-->
             <!-- <div class="card-body pb-0 px-0"> -->
-
+            <!-- {{$sesi[0]}} -->
             <!--begin::Card header-->
             <!--begin::Card body-->
             <div class="card-body p-9">
@@ -196,7 +196,19 @@
         if (konfirmasi) {
             let konfirmasi2 = confirm('Yakin? Anda tidak dapat ujian kembali')
             if (konfirmasi2) {
-                alert('byeee')
+                let url = "{{route('update.selesai')}}";
+                let dataSend = new FormData()
+                dataSend.append('id', "{{$sesi[0]->id}}")
+                let sendRequest = await fetch(url, {
+                    method: "POST",
+                    body: dataSend
+                })
+                let response = await sendRequest.json()
+                // console.log(response);
+                console.log(response);
+                if (response.status == true) {
+                    return window.location.href = "{{route('peserta.dashboard')}}";
+                }
             }
         }
     }
@@ -344,41 +356,5 @@
         next(bagianId, urutan)
         showNavigasi()
     }
-    let date = "{{$sesi[0]->ujianSesiRuangan->ujianSesi->sesi_tanggal}}"
-    // let timeStart = "{{$sesi[0]->ujianSesiRuangan->ujianSesi->jam_mulai}}"
-    let timeEnd = "{{$sesi[0]->ujianSesiRuangan->ujianSesi->jam_selesai}}"
-    let waktu = `${date}T${timeEnd}Z`
-    var endTime = new Date(waktu).getTime();
-    console.log(`timeend ${timeEnd} - date ${date}`);
-    // Update hitung mundur setiap satu detik
-    var countdown = setInterval(function() {
-        // Waktu sekarang
-        var now = new Date();
-
-        var offset = 7 * 60; // Offset dalam menit
-        var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-        var witTime = new Date(utc + (offset * 60000));
-        // Selisih waktu antara sekarang dan waktu akhir
-        var timeLeft = endTime - witTime;
-
-        // Menghitung hari, jam, menit, dan detik
-        var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-        // Format waktu
-        // var countdownText = minutes + ' menit, ' + seconds + ' detik';
-        var countdownText = days + ' hari, ' + hours + ' jam, ' + minutes + ' menit, ' + seconds + ' detik';
-
-        // Memperbarui elemen dengan ID "countdown"
-        document.getElementById('countdown').textContent = countdownText;
-
-        // Jika waktu hitung mundur berakhir
-        if (timeLeft < 0) {
-            clearInterval(countdown);
-            document.getElementById('countdown').textContent = 'Waktu hitung mundur berakhir!';
-        }
-    }, 1000); // Update setiap 1 detik
 </script>
 @endsection

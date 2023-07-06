@@ -22,6 +22,7 @@ Route::middleware('throttle:1000,60')->group(function () {
     // Route::get('/api/example', 'ExampleController@index');
     Route::post('/sinkron', [ApiController::class, 'sinkron'])->name('sinkron');
 });
+Route::post('/update-selesai', [ApiController::class, 'updateSelesai'])->name('update.selesai');
 Route::post('/update-aktif', [ApiController::class, 'updateAktif'])->name('update.aktif');
 
 Route::post('/create-soal-peserta', [ApiController::class, 'createSoalPeserta'])->name('create.soal.peserta');

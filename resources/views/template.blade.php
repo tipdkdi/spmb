@@ -104,7 +104,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <div class="menu-item px-5">
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="mx-3">
                                                     @csrf
-                                                    <button type="submit" class="menu-link px-5">Logout</button>
+                                                    <button type="submit" class="btn btn-danger px-5">Logout</button>
                                                 </form>
                                                 <!-- <a href="">Sign Out</a> -->
                                             </div>

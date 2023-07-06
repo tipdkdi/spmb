@@ -30,6 +30,30 @@ class ApiController extends Controller
         return "ggwp";
     }
 
+    public function updateSelesai(Request $request)
+    {
+        try {
+            //code...
+            $peserta = UjianSesiPeserta::find($request->id);
+            $peserta->status = "2";
+            $peserta->save();
+            return response()->json([
+                'status' => true,
+                'message' => 'sukses',
+                'data' => $peserta,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'gagal',
+                'data' => $th,
+            ], 500);
+            //throw $th;
+        }
+        return $peserta;
+        return "ggwp";
+    }
+
 
     function getUrut($nourut)
     {

@@ -59,7 +59,7 @@
             <!--begin::Card header-->
             <!--begin::Card body-->
             <div class="card-body p-9">
-                <!-- {{$data}} -->
+                {{$data}}
                 <!--begin::Row-->
                 <div class="row mb-7">
                     <!--begin::Label-->
@@ -148,7 +148,11 @@
                     <!--begin::Label-->
 
                 </div>
+                @if($data->is_aktif==1 && $data->status==2)
+                <button class="btn btn-dark btn-sm" disabled>Anda Sudah Selesai Ujian</button>
+                @else
                 <button class="btn btn-primary btn-sm" id="tombolMulaiUjian" disabled>Anda belum aktif</button>
+                @endif
                 <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
                     Baca Tata Tertib
                 </button>
