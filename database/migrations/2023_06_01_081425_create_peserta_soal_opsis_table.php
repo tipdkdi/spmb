@@ -16,7 +16,7 @@ class CreatePesertaSoalOpsisTable extends Migration
         Schema::create('peserta_soal_opsis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('peserta_soal_id');
-            $table->json('opsis_id'); //ini dikasih array saja nanti dipecah untuk dapat id opsinya
+            $table->string('opsis_id'); //ini dikasih array saja nanti dipecah untuk dapat id opsinya
             $table->timestamps();
             $table->foreign('peserta_soal_id')->references('id')->on('peserta_soals')->onDelete('cascade');
         });
