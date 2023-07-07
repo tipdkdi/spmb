@@ -149,13 +149,13 @@
             <!-- {{$sesi[0]}} -->
             <!--begin::Card header-->
             <!--begin::Card body-->
-            <div class="card-body p-9">
+            <div class="card-body p-9 " style="margin:auto">
                 <h3 class="fw-bolder m-0 mb-2">Navigasi Soal</h3>
 
                 <div id="navigasi">
                 </div>
                 <h6 style="margin-top: 10px">Keterangan</h6>
-                <p class="fw-bolder m-0 mb-2"><i>Merah : Belum Terjawab, Hijau : Sudah terjawab, Orange : Soal Aktif</i></p>
+                <span class="fw-bolder m-0 mb-2">Abu-Abu : Belum Terjawab, Hijau : Sudah terjawab, Orange : Soal Aktif</span>
 
             </div>
             <!--end::Card body-->
