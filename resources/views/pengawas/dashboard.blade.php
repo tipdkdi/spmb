@@ -36,8 +36,8 @@
                         <td><img src="{{$item->dataDiri->foto}}" width="80"></td>
                         <td>{{$item->no_test}}</td>
                         <td>{{$item->dataDiri->nama_lengkap}}</td>
-                        <td>{{$item->dataDiri->no_hp}}</td>
                         <td>{{$item->dataDiri->lahir_tanggal}}</td>
+                        <td>{{$item->dataDiri->no_hp}}</td>
                         <td>
                             <div id="status_{{$item->id}}">
 
