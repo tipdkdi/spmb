@@ -10,6 +10,9 @@
     <button onclick="uploadSoal()">Upload Soal</button>
     <button onclick="importData()">Import Data SIA</button>
     <button onclick="buatAkunPengawas()">Buat akun pengawas</button>
+
+    <br>
+    <a href="{{route('cetak.pengawas')}}">Cetak Akun Pengawas</a>
 </table>
 
 <body>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\PmbAkun;
+use App\Models\User;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
@@ -34,6 +34,8 @@ class LoginController extends Controller
             'username' => ['required'],
             'password' => ['required'],
         ]);
+        $credentials['is_login'] = 0;
+        // return $credentials;
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             // $role  = Auth::user()->roleDefault()->role->nama_role;
@@ -44,6 +46,9 @@ class LoginController extends Controller
                 // session(['role' => $role, 'fakultasData' => $data]);
                 return redirect()->intended(route('dashboard'));
             } else if ($role == "peserta") {
+                $user = User::find(Auth::user()->id);
+                $user->is_login = true;
+                $user->save();
                 // session(['role' => $role, 'fakultasData' => $data]);
                 return redirect()->intended(route('peserta.dashboard'));
             } else if ($role == "pengawas") {
@@ -51,7 +56,7 @@ class LoginController extends Controller
                 return redirect()->intended(route('pengawas.dashboard'));
             }
         }
-        return back()->withInput()->with('fail', 'Login Gagal, pastikan username dan password sesuai');
+        return back()->withInput()->with('fail', 'Login Gagal, pastikan username dan password sesuai, atau anda telah login diperangkat lain');
     }
 
     public function username()
@@ -61,6 +66,9 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        $user = User::find(Auth::user()->id);
+        $user->is_login = false;
+        $user->save();
         Auth::logout();
         Session::flush();
         $request->session()->invalidate();

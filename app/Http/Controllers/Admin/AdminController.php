@@ -19,6 +19,38 @@ class AdminController extends Controller
         // return view('admin.dashboard');
     }
 
+    public function cetakPengawas()
+    {
+        $akun = User::with('userPengawas.ujianSesiRuangan.ujianSesi')->whereHas('userPengawas')->get();
+        $content = "<table border='1' cellpadding='10' cellspacing='0' style='text-align:center'>";
+        $content .= "<thead>";
+        $content .= "<th>NO</th>";
+        $content .= "<th>Pengawas</th>";
+        $content .= "<th>Username</th>";
+        $content .= "<th>Password</th>";
+        $content .= "<th>Tanggal</th>";
+        $content .= "<th>Jam</th>";
+        $content .= "</thead>";
+        $content .= "<tbody>";
+        foreach ($akun as $index => $row) {
+            $urut = $index + 1;
+            $pengawas = $row->userPengawas->ujianSesiRuangan->nama_pengawas;
+            $tanggal = $row->userPengawas->ujianSesiRuangan->ujianSesi->sesi_tanggal;
+            $waktu = $row->userPengawas->ujianSesiRuangan->ujianSesi->jam_mulai . " - " . $row->userPengawas->ujianSesiRuangan->ujianSesi->jam_selesai;
+            $content .= "<tr>";
+            $content .= "<td>$urut</td>";
+            $content .= "<td style='text-align:left'>$pengawas</td>";
+            $content .= "<td>$row->username</td>";
+            $content .= "<td>$row->username</td>";
+            $content .= "<td>$tanggal</td>";
+            $content .= "<td>$waktu</td>";
+            $content .= "</tr>";
+        }
+        $content .= "</tbody>";
+        $content .= "</table>";
+        // return $akun;
+        return $content;
+    }
     public function createAkunPengawas()
     {
         DB::beginTransaction();
