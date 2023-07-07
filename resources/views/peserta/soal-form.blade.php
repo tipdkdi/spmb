@@ -12,7 +12,7 @@
     }
 
     .question_nav a {
-        width: 40px;
+        width: auto;
         display: inline-block;
         border: 1px solid black;
 
