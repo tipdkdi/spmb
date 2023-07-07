@@ -13,7 +13,7 @@ class PengawasController extends Controller
     public function index()
     {
         $title = 'Pengawas Ruang';
-        $data = UjianSesiRuangan::with(['peserta' => function ($peserta) {
+        $data = UjianSesiRuangan::with(['ujianSesi', 'peserta' => function ($peserta) {
             $peserta->with('dataDiri')->orderBy('no_urut', 'ASC');
         }])->find(Auth::user()->userPengawas->ujianSesiRuangan->id);
         // return $data;

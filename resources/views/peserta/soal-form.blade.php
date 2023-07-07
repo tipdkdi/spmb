@@ -181,7 +181,9 @@
 @section('script')
 <script>
     // Waktu dari database
-    var waktuDatabase = "2023-07-07T10:00:00"; // Ubah dengan waktu dari database Anda
+    var tanggal = "{{$sesi[0]->ujianSesiRuangan->ujianSesi->sesi_tanggal}}"
+    var waktuSelesai = "{{$sesi[0]->ujianSesiRuangan->ujianSesi->jam_selesai}}"
+    var waktuDatabase = `${tanggal}T${waktuSelesai}`; // Ubah dengan waktu dari database Anda
 
     // Mendapatkan tanggal dan waktu sekarang
     var sekarang = new Date().getTime();
@@ -219,8 +221,7 @@
             countdownElement.innerHTML = "Waktu telah berakhir";
         }
     }, 1000);
-</script>
-<script>
+
     var bagianUrutan, pertanyaanUrutan
     var showPertanyaan = document.querySelector('#question')
     var showNext = document.querySelector('#btnNext')

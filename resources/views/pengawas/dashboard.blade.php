@@ -13,8 +13,11 @@
     <!--end::Header-->
     <!--begin::Body-->
     <div class="card-body">
+        <div class="notice d-flex bg-light-warning rounded border-primary border border-dashed mb-3 p-6">
+            <h3 class="fw-bolder m-0 align-self-center" id="countdown"></h3>
+        </div>
         <div class="table-responsive">
-            <table class="table table-hover table-rounded table-striped border gy-7 gs-7">
+            <table class="table table-hover table-rounded table-striped border gy-7 gs-7 fs-5">
                 <thead>
                     <th>No Kursi</th>
                     <th>Foto</th>
@@ -64,14 +67,50 @@
         </div>
     </div>
 </div>
-
-<script>
-
-</script>
 @endsection
 @section('script')
 <script>
     // init()
+    // alert('ss')
+    var tanggal = "{{$data->ujianSesi->sesi_tanggal}}"
+    var waktuSelesai = "{{$data->ujianSesi->jam_selesai}}"
+    var waktuDatabase = `${tanggal}T${waktuSelesai}`; // Ubah dengan waktu dari database Anda
+
+    var sekarang = new Date().getTime();
+
+    // Mendapatkan tanggal dan waktu dari database
+    var target = new Date(waktuDatabase).getTime();
+
+    // Hitung selisih waktu antara sekarang dan target
+    var selisih = target - sekarang;
+
+    // Mendapatkan waktu dalam hari, jam, menit, dan detik
+    var hari = Math.floor(selisih / (1000 * 60 * 60 * 24));
+    var jam = Math.floor((selisih % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
+    var detik = Math.floor((selisih % (1000 * 60)) / 1000);
+
+    // Menampilkan hitung mundur dalam elemen dengan id "countdown"
+    var countdownElement = document.getElementById("countdown");
+    countdownElement.innerHTML = "Sisa Waktu Ujian: " + jam + " jam, " + menit + " menit, " + detik + " detik";
+
+    // Memperbarui hitung mundur setiap detik
+    var countdownInterval = setInterval(function() {
+        sekarang = new Date().getTime();
+        selisih = target - sekarang;
+        hari = Math.floor(selisih / (1000 * 60 * 60 * 24));
+        jam = Math.floor((selisih % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
+        detik = Math.floor((selisih % (1000 * 60)) / 1000);
+
+        countdownElement.innerHTML = "Sisa Waktu Ujian: " + jam + " jam, " + menit + " menit, " + detik + " detik";
+
+        // Menghentikan hitung mundur saat mencapai waktu target
+        if (selisih < 0) {
+            clearInterval(countdownInterval);
+            countdownElement.innerHTML = "Waktu telah berakhir";
+        }
+    }, 1000);
 
 
     function refreshPage() {
