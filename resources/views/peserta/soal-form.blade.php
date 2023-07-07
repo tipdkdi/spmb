@@ -180,6 +180,8 @@
 
 @section('script')
 <script>
+    var container = document.querySelector('#kt_content_container')
+    container.classList.remove('container-xxl')
     // Waktu dari database
     var tanggal = "{{$sesi[0]->ujianSesiRuangan->ujianSesi->sesi_tanggal}}"
     var waktuSelesai = "{{$sesi[0]->ujianSesiRuangan->ujianSesi->jam_selesai}}"

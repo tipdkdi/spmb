@@ -151,7 +151,7 @@ License: For each use you must have a valid license purchased only from above li
                 </div>
                 <!--end::Toolbar-->
                 <!--begin::Container-->
-                <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl ">
+                <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl container-fluid">
 
                     <!-- <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-fluid "> -->
                     <!--begin::Post-->
