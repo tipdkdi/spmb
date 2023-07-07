@@ -297,7 +297,7 @@
                 // console.log(item.id == current);
                 currentState = (item.id == current) ? 'question_active' : ''
                 state = (item.peserta_soal.peserta_jawaban != null) ? 'answered' : ''
-                tombolCell += `<td><a class="${state} ${currentState}" href="#" onclick='next(${data.id},${item.peserta_soal.urutan})'>${item.peserta_soal.urutan}</a></td>`
+                tombolCell += `<td><a class="btn btn-secondary ${state} ${currentState}" href="#" onclick='next(${data.id},${item.peserta_soal.urutan})'>${item.peserta_soal.urutan}</a></td>`
                 if (index == kelipatan || index == totalSoal - 1) {
                     content += `<tr>`
                     content += tombolCell
