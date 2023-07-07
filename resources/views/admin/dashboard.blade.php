@@ -13,6 +13,7 @@
 
     <br>
     <a href="{{route('cetak.pengawas')}}">Cetak Akun Pengawas</a>
+    <a href="{{route('cetak.peserta')}}">Cetak Akun Peserta</a>
 </table>
 
 <body>

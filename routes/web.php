@@ -22,6 +22,7 @@ use App\Http\Controllers\LoginController;
 Route::get('/password/{pass}', [AdminController::class, 'password']);
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/admin/cetak-pengawas', [AdminController::class, 'cetakPengawas'])->name('cetak.pengawas');
+Route::get('/admin/cetak-peserta', [AdminController::class, 'cetakPeserta'])->name('cetak.peserta');
 Route::get('/admin/create-akun-pengawas', [AdminController::class, 'createAkunPengawas'])->name('admin.create.akun.pengawas');
 Route::get('/admin/import-soal', [ApiController::class, 'importSoal'])->name('admin.import.soal');
 

@@ -21,7 +21,7 @@
                     <!--begin::Name-->
                     <span class="fs-2 text-gray-800 text-hover-primary fw-bolder mb-1">{{$data->dataDiri->nama_lengkap}}</span>
                     <span class="fs-5 badge bg-primary me-2 mb-2 card-rounded">No. Ujian : {{$data->no_test}}</span>
-                    <span class="fs-2 text-gray-800 text-hover-primary fw-bolder mb-1">{{$data->dataDiri->lahir_tempat}}, {{\Carbon\Carbon::parse($data->dataDiri->lahir_tanggal)->format('d M Y')}}</span>
+                    <span class="fs-2 text-gray-800 text-hover-primary fw-bolder mb-1">TTL : {{$data->dataDiri->lahir_tempat}}, {{\Carbon\Carbon::parse($data->dataDiri->lahir_tanggal)->format('d M Y')}}</span>
                     <div class="d-flex flex-center flex-column mt-10">
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="mx-3">
                             @csrf

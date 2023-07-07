@@ -19,10 +19,38 @@ class AdminController extends Controller
         // return view('admin.dashboard');
     }
 
+    public function cetakPeserta()
+    {
+        $akun = User::with(['userPeserta.ujianSesiPeserta.dataDiri'])->whereHas('userPeserta')->get();
+        $content = "<table border='1' cellpadding='10' cellspacing='0' style='text-align:center; font:arial'>";
+        $content .= "<thead>";
+        $content .= "<th>NO</th>";
+        $content .= "<th>No. Ujian</th>";
+        $content .= "<th>Nama Peserta</th>";
+        $content .= "<th>Tanggal Lahir</th>";
+        $content .= "</thead>";
+        $content .= "<tbody>";
+        foreach ($akun as $index => $row) {
+            $urut = $index + 1;
+            $peserta = $row->userPeserta->ujianSesiPeserta->dataDiri->nama_lengkap;
+            $noUjian = $row->userPeserta->ujianSesiPeserta->no_test;
+            $tanggalLahir = $row->userPeserta->ujianSesiPeserta->dataDiri->lahir_tanggal;
+            $content .= "<tr>";
+            $content .= "<td>$urut</td>";
+            $content .= "<td>$noUjian</td>";
+            $content .= "<td style='text-align:left'>$peserta</td>";
+            $content .= "<td>$tanggalLahir</td>";
+            $content .= "</tr>";
+        }
+        $content .= "</tbody>";
+        $content .= "</table>";
+        return $content;
+    }
+
     public function cetakPengawas()
     {
         $akun = User::with('userPengawas.ujianSesiRuangan.ujianSesi')->whereHas('userPengawas')->get();
-        $content = "<table border='1' cellpadding='10' cellspacing='0' style='text-align:center'>";
+        $content = "<table border='1' cellpadding='10' cellspacing='0' style='text-align:center; font:arial'>";
         $content .= "<thead>";
         $content .= "<th>NO</th>";
         $content .= "<th>Pengawas</th>";

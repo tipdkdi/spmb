@@ -69,7 +69,7 @@
 
                     <span class="fs-5 badge bg-primary me-2 mb-2 card-rounded">No. Ujian : {{$sesi[0]->no_test}}</span>
 
-                    <span class="fs-5 text-gray-800 text-hover-primary fw-bolder mb-1">{{$sesi[0]->dataDiri->lahir_tempat}}, {{\Carbon\Carbon::parse($sesi[0]->dataDiri->lahir_tanggal)->format('d M Y')}}</span>
+                    <span class="fs-5 text-gray-800 text-hover-primary fw-bolder mb-1">TTL : {{$sesi[0]->dataDiri->lahir_tempat}}, {{\Carbon\Carbon::parse($sesi[0]->dataDiri->lahir_tanggal)->format('d M Y')}}</span>
                     <!--end::Name-->
                     <!--begin::Position-->
                     <!--end::Position-->
