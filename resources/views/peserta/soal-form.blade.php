@@ -104,7 +104,8 @@
     <!--end::Sidebar-->
 
     <!--begin::details View-->
-    <div class=" flex-lg-row-fluid ms-lg-10">
+
+    <div class="flex-lg-row-fluid ms-lg-10" style="width:500px;overflow-wrap: break-word;">
 
         <div class="card mb-10 mb-xl-10" id="kt_profile_details_view">
             <!--begin::Card header-->
@@ -120,7 +121,7 @@
             </div>
             <!--begin::Card header-->
             <!--begin::Card body-->
-            <div class="card-body p-9 py-5 mb-5">
+            <div class="card-body p-9 py-5 mb-5" style="overflow-wrap: break-word;">
                 <!--begin::Row-->
                 <p style="font-size :18px" id="question">
                     <!-- ini untuk tampil soalnya -->
@@ -137,6 +138,11 @@
         </div>
         <!--end::Card body-->
 
+
+        <!-- </div> -->
+        <!--end::details View-->
+    </div>
+    <div class=" flex-lg-row-fluid ms-lg-10 w-xl-10px w-xl-10px">
         <div class="card mb-5 mb-xl-10">
             <!--begin::Card header-->
             <!-- <div class="card-body pb-0 px-0"> -->
@@ -154,8 +160,6 @@
             </div>
             <!--end::Card body-->
         </div>
-        <!-- </div> -->
-        <!--end::details View-->
     </div>
 </div>
 
@@ -180,6 +184,8 @@
 
 @section('script')
 <script>
+    var totalPindah = 0
+
     var container = document.querySelector('#kt_content_container')
     container.classList.remove('container-xxl')
     // Waktu dari database
@@ -285,7 +291,8 @@
         let content = '<span></span>'
         let tombolCell = ''
         let total = 0 //ini untuk supaya pertanyaan bagian lainnya dia sambung nomor urut pertanyaan selanjutnya
-        let kelipatan = 9
+        let kelipatan = 6
+        totalPindah = 0
         response.map((data) => {
             content += `<span class="fs-5 badge bg-dark me-2 mb-2 card-rounded">${data.bagian_nama}</span>`
             content += `<table class="question_nav" style="font-size:18px">`
@@ -300,19 +307,21 @@
                 // console.log(item.id == current);
                 currentState = (item.id == current) ? 'question_active' : ''
                 state = (item.peserta_soal.peserta_jawaban != null) ? 'answered' : ''
-                tombolCell += `<td><a class="btn btn-secondary ${state} ${currentState}" href="#" onclick='next(${data.id},${item.peserta_soal.urutan})'>${item.peserta_soal.urutan}</a></td>`
+                tombolCell += `<td><a class="btn btn-secondary btn-sm ${state} ${currentState}" href="#" onclick='next(${data.id},${item.peserta_soal.urutan})'>${item.peserta_soal.urutan}</a></td>`
                 if (index == kelipatan || index == totalSoal - 1) {
                     content += `<tr>`
                     content += tombolCell
                     content += `</tr>`
                     tombolCell = ''
-                    kelipatan = kelipatan + 10
+                    kelipatan = kelipatan + 7
                 }
             })
-            kelipatan = 9
+            kelipatan = 6
             content += `</table><div class="mt-2"></div>`
             total = total + data.soal_kelompok.soal.length
             // content = ''
+            console.log(totalSoal);
+            totalPindah = totalPindah + totalSoal
         })
         navigasi.innerHTML = content
 
@@ -337,17 +346,29 @@
         // return
         bagian.innerText = response.bagian_nama
         current = response.soal_kelompok.soal[0].id
-        console.log(current);
+        // console.log(current);
         showPertanyaan.innerText = `${response.soal_kelompok.soal[0].peserta_soal.urutan}. ${response.soal_kelompok.soal[0].soal}`
         let BagianNext = response.bagian_urutan
         let pertanyaanNext = response.soal_kelompok.soal[0].peserta_soal.urutan + 1
         if (response.soal_kelompok.soal[0].peserta_soal.is_last_urutan_bagian == true) {
 
             BagianNext = BagianNext + 1
-            console.log(`${response.soal_kelompok.soal[0].peserta_soal.is_last_urutan_bagian} asdf`);
+            // console.log(`${response.soal_kelompok.soal[0].peserta_soal.is_last_urutan_bagian}`);
         }
-        showNext.setAttribute('onclick', `saveAndNext(${BagianNext}, ${pertanyaanNext}, ${response.soal_kelompok.soal[0].peserta_soal.id})`)
-        skip.setAttribute('onclick', `next(${BagianNext}, ${pertanyaanNext})`)
+        console.log(response.soal_kelompok.soal[0].peserta_soal.urutan);
+        if (response.soal_kelompok.soal[0].peserta_soal.urutan == totalPindah) {
+            showNext.setAttribute('onclick', `saveAja(${response.soal_kelompok.soal[0].peserta_soal.id})`)
+            // skip.setAttribute('onclick', `next(${BagianNext}, ${pertanyaanNext})`)
+            skip.setAttribute('onclick', `next(1, 1)`)
+
+
+        } else {
+            // showNext.setAttribute('onclick', `saveAndNext(1, 1, ${response.soal_kelompok.soal[0].peserta_soal.id})`)
+            // skip.setAttribute('onclick', `next(1, 1)`)
+            showNext.setAttribute('onclick', `saveAndNext(${BagianNext}, ${pertanyaanNext}, ${response.soal_kelompok.soal[0].peserta_soal.id})`)
+            skip.setAttribute('onclick', `next(${BagianNext}, ${pertanyaanNext})`)
+
+        }
 
         let content = ''
         response.soal_kelompok.soal[0].peserta_soal.peserta_soal_opsi.opsis.map((data) => {
@@ -413,6 +434,10 @@
     }
     async function next(bagianId, urutan) { //utk petanyaan selanjutnya
         getQuestion(bagianId, urutan) //hanya tampilkan saja pertanyaan selanjutnya
+        showNavigasi()
+    }
+    async function saveAja(pertanyaanId) {
+        save(pertanyaanId)
         showNavigasi()
     }
 
