@@ -39,6 +39,7 @@ class LoginController extends Controller
             // $role  = Auth::user()->roleDefault()->role->nama_role;
             $role = Auth::user()->userRole->nama_role;
             // return $role;
+
             if ($role == "admin") {
                 // session(['role' => $role, 'fakultasData' => $data]);
                 return redirect()->intended(route('dashboard'));

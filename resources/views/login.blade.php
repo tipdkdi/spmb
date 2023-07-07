@@ -39,66 +39,13 @@ License: For each use you must have a valid license purchased only from above li
     <link href="{{asset('/')}}assets/ceres-template/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
 
-    <!--Begin::Google Tag Manager -->
-    <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-5FS8GGP');
-    </script>
-    <!--End::Google Tag Manager -->
-
-    <script>
-        // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking)
-        if (window.top != window.self) {
-            window.top.location.replace(window.self.location.href);
-        }
-    </script>
 </head>
 <!--end::Head-->
 
 <!--begin::Body-->
 
 <body id="kt_body" class="auth-bg">
-    <!--begin::Theme mode setup on page load-->
-    <script>
-        var defaultThemeMode = "light";
-        var themeMode;
 
-        if (document.documentElement) {
-            if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
-                themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
-            } else {
-                if (localStorage.getItem("data-bs-theme") !== null) {
-                    themeMode = localStorage.getItem("data-bs-theme");
-                } else {
-                    themeMode = defaultThemeMode;
-                }
-            }
-
-            if (themeMode === "system") {
-                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-            }
-
-            document.documentElement.setAttribute("data-bs-theme", themeMode);
-        }
-    </script>
-    <!--end::Theme mode setup on page load-->
-    <!--Begin::Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FS8GGP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!--End::Google Tag Manager (noscript) -->
-
-    <!--begin::Main-->
     <div class="d-flex flex-column flex-root">
         <!--begin::Authentication - Sign-in -->
         <!--begin::Image placeholder-->
@@ -126,6 +73,14 @@ License: For each use you must have a valid license purchased only from above li
                 <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                     <h1 class="d-flex flex-center mb-10">Silahkan Login untuk masuk</h1>
                     <!--begin::Form-->
+                    @if(session()->has('fail'))
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <span class="alert-text">{{session('fail')}}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @endif
                     <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="{{route('login')}}" method="post">
                         @csrf
 
@@ -173,29 +128,13 @@ License: For each use you must have a valid license purchased only from above li
             </div>
             <!--end::Content-->
 
-            <!--begin::Footer-->
-            <div class="d-flex flex-center flex-column-auto p-10">
-                <!--begin::Links-->
-                <div class="d-flex align-items-center fw-semibold fs-6">
-                    <a href="https://keenthemes.com" class="text-muted text-hover-primary px-2">About</a>
 
-                    <a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>
-
-                    <a href="https://keenthemes.com/products/ceres-html-pro" class="text-muted text-hover-primary px-2">Contact Us</a>
-                </div>
-                <!--end::Links-->
-            </div>
-            <!--end::Footer-->
         </div>
         <!--end::Authentication - Sign-in-->
     </div>
     <!--end::Main-->
 
 
-    <!--begin::Javascript-->
-    <script>
-        var hostUrl = "{{asset('/')}}assets/ceres-template/";
-    </script>
 
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
     <script src="{{asset('/')}}assets/ceres-template/plugins/global/plugins.bundle.js"></script>
