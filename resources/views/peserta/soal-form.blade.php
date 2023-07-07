@@ -58,7 +58,7 @@
             <!--begin::Card body-->
             <div class="card-body p-10">
                 <!--begin::Summary-->
-                <div class="d-flex flex-center flex-column mb-10">
+                <div class="d-flex flex-center flex-column mb-5">
                     <!--begin::Avatar-->
                     <div class="symbol mb-3 symbol-150px symbol-circle">
                         <img alt="Pic" src="{{$sesi[0]->dataDiri->foto}}" />
@@ -77,10 +77,14 @@
                     <!--end::Actions-->
                 </div>
                 <!--end::Summary-->
+                <div class="notice d-flex bg-light-warning rounded border-primary border border-dashed mb-3 p-6">
+                    <h3 class="fw-bolder m-0 align-self-center" id="countdown"></h3>
+                </div>
                 <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed  p-6">
                     <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
                         <!--begin::Content-->
                         <div class="mb-3 mb-md-0 fw-semibold">
+
                             <h2>Informasi Ujian</h2>
                             <span class="fs-5 text-gray-800 text-hover-primary fw-bolder mb-1">{{$sesi[0]->ujianSesiRuangan->ujianSesi->ujian->ujian_nama}}</span>
                             <ul class="my-2 fs-2 px-5">
@@ -176,6 +180,47 @@
 
 @section('script')
 <script>
+    // Waktu dari database
+    var waktuDatabase = "2023-07-07T10:00:00"; // Ubah dengan waktu dari database Anda
+
+    // Mendapatkan tanggal dan waktu sekarang
+    var sekarang = new Date().getTime();
+
+    // Mendapatkan tanggal dan waktu dari database
+    var target = new Date(waktuDatabase).getTime();
+
+    // Hitung selisih waktu antara sekarang dan target
+    var selisih = target - sekarang;
+
+    // Mendapatkan waktu dalam hari, jam, menit, dan detik
+    var hari = Math.floor(selisih / (1000 * 60 * 60 * 24));
+    var jam = Math.floor((selisih % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
+    var detik = Math.floor((selisih % (1000 * 60)) / 1000);
+
+    // Menampilkan hitung mundur dalam elemen dengan id "countdown"
+    var countdownElement = document.getElementById("countdown");
+    countdownElement.innerHTML = "Sisa Waktu: <br>" + jam + " jam, " + menit + " menit, " + detik + " detik";
+
+    // Memperbarui hitung mundur setiap detik
+    var countdownInterval = setInterval(function() {
+        sekarang = new Date().getTime();
+        selisih = target - sekarang;
+        hari = Math.floor(selisih / (1000 * 60 * 60 * 24));
+        jam = Math.floor((selisih % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
+        detik = Math.floor((selisih % (1000 * 60)) / 1000);
+
+        countdownElement.innerHTML = "Sisa Waktu: <br>" + jam + " jam, " + menit + " menit, " + detik + " detik";
+
+        // Menghentikan hitung mundur saat mencapai waktu target
+        if (selisih < 0) {
+            clearInterval(countdownInterval);
+            countdownElement.innerHTML = "Waktu telah berakhir";
+        }
+    }, 1000);
+</script>
+<script>
     var bagianUrutan, pertanyaanUrutan
     var showPertanyaan = document.querySelector('#question')
     var showNext = document.querySelector('#btnNext')
@@ -196,18 +241,34 @@
         if (konfirmasi) {
             let konfirmasi2 = confirm('Yakin? Anda tidak dapat ujian kembali')
             if (konfirmasi2) {
-                let url = "{{route('update.selesai')}}";
-                let dataSend = new FormData()
-                dataSend.append('id', "{{$sesi[0]->id}}")
-                let sendRequest = await fetch(url, {
-                    method: "POST",
-                    body: dataSend
-                })
-                let response = await sendRequest.json()
-                // console.log(response);
-                console.log(response);
-                if (response.status == true) {
-                    return window.location.href = "{{route('peserta.dashboard')}}";
+
+                var input
+
+                // String yang diinginkan
+                var stringYangDiinginkan = "selesaimi";
+                while (true) {
+                    input = prompt("Ketikkan 'selesaimi' untuk mengakhiri: ");
+                    // Memeriksa apakah inputan sama dengan string yang diinginkan
+                    if (input === stringYangDiinginkan) {
+                        let url = "{{route('update.selesai')}}";
+                        let dataSend = new FormData()
+                        dataSend.append('id', "{{$sesi[0]->id}}")
+                        let sendRequest = await fetch(url, {
+                            method: "POST",
+                            body: dataSend
+                        })
+                        let response = await sendRequest.json()
+                        // console.log(response);
+                        console.log(response);
+                        if (response.status == true) {
+                            alert("Anda telah selesai, jangan lupa logout ya!!.");
+                            return window.location.href = "{{route('peserta.dashboard')}}";
+                        }
+                        break;
+                    } else {
+                        alert("tidak sesuai, anda belum bisa mengakhiri, ulangi lagi.");
+                        break;
+                    }
                 }
             }
         }

@@ -12,7 +12,7 @@
             <!--begin::Card body-->
             <div class="card-body p-10">
                 <!--begin::Summary-->
-                <div class="d-flex flex-center flex-column mb-10">
+                <div class="d-flex flex-center flex-column mb-5">
                     <!--begin::Avatar-->
                     <div class="symbol mb-3 symbol-100px symbol-circle">
                         <img alt="Pic" src="{{$data->dataDiri->foto}}" />
@@ -22,6 +22,13 @@
                     <span class="fs-2 text-gray-800 text-hover-primary fw-bolder mb-1">{{$data->dataDiri->nama_lengkap}}</span>
                     <span class="fs-5 badge bg-primary me-2 mb-2 card-rounded">No. Ujian : {{$data->no_test}}</span>
                     <span class="fs-2 text-gray-800 text-hover-primary fw-bolder mb-1">{{$data->dataDiri->lahir_tempat}}, {{\Carbon\Carbon::parse($data->dataDiri->lahir_tanggal)->format('d M Y')}}</span>
+                    <div class="d-flex flex-center flex-column mt-10">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="mx-3">
+                            @csrf
+                            <button type="submit" class="btn btn-danger px-5">Logout</button>
+                        </form>
+                        <!-- <a href="">Sign Out</a> -->
+                    </div>
                     <!--end::Name-->
                     <!--begin::Position-->
                     <!-- <div class="fs-6 fw-bold text-gray-400 mb-2">{{$data->no_test}}</div> -->
@@ -50,7 +57,7 @@
                 <!--end::Card title-->
                 <!--begin::Action-->
                 <!-- <a href="#" class="btn btn-primary align-self-center">Edit Profile</a> -->
-                <button type="button" class="btn btn-info btn-sm align-self-center" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+                <button type="button" class="btn btn-info btn-sm align-self-center" data-bs-toggle="modal" data-bs-target="#kt_modal_1" data-backdrop="static" data-keyboard="false">
                     Baca Tata Tertib
                 </button>
                 <!--end::Action-->
@@ -168,7 +175,7 @@
 
 
 
-<div class="modal fade" tabindex="-1" id="kt_modal_1">
+<div class="modal" tabindex="-1" id="kt_modal_1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -252,13 +259,30 @@
 @section('script')
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 <script>
     // Munculkan modal ketika halaman selesai dimuat
     $(document).ready(function() {
-        $('#kt_modal_1').modal('show');
+        $('#kt_modal_1').modal({
+            show: true,
+            backdropasasd: 'static',
+            keyboard: false
+        });
+
+        // $('#kt_modal_1').modal()
     });
 </script>
 <script>
+    $(document).ready(function() {
+        // $('#myModal').modal('show'); Use this For Not Static Modal
+
+        $('#kt_modal_1').modal({
+            backdrop: 'static',
+            keyboard: false
+        }); // Use THis For Static Modal
+
+    });
+
     function refreshPage() {
         location.reload();
     }

@@ -102,7 +102,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="d-flex flex-center flex-column">
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="mx-3">
+                                                <form action="{{ route('logout') }}" method="POST" class="mx-3">
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger px-5">Logout</button>
                                                 </form>
