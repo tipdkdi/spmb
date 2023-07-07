@@ -265,7 +265,7 @@ class ApiController extends Controller
                 "password" => bcrypt($tahun),
                 "user_role_id" => 4,
             ]);
-            userPeserta::create([
+            UserPeserta::create([
                 "user_id" => $user->id,
                 "ujian_sesi_peserta_id" => $sesi->id,
             ]);
