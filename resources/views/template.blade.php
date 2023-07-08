@@ -138,7 +138,7 @@ License: For each use you must have a valid license purchased only from above li
                             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
                                 <!--begin::Item-->
                                 <li class="breadcrumb-item text-white opacity-75">
-                                    <a href="https://sia.iainkendari.ac.id/verifikator/list" class="text-white text-hover-primary">
+                                    <a href="#" class="text-white text-hover-primary">
                                         {{$title}} </a>
                                 </li>
                                 <!--end::Item-->

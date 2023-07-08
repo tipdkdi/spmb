@@ -24,7 +24,7 @@ class PesertaController extends Controller
 
     public function formUjian($ujianId)
     {
-        $title = "Soal Ujian";
+        $title = "Ujian Lokal Mandiri IAIN Kendari Tahun 2023";
         $info = 'Ujian Lokal Mandiri IAIN Kendari Tahun 2023';
         $sesi = UjianSesiPeserta::with(['dataDiri', 'ujianSesiRuangan' => function ($ujianSesiRuangan) use ($ujianId) {
             // $ujianSesiRuangan->where('ujian_id', $ujianId);
