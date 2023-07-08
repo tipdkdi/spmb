@@ -11,7 +11,7 @@ use App\Models\PesertaSoalOpsi;
 use App\Models\SoalOpsi;
 use App\Models\UjianSesiPeserta;
 use App\Models\User;
-use App\Models\userPeserta;
+use App\Models\UserPeserta;
 use App\Models\Soal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
