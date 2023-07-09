@@ -1,16 +1,16 @@
 <head>
     <base href="">
     <title>SPMB IAIN KENDARI</title>
-    <meta name="description" content="Ceres admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets." />
-    <meta name="keywords" content="Ceres theme, bootstrap, bootstrap 5, admin themes, free admin themes, bootstrap admin, bootstrap dashboard" />
+    <meta name="description" content="Aplikasi UJIAN IAIN KENDARI" />
+    <meta name="keywords" content="Aplikasi UJIAN IAIN KENDARI" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Ceres HTML Free - Bootstrap 5 HTML Multipurpose Admin Dashboard Theme" />
-    <meta property="og:url" content="https://keenthemes.com/products/ceres-html-pro" />
-    <meta property="og:site_name" content="Keenthemes | Ceres HTML Free" />
-    <link rel="canonical" href="Https://preview.keenthemes.com/ceres-html-free" />
+    <meta property="og:title" content="Aplikasi UJIAN IAIN KENDARI" />
+    <meta property="og:url" content="https://ujian.iainkendari.ac.id" />
+    <meta property="og:site_name" content="Aplikasi UJIAN IAIN KENDARI" />
+    <link rel="canonical" href="https://ujian.iainkendari.ac.id" />
     <link rel="shortcut icon" href="{{asset('/')}}assets/images/favicon.ico" />
     <!--begin::Fonts-->
     <link rel=" stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />

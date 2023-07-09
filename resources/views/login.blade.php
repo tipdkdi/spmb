@@ -1,31 +1,20 @@
 <!DOCTYPE html>
-<!--
-Author: Keenthemes
-Product Name: Ceres 
-Product Version: 1.1.3
-Purchase: https://keenthemes.com/products/ceres-html-pro
-Website: http://www.keenthemes.com
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
--->
+
 <html lang="en">
 <!--begin::Head-->
 
 <head>
     <title>APLIKASI UJIAN IAIN KENDARI</title>
     <meta charset="utf-8" />
-    <meta name="description" content="Ceres admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets." />
-    <meta name="keywords" content="Ceres theme, bootstrap, bootstrap 5, admin themes, free admin themes, bootstrap admin, bootstrap dashboard" />
+    <meta name="description" content="Aplikasi UJIAN IAIN KENDARI" />
+    <meta name="keywords" content="Aplikasi UJIAN IAIN KENDARI" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Ceres HTML Pro - Bootstrap 5 HTML Multipurpose Admin Dashboard Theme" />
-    <meta property="og:url" content="https://keenthemes.com/products/ceres-html-pro" />
-    <meta property="og:site_name" content="Keenthemes | Ceres HTML Pro" />
-    <link rel="canonical" href="https://preview.keenthemes.com/ceres-html-pro" />
+    <meta property="og:title" content="Aplikasi UJIAN IAIN KENDARI" />
+    <meta property="og:url" content="https://ujian.iainkendari.ac.id" />
+    <meta property="og:site_name" content="Aplikasi UJIAN IAIN KENDARI" />
+    <link rel="canonical" href="https://ujian.iainkendari.ac.id" />
     <!-- <link rel="shortcut icon" href="/ceres-html-pro/assets/media/logos/favicon.ico" /> -->
     <link rel="shortcut icon" href="{{asset('/')}}assets/images/favicon.ico" />
 
