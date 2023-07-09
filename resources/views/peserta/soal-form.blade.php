@@ -294,8 +294,12 @@
         let kelipatan = 6
         totalPindah = 0
         response.map((data) => {
-            content += `<span class="fs-5 badge bg-dark me-2 mb-2 card-rounded">${data.bagian_nama}</span>`
-            content += `<table class="question_nav" style="font-size:18px">`
+            if (data.id == 1 || data.id == 8) {
+
+                content += `<span class="fs-5 badge bg-dark me-2 mb-2 card-rounded">${data.bagian_nama}</span>`
+
+                content += `<table class="question_nav" style="font-size:18px">`
+            }
             let totalSoal = data.soal_kelompok.soal.length
             data.soal_kelompok.soal.map((item, index) => {
                 // content += `<button onclick='next(${data.id},${item.peserta_pertanyaan.urutan})'>${item.peserta_pertanyaan.urutan}</button>`
@@ -317,7 +321,9 @@
                 }
             })
             kelipatan = 6
-            content += `</table><div class="mt-2"></div>`
+            if (data.id == 7 || data.id == 8) {
+                content += `</table><div class="mt-2"></div>`
+            }
             total = total + data.soal_kelompok.soal.length
             // content = ''
             console.log(totalSoal);

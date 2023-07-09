@@ -16,6 +16,7 @@ use App\Models\Soal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class ApiController extends Controller
 {
@@ -79,7 +80,7 @@ class ApiController extends Controller
         return $ret;
     }
 
-    public function importSoal()
+    public function importSoal(Request $request)
     {
         $csvData = [
             // Pertanyaan 1
@@ -180,41 +181,75 @@ class ApiController extends Controller
             ['Siapa pelukis terkenal yang melukis "The Starry Night"?', 'Vincent van Gogh', 'Leonardo da Vinci', 'Pablo Picasso', 'Salvador Dali', '1'],
         ];
 
+        try {
+            $validator = Validator::make($request->all(), [
+                'kelompok_soal_id' => 'required',
+                'csv_file' => 'required|mimes:csv,txt'
+            ]);
+            $kelompokSoalId = $request->kelompok_soal_id;
 
-
-        foreach ($csvData2 as $data) {
-            // Buat model Soal
-            $soal = new Soal();
-            $soal->soal_kelompok_id = 1;
-            $soal->soal = $data[0];
-            $soal->save();
-
-            // Loop untuk membuat SoalOpsi
-            for ($i = 1; $i <= 4; $i++) {
-                $soalOpsi = new SoalOpsi();
-                $soalOpsi->soal_id = $soal->id;
-                $soalOpsi->opsi_text = $data[$i];
-                $soalOpsi->is_jawaban = ($i == ($data[5]));
-                $soalOpsi->save();
+            if ($validator->fails()) {
+                return response()->json(['error' => $validator->errors()], 400);
             }
-        }
 
-        foreach ($csvData as $data) {
-            // Buat model Soal
-            $soal = new Soal();
-            $soal->soal_kelompok_id = 2;
-            $soal->soal = $data[0];
-            $soal->save();
+            // Mengambil file CSV dari request
+            $file = $request->file('csv_file');
 
-            // Loop untuk membuat SoalOpsi
-            for ($i = 1; $i <= 4; $i++) {
-                $soalOpsi = new SoalOpsi();
-                $soalOpsi->soal_id = $soal->id;
-                $soalOpsi->opsi_text = $data[$i];
-                $soalOpsi->is_jawaban = ($i == ($data[5]));
-                $soalOpsi->save();
+            // Mendapatkan path file sementara
+            $filePath = $file->getRealPath();
+
+            // Membaca isi file CSV
+            $csvData = array_map('str_getcsv', file($filePath));
+
+            // Menghapus header file CSV (jika ada)
+            unset($csvData[0]);
+
+            // return $csvData;
+            foreach ($csvData as $data) {
+                // Buat model Soal
+                // fputcsv($file, $data, ';');
+
+                $soal = new Soal();
+                $soal->soal_kelompok_id = $kelompokSoalId;
+                $soal->soal = $data[0];
+                // $soal->soal_kelompok_sub = $data[6];
+                $soal->save();
+                // Loop untuk membuat SoalOpsi
+                for ($i = 1; $i <= 4; $i++) {
+                    $soalOpsi = new SoalOpsi();
+                    $soalOpsi->soal_id = $soal->id;
+                    $soalOpsi->opsi_text = $data[$i];
+                    $soalOpsi->is_jawaban = ($i == ($data[5]));
+                    $soalOpsi->save();
+                }
             }
+            return response()->json([
+                'status' => true,
+                'message' => 'sukses import',
+                'data' => $csvData,
+            ], 200);
+        } catch (\Throwable $th) {
+            throw $th;
         }
+        // Validasi request
+
+
+        // foreach ($csvData as $data) {
+        //     // Buat model Soal
+        //     $soal = new Soal();
+        //     $soal->soal_kelompok_id = 2;
+        //     $soal->soal = $data[0];
+        //     $soal->save();
+
+        //     // Loop untuk membuat SoalOpsi
+        //     for ($i = 1; $i <= 4; $i++) {
+        //         $soalOpsi = new SoalOpsi();
+        //         $soalOpsi->soal_id = $soal->id;
+        //         $soalOpsi->opsi_text = $data[$i];
+        //         $soalOpsi->is_jawaban = ($i == ($data[5]));
+        //         $soalOpsi->save();
+        //     }
+        // }
 
         return;
     }
@@ -301,6 +336,37 @@ class ApiController extends Controller
         return $data;
     }
 
+    public function insertSoalTKD($id, $sesiPesertaId, $mulaiUrut)
+    {
+        $soalBagian = UjianSoalBagian::with(['soalKelompok.soal' => function ($soal) {
+            $soal->with(['opsi' => function ($opsi) {
+                $opsi->inRandomOrder();
+            }])->take(5)->inRandomOrder()->get();
+        }])->where([
+            // 'ujian_id' => $ujianId
+            'id' => $id
+        ])->get();
+        $opsi = [];
+        $lastIndex = count($soalBagian[0]->soalKelompok->soal) - 1;
+        foreach ($soalBagian[0]->soalKelompok->soal as $index => $item) {
+            $urut = $mulaiUrut + $index + 1;
+            $pesertaSoal = PesertaSoal::create([
+                'ujian_sesi_peserta_id' => $sesiPesertaId,
+                'soal_id' => $item->id,
+                'urutan' => $urut,
+                'is_last_urutan_bagian' => ($lastIndex == $index) ? 1 : 0,
+            ]);
+            foreach ($item->opsi as $index2 => $row) {
+                $opsi[$index2] = $row->id;
+            };
+            PesertaSoalOpsi::create([
+                'peserta_soal_id' => $pesertaSoal->id,
+                'opsis_id' => json_encode($opsi),
+            ]);
+        };
+    }
+
+
     public function createSoalPeserta(Request $request)
     {
 
@@ -318,31 +384,14 @@ class ApiController extends Controller
             $ujianId = $request->ujian_id;
             // $ujianId = 1;
 
-            $soalBagian = UjianSoalBagian::with(['soalKelompok.soal' => function ($soal) {
-                $soal->with(['opsi' => function ($opsi) {
-                    $opsi->inRandomOrder();
-                }])->inRandomOrder()->take(35)->get();
-            }])->where([
-                // 'ujian_id' => $ujianId
-                'id' => 1
-            ])->get();
-            $opsi = [];
-            $lastIndex = count($soalBagian[0]->soalKelompok->soal) - 1;
-            foreach ($soalBagian[0]->soalKelompok->soal as $index => $item) {
-                $pesertaSoal = PesertaSoal::create([
-                    'ujian_sesi_peserta_id' => $sesiPesertaId,
-                    'soal_id' => $item->id,
-                    'urutan' => $index + 1,
-                    'is_last_urutan_bagian' => ($lastIndex == $index) ? 1 : 0,
-                ]);
-                foreach ($item->opsi as $index2 => $row) {
-                    $opsi[$index2] = $row->id;
-                };
-                PesertaSoalOpsi::create([
-                    'peserta_soal_id' => $pesertaSoal->id,
-                    'opsis_id' => json_encode($opsi),
-                ]);
-            };
+            // [1, 2, 3, 4, 5, 6, 7]
+            $this->insertSoalTKD(1, $sesiPesertaId, 0);
+            $this->insertSoalTKD(2, $sesiPesertaId, 5);
+            $this->insertSoalTKD(3, $sesiPesertaId, 10);
+            $this->insertSoalTKD(4, $sesiPesertaId, 15);
+            $this->insertSoalTKD(5, $sesiPesertaId, 20);
+            $this->insertSoalTKD(6, $sesiPesertaId, 25);
+            $this->insertSoalTKD(7, $sesiPesertaId, 30);
 
             // return $opsi;
             //ini untuk soal moderasi ID 2
@@ -352,7 +401,7 @@ class ApiController extends Controller
                 }])->inRandomOrder()->take(10)->get();
             }])->where([
                 // 'ujian_id' => $ujianId
-                'id' => 2
+                'id' => 8
             ])->get();
             $opsi = [];
             $lastIndex = count($soalBagian[0]->soalKelompok->soal) - 1;
@@ -425,6 +474,7 @@ class ApiController extends Controller
         ])->get();
         // return json_decode($data->pertanyaan[0]->pesertaPertanyaan->pesertaPertanyaanOpsi[0]->opsis_id);
         // return $data[0]->soalKelompok->soal[0]->pesertaSoal->pesertaSoalOpsi->opsis_id;
+        // return $data[0];
         $opsiIds = json_decode($data[0]->soalKelompok->soal[0]->pesertaSoal->pesertaSoalOpsi->opsis_id);
         $data[0]->soalKelompok->soal[0]->pesertaSoal->pesertaSoalOpsi->opsis = SoalOpsi::whereIn('id', $opsiIds)->orderByRaw("FIELD(id, " . implode(',', $opsiIds) . ")")
             ->get();

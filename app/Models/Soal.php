@@ -13,6 +13,7 @@ class Soal extends Model
     protected $fillable = [
         'soal_kelompok_id',
         'soal',
+        // 'soal_kelompok_sub',
     ];
     public function soalKelompok()
     {

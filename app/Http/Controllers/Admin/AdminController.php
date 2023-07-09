@@ -99,7 +99,12 @@ class AdminController extends Controller
                 ]);
             }
             DB::commit();
-            return $sesiRuangan;
+            return response()->json([
+                'status' => true,
+                'message' => 'Sudah create',
+                'data' => $sesiRuangan,
+            ], 200);
+            // return $;
         } catch (\Throwable $th) {
             DB::rollback();
 

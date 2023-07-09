@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApiController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,8 @@ use App\Http\Controllers\API\ApiController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+Route::post('/import-soal', [ApiController::class, 'importSoal'])->name('import.soal');
+Route::get('/create-akun-pengawas', [AdminController::class, 'createAkunPengawas'])->name('create.akun.pengawas');
 Route::middleware('throttle:1000,60')->group(function () {
     // Route::get('/api/example', 'ExampleController@index');
     Route::post('/sinkron', [ApiController::class, 'sinkron'])->name('sinkron');

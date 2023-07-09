@@ -17,7 +17,7 @@ class CreateSoalsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('soal_kelompok_id');
             $table->text('soal'); //ini pakai text editor wyswyg
-            // $table->integer('urutan');
+            // $table->integer('soal_kelompok_sub');
             $table->timestamps();
 
             $table->foreign('soal_kelompok_id')->references('id')->on('soal_kelompoks')->onDelete('cascade');
