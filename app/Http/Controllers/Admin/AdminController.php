@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\UjianSesiRuangan;
 use App\Models\User;
-use App\Models\userPengawas;
+use App\Models\UserPengawas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -93,7 +93,7 @@ class AdminController extends Controller
                     "password" => bcrypt($randomText),
                     "user_role_id" => 3,
                 ]);
-                userPengawas::create([
+                UserPengawas::create([
                     'user_id' => $user->id,
                     'ujian_sesi_ruangan_id' => $row->id,
                 ]);
