@@ -31,4 +31,9 @@ class UjianSesiPeserta extends Model
     {
         return $this->belongsTo('App\Models\DataDiri');
     }
+
+    public function userPeserta()
+    {
+        return $this->hasOne('App\Models\UserPeserta');
+    }
 }

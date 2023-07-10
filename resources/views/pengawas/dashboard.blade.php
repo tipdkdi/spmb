@@ -81,8 +81,10 @@
                             <th>Foto</th>
                             <th>No. Tes</th>
                             <th>Nama</th>
+                            <th>Kelamin</th>
                             <th>Tanggal Lahir</th>
                             <th>HP</th>
+                            <th>Reset Login</th>
                             <th>Status</th>
                             <th>Aktifkan</th>
                         </thead>
@@ -95,7 +97,9 @@
                                 <td>{{$item->no_test}}</td>
                                 <td>{{$item->dataDiri->nama_lengkap}}</td>
                                 <td>{{$item->dataDiri->lahir_tanggal}}</td>
+                                <td>{{$item->dataDiri->jenis_kelamin}}</td>
                                 <td>{{$item->dataDiri->no_hp}}</td>
+                                <td><button class="btn btn-warning btn-sm" onclick="resetLogin('{{$item->userPeserta->user->id}}','{{$item->dataDiri->nama_lengkap}}')">Reset Login</button></td>
                                 <td>
                                     <div id="status_{{$item->id}}">
 
@@ -132,6 +136,7 @@
 <script>
     // init()
     // alert('ss')
+
     var container = document.querySelector('#kt_content_container')
     container.classList.remove('container-xxl')
     var tanggal = "{{$data->ujianSesi->sesi_tanggal}}"
@@ -174,6 +179,25 @@
         }
     }, 1000);
 
+
+    async function resetLogin(id, nama) {
+        // return alert(nama)
+        let konfirm = confirm(`Yakin reset login ${nama}?`)
+        if (konfirm) {
+            let url = "{{route('reset.login')}}";
+            let dataSend = new FormData()
+            dataSend.append('id', id)
+            let sendRequest = await fetch(url, {
+                method: "POST",
+                body: dataSend
+            })
+            let response = await sendRequest.json()
+            console.log(response);
+            if (response.status == true) {
+                alert('sukses reset login')
+            }
+        }
+    }
 
     function refreshPage() {
         location.reload();

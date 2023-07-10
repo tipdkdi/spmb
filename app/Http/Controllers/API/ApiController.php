@@ -22,6 +22,22 @@ class ApiController extends Controller
 {
     //
 
+    public function resetLogin(Request $request)
+    {
+        try {
+            //code...
+            $user = User::find($request->id);
+            $user->is_login = 0;
+            $user->save();
+            return response()->json([
+                'status' => true,
+                'message' => 'sukses',
+                'data' => [],
+            ], 200);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
     public function updateAktif(Request $request)
     {
         try {

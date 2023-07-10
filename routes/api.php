@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\AdminController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+Route::post('/reset-login', [ApiController::class, 'resetLogin'])->name('reset.login');
 Route::post('/import-soal', [ApiController::class, 'importSoal'])->name('import.soal');
 Route::get('/create-akun-pengawas', [AdminController::class, 'createAkunPengawas'])->name('create.akun.pengawas');
 Route::middleware('throttle:1000,60')->group(function () {
