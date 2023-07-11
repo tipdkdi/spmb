@@ -21,7 +21,16 @@ class AdminController extends Controller
 
     public function cetakPeserta()
     {
-        $akun = User::with(['userPeserta.ujianSesiPeserta.dataDiri'])->whereHas('userPeserta')->get();
+        $akun = User::with([
+            'userPeserta.ujianSesiPeserta.dataDiri',
+            'userPeserta.ujianSesiPeserta.pesertaSoal.pesertaJawaban'  => function ($pesertaJawaban) {
+                $pesertaJawaban->withCount(['soalOpsi' => function ($soalOpsi) {
+                    $soalOpsi->where('is_jawaban', false);
+                }]);
+            }
+        ])
+            ->whereHas('userPeserta')->get();
+        return $akun;
         $content = "<table border='1' cellpadding='10' cellspacing='0' style='text-align:center; font:arial'>";
         $content .= "<thead>";
         $content .= "<th>NO</th>";

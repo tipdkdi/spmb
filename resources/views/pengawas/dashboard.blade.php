@@ -76,11 +76,11 @@
 
                 <div class="table-responsive">
                     <table class="table table-hover table-rounded table-striped border gy-7 gs-7 fs-5">
-                        <thead>
+                        <thead class="text-center">
                             <th>No Kursi</th>
                             <th>Foto</th>
                             <th>No. Tes</th>
-                            <th>Nama</th>
+                            <th class="text-start">Nama</th>
                             <th>Kelamin</th>
                             <th>Tanggal Lahir</th>
                             <th>HP</th>
@@ -96,9 +96,9 @@
                                 <td><img src="{{$item->dataDiri->foto}}" width="80"></td>
                                 <td>{{$item->no_test}}</td>
                                 <td>{{$item->dataDiri->nama_lengkap}}</td>
+                                <td class="text-center">{{$item->dataDiri->jenis_kelamin}}</td>
                                 <td>{{$item->dataDiri->lahir_tanggal}}</td>
-                                <td>{{$item->dataDiri->jenis_kelamin}}</td>
-                                <td>{{$item->dataDiri->no_hp}}</td>
+                                <td class="text-center">{{$item->dataDiri->no_hp}}</td>
                                 <td><button class="btn btn-warning btn-sm" onclick="resetLogin('{{$item->userPeserta->user->id}}','{{$item->dataDiri->nama_lengkap}}')">Reset Login</button></td>
                                 <td>
                                     <div id="status_{{$item->id}}">

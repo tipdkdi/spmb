@@ -80,7 +80,7 @@
                             <!--end::Label-->
 
                             <!--begin::Input-->
-                            <input class="form-control form-control-lg form-control-solid" type="text" name="username" autocomplete="off" />
+                            <input class="form-control form-control-lg form-control-solid" type="text" name="username" autocomplete="off" autofocus placeholder="Username" value="{{old('username')}}" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -97,11 +97,11 @@
                             <!--end::Wrapper-->
 
                             <!--begin::Input-->
-                            <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" />
+                            <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" placeholder="password" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
-                        <div class="text-center">
+                        <div class=" text-center">
                             <!--begin::Submit button-->
                             <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
                                 <span class="indicator-label">
