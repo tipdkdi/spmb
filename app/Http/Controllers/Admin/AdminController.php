@@ -23,23 +23,32 @@ class AdminController extends Controller
     {
         $akun = User::with([
             'userPeserta.ujianSesiPeserta.dataDiri',
-            'userPeserta.ujianSesiPeserta.pesertaSoal.pesertaJawaban'  => function ($pesertaJawaban) {
-                $pesertaJawaban->withCount(['soalOpsi' => function ($soalOpsi) {
-                    $soalOpsi->where('is_jawaban', false);
-                }]);
+            'userPeserta.ujianSesiPeserta.pesertaSoal'  => function ($ujianSesiPeserta) {
+                $ujianSesiPeserta->with(['pesertaJawaban.soalOpsi' => function ($soalOpsi) {
+                    // $pesertaJawaban->withCount(['' => function ($soalOpsi) {
+                    $soalOpsi->where('is_jawaban', true);
+                    // }]);
+                }])
+                    ->whereHas('pesertaJawaban.soalOpsi', function ($soalOpsi) {
+                        $soalOpsi->where('is_jawaban', true);
+                    });;
             }
         ])
             ->whereHas('userPeserta')->get();
-        return $akun;
+
+        // return $akun;
         $content = "<table border='1' cellpadding='10' cellspacing='0' style='text-align:center; font:arial'>";
         $content .= "<thead>";
         $content .= "<th>NO</th>";
         $content .= "<th>No. Ujian</th>";
         $content .= "<th>Nama Peserta</th>";
         $content .= "<th>Tanggal Lahir</th>";
+        $content .= "<th>Nilai</th>";
         $content .= "</thead>";
         $content .= "<tbody>";
         foreach ($akun as $index => $row) {
+            $jumlahBenar = count($row->userPeserta->ujianSesiPeserta->pesertaSoal);
+            $totalNilai = number_format(($jumlahBenar / 45) * 100, 1);
             $urut = $index + 1;
             $peserta = $row->userPeserta->ujianSesiPeserta->dataDiri->nama_lengkap;
             $noUjian = $row->userPeserta->ujianSesiPeserta->no_test;
@@ -49,6 +58,7 @@ class AdminController extends Controller
             $content .= "<td>$noUjian</td>";
             $content .= "<td style='text-align:left'>$peserta</td>";
             $content .= "<td>$tanggalLahir</td>";
+            $content .= "<td>$totalNilai</td>";
             $content .= "</tr>";
         }
         $content .= "</tbody>";

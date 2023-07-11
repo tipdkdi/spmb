@@ -200,6 +200,7 @@ class ApiController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'kelompok_soal_id' => 'required',
+                'urut' => 'required',
                 'csv_file' => 'required|mimes:csv,txt'
             ]);
             $kelompokSoalId = $request->kelompok_soal_id;
@@ -221,23 +222,42 @@ class ApiController extends Controller
             unset($csvData[0]);
 
             // return $csvData;
-            foreach ($csvData as $data) {
+            $ur = $request->urut;
+            foreach ($csvData as $index => $data) {
                 // Buat model Soal
                 // fputcsv($file, $data, ';');
 
-                $soal = new Soal();
-                $soal->soal_kelompok_id = $kelompokSoalId;
-                $soal->soal = $data[0];
-                // $soal->soal_kelompok_sub = $data[6];
-                $soal->save();
-                // Loop untuk membuat SoalOpsi
-                for ($i = 1; $i <= 4; $i++) {
-                    $soalOpsi = new SoalOpsi();
-                    $soalOpsi->soal_id = $soal->id;
-                    $soalOpsi->opsi_text = $data[$i];
-                    $soalOpsi->is_jawaban = ($i == ($data[5]));
-                    $soalOpsi->save();
+
+                $soal = Soal::with('opsi')->find($ur);
+                foreach ($soal->opsi as $urut => $item) {
+                    if ($urut == $data[5]) {
+                        $opsi = SoalOpsi::find($item->id);
+                        $opsi->is_jawaban = true;
+                        $opsi->save();
+                    }
                 }
+                $ur = $ur + 1;
+                // Loop untuk membuat SoalOpsi
+                // for ($i = 1; $i <= 4; $i++) {
+                //     $soalOpsi = new SoalOpsi();
+                //     $soalOpsi->soal_id = $soal->id;
+                //     $soalOpsi->opsi_text = $data[$i];
+                //     $soalOpsi->is_jawaban = ($i == ($data[5]));
+                //     $soalOpsi->save();
+                // }
+                // $soal = new Soal();
+                // $soal->soal_kelompok_id = $kelompokSoalId;
+                // $soal->soal = $data[0];
+                // $soal->save();
+
+                // // Loop untuk membuat SoalOpsi
+                // for ($i = 1; $i <= 4; $i++) {
+                //     $soalOpsi = new SoalOpsi();
+                //     $soalOpsi->soal_id = $soal->id;
+                //     $soalOpsi->opsi_text = $data[$i];
+                //     $soalOpsi->is_jawaban = ($i == ($data[5]));
+                //     $soalOpsi->save();
+                // }
             }
             return response()->json([
                 'status' => true,

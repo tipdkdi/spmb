@@ -21,14 +21,14 @@
         <h3 class="mt-3">3. UPLOAD SOAL</h3>
         <!-- <form> -->
         <select class="form-control" id="kelompok_soal">
-            <option value="1">TKD 1</option>
-            <option value="2">TKD 2</option>
-            <option value="3">TKD 3</option>
-            <option value="4">TKD 4</option>
-            <option value="5">TKD 5</option>
-            <option value="6">TKD 6</option>
-            <option value="7">TKD 7</option>
-            <option value="8">Moderasi Beragama</option>
+            <option value="1" data-urut="1">TKD 1</option>
+            <option value="2" data-urut="42">TKD 2</option>
+            <option value="3" data-urut="58">TKD 3</option>
+            <option value="4" data-urut="78">TKD 4</option>
+            <option value="5" data-urut="98">TKD 5</option>
+            <option value="6" data-urut="157">TKD 6</option>
+            <option value="7" data-urut="177">TKD 7</option>
+            <option value="8" data-urut="191">Moderasi Beragama</option>
         </select> <br>
         <input type="file" name="csv_file" id="csv_file"><br>
         <br>
@@ -73,12 +73,15 @@
             })
         }
         async function uploadSoal() {
+            // return 
+            // return alert()
             var inputFile = document.getElementById('csv_file');
             var file = inputFile.files[0];
 
             let url = "{{route('import.soal')}}";
             let dataSend2 = new FormData()
             dataSend2.append('csv_file', file)
+            dataSend2.append('urut', document.querySelector('#kelompok_soal').options[document.querySelector('#kelompok_soal').selectedIndex].dataset.urut)
             dataSend2.append('kelompok_soal_id', document.querySelector('#kelompok_soal').value)
             let sendRequest2 = await fetch(url, {
                 method: "POST",
