@@ -64,7 +64,11 @@ class AdminController extends Controller
                     });;
             }
         ])
-            ->whereHas('userPeserta')->get();
+            ->whereHas('userPeserta.ujianSesiPeserta.ujianSesiRuangan.ujianSesi.ujian', function ($ujian) {
+                $ujian->where('id', 2);
+            })
+            ->orderBy('username', 'ASC')
+            ->get();
 
         // return $akun;
         $content = "<table border='1' cellpadding='10' cellspacing='0' style='text-align:center; font:arial'>";
