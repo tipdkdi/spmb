@@ -320,8 +320,10 @@ class ApiController extends Controller
                 'foto' => ($foto == null) ? $defaultFoto : 'https://sia.iainkendari.ac.id/' . $foto->path,
             ]);
 
+
+            $ruang = $data->ruang + 40; // ini 40 dari id terakhir ujian mandiri tahap 1, jadi tahap 2 mulai dari id 40 karena manual wkwkk
             $sesi = UjianSesiPeserta::create([
-                'ujian_sesi_ruangan_id' => $data->ruang,
+                'ujian_sesi_ruangan_id' => $ruang,
                 'iddata' => $data->iddata,
                 'data_diri_id' => $dataDiri->id,
                 'no_test' => $data->nopendaftaran,
@@ -366,9 +368,13 @@ class ApiController extends Controller
                     $pesertaSoal->with('pesertaJawaban')
                         ->where('ujian_sesi_peserta_id', $ujianSesiPesertaId);
                 }])
-                ->orderBy(PesertaSoal::select('urutan')->where('ujian_sesi_peserta_id', $ujianSesiPesertaId)->whereColumn('soals.id', 'peserta_soals.soal_id'));
-        }])->get();
-
+                ->orderBy(PesertaSoal::select('urutan')->where('ujian_sesi_peserta_id', $ujianSesiPesertaId)->whereColumn('soals.id', 'peserta_soals.soal_id')->limit(1));
+        }, 'ujian'])
+            ->whereHas('ujian', function ($ujian) {
+                $ujian->where('id', 2);
+            })
+            ->get();
+        // return PesertaSoal::where('ujian_sesi_peserta_id', $ujianSesiPesertaId)->get();
         return $data;
     }
 
@@ -421,13 +427,13 @@ class ApiController extends Controller
             // $ujianId = 1;
 
             // [1, 2, 3, 4, 5, 6, 7]
-            $this->insertSoalTKD(1, $sesiPesertaId, 0);
-            $this->insertSoalTKD(2, $sesiPesertaId, 5);
-            $this->insertSoalTKD(3, $sesiPesertaId, 10);
-            $this->insertSoalTKD(4, $sesiPesertaId, 15);
-            $this->insertSoalTKD(5, $sesiPesertaId, 20);
-            $this->insertSoalTKD(6, $sesiPesertaId, 25);
-            $this->insertSoalTKD(7, $sesiPesertaId, 30);
+            $this->insertSoalTKD(9, $sesiPesertaId, 0);
+            $this->insertSoalTKD(10, $sesiPesertaId, 5);
+            $this->insertSoalTKD(11, $sesiPesertaId, 10);
+            $this->insertSoalTKD(12, $sesiPesertaId, 15);
+            $this->insertSoalTKD(13, $sesiPesertaId, 20);
+            $this->insertSoalTKD(14, $sesiPesertaId, 25);
+            $this->insertSoalTKD(15, $sesiPesertaId, 30);
 
             // return $opsi;
             //ini untuk soal moderasi ID 2
@@ -437,7 +443,7 @@ class ApiController extends Controller
                 }])->inRandomOrder()->take(10)->get();
             }])->where([
                 // 'ujian_id' => $ujianId
-                'id' => 8
+                'id' => 16
             ])->get();
             $opsi = [];
             $lastIndex = count($soalBagian[0]->soalKelompok->soal) - 1;

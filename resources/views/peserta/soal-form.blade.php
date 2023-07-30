@@ -123,7 +123,7 @@
             <!--begin::Card body-->
             <div class="card-body p-9 py-5 mb-5" style="overflow-wrap: break-word;">
                 <!--begin::Row-->
-                <p style="font-size :18px" id="question">
+                <p style="font-size :18px" id="question" data-current="9">
                     <!-- ini untuk tampil soalnya -->
                 </p>
                 <div class="col-sm-12 py-3" id="pilihanJawaban">
@@ -241,8 +241,8 @@
     var current
     init()
     async function init() {
-        getQuestion(1, 1)
         showNavigasi()
+        getQuestion(1, 1)
     }
 
     async function selesai() {
@@ -293,14 +293,17 @@
         let total = 0 //ini untuk supaya pertanyaan bagian lainnya dia sambung nomor urut pertanyaan selanjutnya
         let kelipatan = 6
         totalPindah = 0
+        console.log(`current di navigasi : ${document.querySelector('#question').dataset.current}`);
+        // console.log();
         response.map((data) => {
-            if (data.id == 1 || data.id == 8) {
+            if (data.bagian_urutan == 1 || data.bagian_urutan == 8) {
 
                 content += `<span class="fs-5 badge bg-dark me-2 mb-2 card-rounded">${data.bagian_nama}</span>`
 
                 content += `<table class="question_nav" style="font-size:18px">`
             }
             let totalSoal = data.soal_kelompok.soal.length
+            let current = document.querySelector('#question').dataset.current
             data.soal_kelompok.soal.map((item, index) => {
                 // content += `<button onclick='next(${data.id},${item.peserta_pertanyaan.urutan})'>${item.peserta_pertanyaan.urutan}</button>`
                 let state = ''
@@ -311,7 +314,7 @@
                 // console.log(item.id == current);
                 currentState = (item.id == current) ? 'question_active' : ''
                 state = (item.peserta_soal.peserta_jawaban != null) ? 'answered' : ''
-                tombolCell += `<td><a class="btn btn-secondary btn-sm ${state} ${currentState}" href="#" onclick='next(${data.id},${item.peserta_soal.urutan})'>${item.peserta_soal.urutan}</a></td>`
+                tombolCell += `<td><a class="btn btn-secondary btn-sm ${state} ${currentState}" href="#" onclick='next(${data.bagian_urutan},${item.peserta_soal.urutan})'>${item.peserta_soal.urutan}</a></td>`
                 if (index == kelipatan || index == totalSoal - 1) {
                     content += `<tr>`
                     content += tombolCell
@@ -321,7 +324,7 @@
                 }
             })
             kelipatan = 6
-            if (data.id == 7 || data.id == 8) {
+            if (data.bagian_urutan == 7 || data.bagian_urutan == 8) {
                 content += `</table><div class="mt-2"></div>`
             }
             total = total + data.soal_kelompok.soal.length
@@ -352,7 +355,9 @@
         // return
         bagian.innerText = response.bagian_nama
         current = response.soal_kelompok.soal[0].id
-        // console.log(current);
+
+        document.querySelector('#question').dataset.current = response.soal_kelompok.soal[0].id
+        console.log(`current : ${document.querySelector('#question').dataset.current}`);
         showPertanyaan.innerText = `${response.soal_kelompok.soal[0].peserta_soal.urutan}. ${response.soal_kelompok.soal[0].soal}`
         let BagianNext = response.bagian_urutan
         let pertanyaanNext = response.soal_kelompok.soal[0].peserta_soal.urutan + 1
@@ -442,6 +447,7 @@
         getQuestion(bagianId, urutan) //hanya tampilkan saja pertanyaan selanjutnya
         showNavigasi()
     }
+
     async function saveAja(pertanyaanId) {
         save(pertanyaanId)
         showNavigasi()

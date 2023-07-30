@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\UjianSesiPeserta;
 use App\Models\UjianSesiRuangan;
 use App\Models\User;
 use App\Models\UserPengawas;
+use App\Models\SoalOpsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -19,6 +21,34 @@ class AdminController extends Controller
         // return view('admin.dashboard');
     }
 
+    public function hasilUjian($ujianSesiPesertaId)
+    {
+        $title = "Detail Jawaban";
+        $data = UjianSesiPeserta::with([
+            'pesertaSoal.pesertaJawaban',
+            'pesertaSoal.pesertaSoalOpsi',
+            'pesertaSoal.soal'
+        ])
+            ->find($ujianSesiPesertaId);
+        foreach ($data->pesertaSoal as $item) {
+            $opsiIds = json_decode($item->pesertaSoalOpsi->opsis_id);
+            $item->pesertaSoalOpsi->opsis = SoalOpsi::whereIn('id', $opsiIds)->orderByRaw("FIELD(id, " . implode(',', $opsiIds) . ")")
+                ->get();
+            foreach ($item->pesertaSoalOpsi->opsis as $opsi) {
+                if ($item->pesertaJawaban != null) {
+
+                    if ($opsi->id == $item->pesertaJawaban->soal_opsi_id) {
+                        $opsi->jawabannyaPeserta = true;
+                    }
+                }
+            }
+        }
+
+        // return $data;
+        return view('admin.hasil-detail', compact(['data', 'title']));
+
+        // return $sesiPeserta;
+    }
     public function cetakPeserta()
     {
         $akun = User::with([
@@ -58,7 +88,7 @@ class AdminController extends Controller
             $content .= "<td>$noUjian</td>";
             $content .= "<td style='text-align:left'>$peserta</td>";
             $content .= "<td>$tanggalLahir</td>";
-            $content .= "<td>$totalNilai</td>";
+            $content .= "<td><a href='" . route('hasil.ujian.detail', $row->userPeserta->ujianSesiPeserta->id) . "'>$totalNilai</a></td>";
             $content .= "</tr>";
         }
         $content .= "</tbody>";
@@ -68,7 +98,16 @@ class AdminController extends Controller
 
     public function cetakPengawas()
     {
-        $akun = User::with('userPengawas.ujianSesiRuangan.ujianSesi')->whereHas('userPengawas')->get();
+        // $akun = User::with('userPengawas.ujianSesiRuangan.ujianSesi.ujian')->whereHas('userPengawas')->get();
+        $akun = User::with(['userPengawas.ujianSesiRuangan.ujianSesi.ujian' => function ($ujian) {
+            $ujian->where('id', 2);
+        }])
+            ->whereHas('userPengawas')
+            ->whereHas('userPengawas.ujianSesiRuangan.ujianSesi.ujian', function ($ujian) {
+                $ujian->where('id', 2);
+            })
+            ->get();
+
         $content = "<table border='1' cellpadding='10' cellspacing='0' style='text-align:center; font:arial'>";
         $content .= "<thead>";
         $content .= "<th>NO</th>";
@@ -104,7 +143,15 @@ class AdminController extends Controller
 
         try {
             //code...
-            $sesiRuangan = UjianSesiRuangan::all();
+            // $sesiRuangan = UjianSesiRuangan::all(); //ini ubah dulu kasih parameter ujian yang mana
+            $sesiRuangan = UjianSesiRuangan::with(['ujianSesi.ujian' => function ($ujian) {
+                $ujian->where('id', 2);
+            }])
+                ->whereHas('ujianSesi.ujian', function ($ujian) {
+                    $ujian->where('id', 2);
+                })
+                ->get(); //ini ubah dulu kasih parameter ujian yang mana
+            // return $sesiRuangan;
             foreach ($sesiRuangan as $row) {
                 $randomText = strtoupper(Str::random(6)); // Membuat password acak dengan 6 karakter
                 $user = User::create([

@@ -47,7 +47,7 @@
         // init()
         async function importData() {
             let dataSend = new FormData()
-            dataSend.append('filter', "20233")
+            dataSend.append('filter', "20235")
             let sendRequest = await fetch("https://sia.iainkendari.ac.id/konseling_api/eksport_data_dari_sia", {
                 method: "POST",
                 body: dataSend
