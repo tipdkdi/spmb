@@ -321,7 +321,7 @@ class ApiController extends Controller
             ]);
 
 
-            $ruang = $data->ruang + 40; // ini 40 dari id terakhir ujian mandiri tahap 1, jadi tahap 2 mulai dari id 40 karena manual wkwkk
+            $ruang = $data->ruang + 30; // ini 40 dari id terakhir ujian mandiri tahap 1, jadi tahap 2 mulai dari id 40 karena manual wkwkk
             $sesi = UjianSesiPeserta::create([
                 'ujian_sesi_ruangan_id' => $ruang,
                 'iddata' => $data->iddata,
