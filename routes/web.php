@@ -19,6 +19,7 @@ use App\Http\Controllers\LoginController;
 |
 */
 
+Route::get('/seeder', [AdminController::class, 'seeder']);
 Route::get('/password/{pass}', [AdminController::class, 'password']);
 Route::get('/rektor-cup', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/hasil-ujian/peserta/{sesiPesertaId}', [AdminController::class, 'hasilUjian'])->name('hasil.ujian.detail');
