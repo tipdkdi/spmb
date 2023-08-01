@@ -254,9 +254,12 @@ class AdminController extends Controller
     }
     public function cetakPeserta()
     {
-        $akun = User::with([
-            'userPeserta.ujianSesiPeserta.dataDiri',
-            'userPeserta.ujianSesiPeserta.pesertaSoal'  => function ($ujianSesiPeserta) {
+        $sesiPeserta = UjianSesiPeserta::with([
+            'dataDiri',
+            'ujianSesiRuangan' => function ($ujianSesiRuangan) {
+                $ujianSesiRuangan->with('ujianSesi')->orderBy('ujian_sesi_id', 'asc');
+            },
+            'pesertaSoal'  => function ($ujianSesiPeserta) {
                 $ujianSesiPeserta->with(['pesertaJawaban.soalOpsi' => function ($soalOpsi) {
                     // $pesertaJawaban->withCount(['' => function ($soalOpsi) {
                     $soalOpsi->where('is_jawaban', true);
@@ -267,10 +270,15 @@ class AdminController extends Controller
                     });;
             }
         ])
-            ->whereHas('userPeserta.ujianSesiPeserta.ujianSesiRuangan.ujianSesi.ujian', function ($ujian) {
+            ->whereHas('ujianSesiRuangan.ujianSesi.ujian', function ($ujian) {
                 $ujian->where('id', 2);
             })
-            ->orderBy('username', 'ASC')
+            ->whereHas('ujianSesiRuangan', function ($ujianSesiRuangan) {
+                $ujianSesiRuangan->orderBy('ujian_sesi_id', 'asc');
+            })
+            // ->orderBy('no_test', 'ASC')
+            ->orderBy(UjianSesiRuangan::select('ujian_sesi_id')->whereColumn('ujian_sesi_ruangans.id', 'ujian_sesi_pesertas.ujian_sesi_ruangan_id'))
+            // ->orderBy(UjianSesiRuangan::select('ujian_sesi_id')->where('ujian_sesi_peserta_id', $ujianSesiPesertaId)->whereColumn('soals.id', 'peserta_soals.soal_id'))
             ->get();
 
         // return $akun;
@@ -278,24 +286,28 @@ class AdminController extends Controller
         $content .= "<thead>";
         $content .= "<th>NO</th>";
         $content .= "<th>No. Ujian</th>";
+        $content .= "<th>Sesi</th>";
+        $content .= "<th>Ruan</th>";
         $content .= "<th>Nama Peserta</th>";
         $content .= "<th>Tanggal Lahir</th>";
         $content .= "<th>Nilai</th>";
         $content .= "</thead>";
         $content .= "<tbody>";
-        foreach ($akun as $index => $row) {
-            $jumlahBenar = count($row->userPeserta->ujianSesiPeserta->pesertaSoal);
+        foreach ($sesiPeserta as $index => $row) {
+            $jumlahBenar = count($row->pesertaSoal);
             $totalNilai = number_format(($jumlahBenar / 45) * 100, 1);
             $urut = $index + 1;
-            $peserta = $row->userPeserta->ujianSesiPeserta->dataDiri->nama_lengkap;
-            $noUjian = $row->userPeserta->ujianSesiPeserta->no_test;
-            $tanggalLahir = $row->userPeserta->ujianSesiPeserta->dataDiri->lahir_tanggal;
+            $peserta = $row->dataDiri->nama_lengkap;
+            $noUjian = $row->no_test;
+            $tanggalLahir = $row->dataDiri->lahir_tanggal;
             $content .= "<tr>";
             $content .= "<td>$urut</td>";
             $content .= "<td>$noUjian</td>";
+            $content .= "<td>" . $row->ujianSesiRuangan->ujianSesi->sesi . "</td>";
+            $content .= "<td>" . $row->ujianSesiRuangan->ruangan . "</td>";
             $content .= "<td style='text-align:left'>$peserta</td>";
             $content .= "<td>$tanggalLahir</td>";
-            $content .= "<td><a href='" . route('hasil.ujian.detail', $row->userPeserta->ujianSesiPeserta->id) . "'>$totalNilai</a></td>";
+            $content .= "<td><a href='" . route('hasil.ujian.detail', $row->id) . "'>$totalNilai</a></td>";
             $content .= "</tr>";
         }
         $content .= "</tbody>";
