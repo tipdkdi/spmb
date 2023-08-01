@@ -257,7 +257,7 @@ class AdminController extends Controller
         $sesiPeserta = UjianSesiPeserta::with([
             'dataDiri',
             'ujianSesiRuangan' => function ($ujianSesiRuangan) {
-                $ujianSesiRuangan->with('ujianSesi')->orderBy('ujian_sesi_id', 'asc');
+                $ujianSesiRuangan->with('ujianSesi')->orderBy('ruangan', 'asc');
             },
             'pesertaSoal'  => function ($ujianSesiPeserta) {
                 $ujianSesiPeserta->with(['pesertaJawaban.soalOpsi' => function ($soalOpsi) {
@@ -287,7 +287,7 @@ class AdminController extends Controller
         $content .= "<th>NO</th>";
         $content .= "<th>No. Ujian</th>";
         $content .= "<th>Sesi</th>";
-        $content .= "<th>Ruan</th>";
+        $content .= "<th>Ruang</th>";
         $content .= "<th>Nama Peserta</th>";
         $content .= "<th>Tanggal Lahir</th>";
         $content .= "<th>Nilai</th>";
