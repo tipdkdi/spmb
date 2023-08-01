@@ -277,7 +277,7 @@ class AdminController extends Controller
                 $ujianSesiRuangan->orderBy('ujian_sesi_id', 'asc');
             })
             // ->orderBy('no_test', 'ASC')
-            ->orderBy(UjianSesiRuangan::select('ujian_sesi_id')->whereColumn('ujian_sesi_ruangans.id', 'ujian_sesi_pesertas.ujian_sesi_ruangan_id'))
+            // ->orderBy(UjianSesiRuangan::select('ujian_sesi_id')->whereColumn('ujian_sesi_ruangans.id', 'ujian_sesi_pesertas.ujian_sesi_ruangan_id'))
             // ->orderBy(UjianSesiRuangan::select('ujian_sesi_id')->where('ujian_sesi_peserta_id', $ujianSesiPesertaId)->whereColumn('soals.id', 'peserta_soals.soal_id'))
             ->get();
 
