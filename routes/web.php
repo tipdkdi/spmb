@@ -24,9 +24,9 @@ Route::get('/password/{pass}', [AdminController::class, 'password']);
 Route::get('/rektor-cup', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/hasil-ujian/peserta/{sesiPesertaId}', [AdminController::class, 'hasilUjian'])->name('hasil.ujian.detail');
 // Route::get('/hasil-ujian/peserta/{sesiPesertaId}', [AdminController::class, 'hasilUjian'])->name('hasil.ujian.detail');
-Route::get('/admin/cetak-pengawas', [AdminController::class, 'cetakPengawas'])->name('cetak.pengawas');
-Route::get('/admin/cetak-peserta', [AdminController::class, 'cetakPeserta'])->name('cetak.peserta');
-Route::get('/admin/create-akun-pengawas', [AdminController::class, 'createAkunPengawas'])->name('admin.create.akun.pengawas');
+Route::get('/admin/ujian/{id}/cetak-pengawas', [AdminController::class, 'cetakPengawas'])->name('cetak.pengawas');
+Route::get('/admin/ujian/{id}/cetak-peserta', [AdminController::class, 'cetakPeserta'])->name('cetak.peserta');
+// Route::get('/admin/create-akun-pengawas', [AdminController::class, 'createAkunPengawas'])->name('admin.create.akun.pengawas');
 Route::get('/admin/import-soal', [ApiController::class, 'importSoal'])->name('admin.import.soal');
 
 Route::get('/', [LoginController::class, 'index'])->name('login.index');

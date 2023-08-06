@@ -252,7 +252,7 @@ class AdminController extends Controller
 
         // return $sesiPeserta;
     }
-    public function cetakPeserta()
+    public function cetakPeserta($ujianId)
     {
         $sesiPeserta = UjianSesiPeserta::with([
             'dataDiri',
@@ -270,8 +270,8 @@ class AdminController extends Controller
                     });;
             }
         ])
-            ->whereHas('ujianSesiRuangan.ujianSesi.ujian', function ($ujian) {
-                $ujian->where('id', 3);
+            ->whereHas('ujianSesiRuangan.ujianSesi.ujian', function ($ujian) use ($ujianId) {
+                $ujian->where('id', $ujianId);
             })
             ->whereHas('ujianSesiRuangan', function ($ujianSesiRuangan) {
                 $ujianSesiRuangan->orderBy('ujian_sesi_id', 'asc');
@@ -315,15 +315,15 @@ class AdminController extends Controller
         return $content;
     }
 
-    public function cetakPengawas()
+    public function cetakPengawas($ujianId)
     {
         // $akun = User::with('userPengawas.ujianSesiRuangan.ujianSesi.ujian')->whereHas('userPengawas')->get();
-        $akun = User::with(['userPengawas.ujianSesiRuangan.ujianSesi.ujian' => function ($ujian) {
-            $ujian->where('id', 3);
+        $akun = User::with(['userPengawas.ujianSesiRuangan.ujianSesi.ujian' => function ($ujian) use ($ujianId) {
+            $ujian->where('id', $ujianId);
         }])
             ->whereHas('userPengawas')
-            ->whereHas('userPengawas.ujianSesiRuangan.ujianSesi.ujian', function ($ujian) {
-                $ujian->where('id', 3);
+            ->whereHas('userPengawas.ujianSesiRuangan.ujianSesi.ujian', function ($ujian) use ($ujianId) {
+                $ujian->where('id', $ujianId);
             })
             ->get();
 

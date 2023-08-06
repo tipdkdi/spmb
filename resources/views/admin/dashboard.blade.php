@@ -33,7 +33,7 @@
             <div class="col-sm-3">
                 <select id="ujian" class="form-select mb-3" aria-label="Default select example">
                     <option value="">Pilih Ujian</option>
-                    <!-- <option value="3">Pasca</option> -->
+                    <option value="3">Pasca</option>
                     <option value="4">Bina Mandiri</option>
                 </select>
                 <button class="btn btn-primary" onclick="buatAkunPengawas()">Buat akun pengawas</button>
@@ -59,15 +59,39 @@
         <!-- </form> -->
 
         <hr>
-        <h3 class="mt-3">4. CETAK</h3>
-        <a class="btn btn-primary" href="{{route('cetak.pengawas')}}">Cetak Pengawas</a><br><br>
-        <a class="btn btn-dark" href="{{route('cetak.peserta')}}">Cetak Peserta</a>
+        <div class="card card-body">
+
+            <h3 class="mt-3">4. CETAK</h3>
+            <div class="col-sm-3">
+                <!-- <option value="">Pilih Ujian</option>
+                <option value="3">Pasca</option>
+                <option value="4">Bina Mandiri</option> -->
+                <button class="btn btn-primary" id="cetak-pengawas">Cetak Pengawas</button><br><br>
+                <button class="btn btn-dark" id="cetak-peserta">Cetak Peserta</button>
+            </div>
+        </div>
     </div>
 
 
     <script>
         // alert('yo')
         // init()
+
+        document.querySelector('#cetak-pengawas').addEventListener('click', async function() {
+            if (document.querySelector('#ujian').value == "")
+                return alert('pilih ujian')
+            let url = "{{route('cetak.pengawas',':id')}}"
+            url = url.replace(':id', document.querySelector('#ujian').value)
+            window.location.href = url
+        })
+        document.querySelector('#cetak-peserta').addEventListener('click', async function() {
+            if (document.querySelector('#ujian').value == "")
+                return alert('pilih ujian')
+            let url = "{{route('cetak.peserta',':id')}}"
+            url = url.replace(':id', document.querySelector('#ujian').value)
+            window.location.href = url
+        })
+
         async function importData() {
             let jalur = document.querySelector('#jalur')
             // return console.log(jalur.value);
