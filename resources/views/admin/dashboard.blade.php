@@ -28,9 +28,18 @@
 
         </div>
         <hr>
-        <h3 class="mt-3">2. BUAT AKUN PENGAWAS</h3>
-        <button class="btn btn-primary" onclick="buatAkunPengawas()">Buat akun pengawas</button>
-        <hr>
+        <div class="card card-body">
+            <h3 class="mt-3">2. BUAT AKUN PENGAWAS</h3>
+            <div class="col-sm-3">
+                <select id="ujian" class="form-select mb-3" aria-label="Default select example">
+                    <option value="">Pilih Ujian</option>
+                    <!-- <option value="3">Pasca</option> -->
+                    <option value="4">Bina Mandiri</option>
+                </select>
+                <button class="btn btn-primary" onclick="buatAkunPengawas()">Buat akun pengawas</button>
+
+            </div>
+        </div>
 
         <h3 class="mt-3">3. UPLOAD SOAL</h3>
         <!-- <form> -->
@@ -114,7 +123,12 @@
             // var value = e.value;
         }
         async function buatAkunPengawas() {
-            let url = "{{route('create.akun.pengawas')}}";
+            // return alert(document.querySelector('#ujian').value)
+            if (document.querySelector('#ujian').value == "")
+                return alert('pilih ujian')
+            let url = '{{route("create.akun.pengawas",":id")}}';
+            url = url.replace(':id', document.querySelector('#ujian').value)
+            console.log(url);
             let sendRequest2 = await fetch(url)
             let response2 = await sendRequest2.json()
             console.log(response2);

@@ -356,18 +356,18 @@ class AdminController extends Controller
         // return $akun;
         return $content;
     }
-    public function createAkunPengawas()
+    public function createAkunPengawas($ujianId)
     {
         DB::beginTransaction();
 
         try {
             //code...
             // $sesiRuangan = UjianSesiRuangan::all(); //ini ubah dulu kasih parameter ujian yang mana
-            $sesiRuangan = UjianSesiRuangan::with(['ujianSesi.ujian' => function ($ujian) {
-                $ujian->where('id', 3);
+            $sesiRuangan = UjianSesiRuangan::with(['ujianSesi.ujian' => function ($ujian) use ($ujianId) {
+                $ujian->where('id', $ujianId);
             }])
-                ->whereHas('ujianSesi.ujian', function ($ujian) {
-                    $ujian->where('id', 3);
+                ->whereHas('ujianSesi.ujian', function ($ujian) use ($ujianId) {
+                    $ujian->where('id', $ujianId);
                 })
                 ->get(); //ini ubah dulu kasih parameter ujian yang mana
             // return $sesiRuangan;
