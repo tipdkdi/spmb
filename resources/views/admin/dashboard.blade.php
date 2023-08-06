@@ -72,7 +72,7 @@
             })
             let response = await sendRequest.json()
             console.log(response);
-            return
+            // return
             response.data.map(async (item, index) => {
                 // if (index == 0) {
                 // console.log(item);

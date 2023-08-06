@@ -85,16 +85,21 @@ class PascaSeeder extends Seeder
             ];
 
             $array = [];
+            $sesi = 0;
+
             for ($i = 16; $i <= 17; $i++) { //ini id sesi, jadi contoh ujian id 1 sampai 10 sesi, jadi skrg di sini jadi dari 11 -15 karena sampe 5 sesu
+                $sesi = 1;
+
                 foreach ($info as $index => $value) {
                     $array[] = [
                         "ujian_sesi_id" => $i,
                         "gedung" => $value['gedung'],
                         "kode_ruangan" => $value['kode_ruangan'],
                         "ruangan" => $value['ruangan'],
-                        "nama_pengawas" => "Pengawas " . $value['ruangan'] . " Sesi " . $i,
+                        "nama_pengawas" => "Pengawas " . $value['ruangan'] . " Sesi " . $sesi,
                     ];
                 }
+                $sesi++;
             }
 
             DB::table('ujian_sesi_ruangans')->insert($array);
