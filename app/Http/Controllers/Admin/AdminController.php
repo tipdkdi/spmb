@@ -271,7 +271,7 @@ class AdminController extends Controller
             }
         ])
             ->whereHas('ujianSesiRuangan.ujianSesi.ujian', function ($ujian) {
-                $ujian->where('id', 2);
+                $ujian->where('id', 3);
             })
             ->whereHas('ujianSesiRuangan', function ($ujianSesiRuangan) {
                 $ujianSesiRuangan->orderBy('ujian_sesi_id', 'asc');
@@ -319,11 +319,11 @@ class AdminController extends Controller
     {
         // $akun = User::with('userPengawas.ujianSesiRuangan.ujianSesi.ujian')->whereHas('userPengawas')->get();
         $akun = User::with(['userPengawas.ujianSesiRuangan.ujianSesi.ujian' => function ($ujian) {
-            $ujian->where('id', 2);
+            $ujian->where('id', 3);
         }])
             ->whereHas('userPengawas')
             ->whereHas('userPengawas.ujianSesiRuangan.ujianSesi.ujian', function ($ujian) {
-                $ujian->where('id', 2);
+                $ujian->where('id', 3);
             })
             ->get();
 
@@ -364,10 +364,10 @@ class AdminController extends Controller
             //code...
             // $sesiRuangan = UjianSesiRuangan::all(); //ini ubah dulu kasih parameter ujian yang mana
             $sesiRuangan = UjianSesiRuangan::with(['ujianSesi.ujian' => function ($ujian) {
-                $ujian->where('id', 2);
+                $ujian->where('id', 3);
             }])
                 ->whereHas('ujianSesi.ujian', function ($ujian) {
-                    $ujian->where('id', 2);
+                    $ujian->where('id', 3);
                 })
                 ->get(); //ini ubah dulu kasih parameter ujian yang mana
             // return $sesiRuangan;

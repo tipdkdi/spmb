@@ -11,8 +11,22 @@
 <body>
     <div class="container">
         <h1 class="text-center mb-5">DASHBOARD ADMIN</h1>
-        <h3>1. IMPORT PESERTA DARI SIA</h3>
-        <button class="btn btn-primary" onclick="importData()">Import Data SIA</button>
+        <div class="card card-body">
+            <h3>1. IMPORT PESERTA DARI SIA</h3>
+            <div class="col-sm-3">
+                <!-- <div class="row "> -->
+                <select id="jalur" class="form-select mb-3" aria-label="Default select example">
+                    <option value="">Pilih Jalur Penerimaan</option>
+                    <option value="20231">Pasca</option>
+                    <option value="20236">Bina Mandiri</option>
+                </select>
+
+                <button class="btn btn-secondary" onclick="importData()">Import Data SIA</button>
+                <!-- </div> -->
+
+            </div>
+
+        </div>
         <hr>
         <h3 class="mt-3">2. BUAT AKUN PENGAWAS</h3>
         <button class="btn btn-primary" onclick="buatAkunPengawas()">Buat akun pengawas</button>
@@ -37,8 +51,8 @@
 
         <hr>
         <h3 class="mt-3">4. CETAK</h3>
-        <a class="btn btn-primary" href="{{route('cetak.pengawas')}}">Cetak Akun Pengawas</a><br><br>
-        <a class="btn btn-dark" href="{{route('cetak.peserta')}}">Cetak Akun Peserta</a>
+        <a class="btn btn-primary" href="{{route('cetak.pengawas')}}">Cetak Pengawas</a><br><br>
+        <a class="btn btn-dark" href="{{route('cetak.peserta')}}">Cetak Peserta</a>
     </div>
 
 
@@ -46,15 +60,19 @@
         // alert('yo')
         // init()
         async function importData() {
+            let jalur = document.querySelector('#jalur')
+            // return console.log(jalur.value);
+            if (jalur.value == '')
+                return alert('Pilih jalur')
             let dataSend = new FormData()
-            dataSend.append('filter', "20235")
+            dataSend.append('filter', jalur.value)
             let sendRequest = await fetch("https://sia.iainkendari.ac.id/konseling_api/eksport_data_dari_sia", {
                 method: "POST",
                 body: dataSend
             })
             let response = await sendRequest.json()
             console.log(response);
-            // return
+            return
             response.data.map(async (item, index) => {
                 // if (index == 0) {
                 // console.log(item);
