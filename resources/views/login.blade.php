@@ -55,7 +55,7 @@
                 <!--begin::Logo-->
                 <img alt="Logo" src="https://sia.iainkendari.ac.id/assets/images/logo.png" class="h-80px theme-light-show" />
                 <h1 class="mt-5 fs-20">APLIKASI UJIAN SPMB IAIN KENDARI</h1>
-                <h1 class="mb-8">JALUR MANDIRI TAHUN 2023</h1>
+                <!-- <h1 class="mb-8">JALUR MANDIRI TAHUN 2023</h1> -->
                 <!--end::Logo-->
 
                 <!--begin::Wrapper-->
