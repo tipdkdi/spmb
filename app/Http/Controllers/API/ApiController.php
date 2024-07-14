@@ -493,6 +493,27 @@ class ApiController extends Controller
             ], 201);
         }
     }
+    public function storeSoal(Request $request)
+    {
+        try {
+            $data = Soal::create([
+                'soal_kelompok_id' => $request->soal_kelompok_id,
+                'soal' => $request->soal,
+            ]);
+            return response()->json([
+                'status' => true,
+                'message' => 'data ditemukan',
+                'data' => $data,
+            ], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'status' => false,
+                'message' => 'gagal',
+                'data' => [],
+            ], 201);
+        }
+    }
     public function selectSoal($soalId)
     {
         try {
