@@ -46,9 +46,8 @@
         <select class="form-control" id="kelompok_soal">
             <option value="1">TPA</option>
             <option value="2">Penalaran Matematika</option>
-            <option value="3">Perhitungan Matematika</option>
-            <option value="4">Literasi membaca</option>
-            <option value="5">Literasi Ajaran Islam</option>
+            <option value="3">Literasi membaca</option>
+            <option value="4">Literasi Ajaran Islam</option>
         </select> <br>
         <input type="file" name="csv_file" id="csv_file"><br>
         <br>

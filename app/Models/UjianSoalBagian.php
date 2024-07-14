@@ -30,8 +30,8 @@ class UjianSoalBagian extends Model
     {
         return $this->belongsTo('App\Models\SoalKelompok');
     }
-    // public function soal()
-    // {
-    //     return $this->hasMany('App\Models\Soal');
-    // }
+    public function soal()
+    {
+        return $this->hasMany('App\Models\Soal');
+    }
 }

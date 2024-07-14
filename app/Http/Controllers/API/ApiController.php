@@ -13,6 +13,7 @@ use App\Models\UjianSesiPeserta;
 use App\Models\User;
 use App\Models\UserPeserta;
 use App\Models\Soal;
+use App\Models\SoalKelompok;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -98,104 +99,7 @@ class ApiController extends Controller
 
     public function importSoal(Request $request)
     {
-        $csvData = [
-            // Pertanyaan 1
-            ['Apa yang dimaksud dengan moderasi beragama?', 'Sikap mempertahankan kebenaran agama sendiri', 'Sikap mengabaikan agama lain', 'Sikap toleransi dan saling menghormati antaragama', 'Sikap mendorong konflik agama', '3'],
-            // Pertanyaan 2
-            ['Apa yang menjadi tujuan dari moderasi beragama?', 'Menekankan keunggulan agama tertentu', 'Menghancurkan agama lain', 'Menciptakan harmoni dan toleransi antaragama', 'Memaksa konversi agama', '3'],
-            // Pertanyaan 3
-            ['Bagaimana moderasi beragama dapat memperkuat kerukunan antarumat beragama?', 'Dengan mengabaikan perbedaan agama', 'Dengan meningkatkan pemahaman antaragama', 'Dengan memperkuat dominasi agama tertentu', 'Dengan mendorong konflik agama', '2'],
-            // Pertanyaan 4
-            ['Apa yang dapat dilakukan oleh individu dalam mempromosikan moderasi beragama?', 'Mengisolasi diri dari kelompok agama lain', 'Mempertahankan sikap intoleransi terhadap agama lain', 'Menjaga kerukunan dan saling menghormati antaragama', 'Memperkuat perpecahan antaragama', '3'],
-            // Pertanyaan 5
-            ['Bagaimana moderasi beragama dapat membantu mencegah konflik agama?', 'Dengan memperkuat persepsi negatif terhadap agama lain', 'Dengan menghancurkan bangunan ibadah agama lain', 'Dengan menciptakan dialog dan pemahaman antaragama', 'Dengan memaksa konversi agama', '3'],
-            // Pertanyaan 6
-            ['Apa yang menjadi hambatan dalam menerapkan moderasi beragama?', 'Ketidakpedulian terhadap keberagaman agama', 'Toleransi dan saling menghormati antaragama', 'Kurangnya pemahaman antaragama', 'Kesediaan untuk bekerja sama dengan agama lain', '1'],
-            // Pertanyaan 7
-            ['Bagaimana peran pemimpin agama dalam mempromosikan moderasi beragama?', 'Menghasut kebencian terhadap agama lain', 'Menjaga harmoni dan kerukunan antaragama', 'Memperkuat pemisahan antaragama', 'Membatasi kebebasan beragama', '2'],
-            // Pertanyaan 8
-            ['Apa yang dimaksud dengan sikap inklusif dalam moderasi beragama?', 'Mengutuk agama lain', 'Mengabaikan perbedaan agama', 'Menerima keberagaman agama', 'Mempertahankan sikap intoleransi terhadap agama lain', '3'],
-            // Pertanyaan 9
-            ['Bagaimana pentingnya memahami agama lain dalam moderasi beragama?', 'Tidak ada hubungan antara moderasi beragama dan pemahaman agama lain', 'Meningkatkan toleransi dan saling menghormati antaragama', 'Mendorong konversi agama', 'Memperkuat perpecahan antaragama', '2'],
-            // Pertanyaan 10
-            ['Apa yang dapat dilakukan oleh masyarakat dalam menciptakan moderasi beragama?', 'Membatasi kebebasan beragama', 'Menghancurkan tempat ibadah agama lain', 'Menghormati keberagaman agama', 'Menghasut kebencian terhadap agama lain', '3'],
-            ['Bagaimana moderasi beragama dapat membantu membangun perdamaian sosial?', 'Dengan memperkuat konflik antaragama', 'Dengan membatasi kebebasan beragama', 'Dengan menciptakan dialog dan kerjasama antaragama', 'Dengan memaksa konversi agama', '3'],
-            // Pertanyaan 2
-            ['Apa yang dimaksud dengan sikap non-diskriminasi dalam moderasi beragama?', 'Mendiskriminasi agama lain', 'Mengabaikan perbedaan agama', 'Menghargai dan menghormati keberagaman agama', 'Membatasi kebebasan beragama', '3'],
-            // Pertanyaan 3
-            ['Bagaimana moderasi beragama dapat berkontribusi dalam memerangi intoleransi agama?', 'Dengan memperkuat polarisasi agama', 'Dengan menciptakan dialog dan pemahaman antaragama', 'Dengan membatasi kebebasan beragama', 'Dengan memaksa konversi agama', '2'],
-            // Pertanyaan 4
-            ['Apa yang menjadi faktor pendukung moderasi beragama?', 'Fanatisme agama', 'Toleransi dan saling menghormati antaragama', 'Ketidakpedulian terhadap agama lain', 'Menghancurkan tempat ibadah agama lain', '2'],
-            // Pertanyaan 5
-            ['Bagaimana peran pendidikan dalam mempromosikan moderasi beragama?', 'Mengajarkan intoleransi terhadap agama lain', 'Mengabaikan keberagaman agama', 'Mengembangkan pemahaman dan penghargaan terhadap agama lain', 'Menghancurkan tempat ibadah agama lain', '3'],
-            // Pertanyaan 6
-            ['Apa yang dimaksud dengan konflik agama?', 'Kerjasama dan harmoni antaragama', 'Perbedaan pendapat antaragama', 'Menghormati keberagaman agama', 'Persaingan dan pertentangan antaragama', '4'],
-            // Pertanyaan 7
-            ['Bagaimana moderasi beragama dapat memperkuat kerukunan sosial?', 'Dengan memisahkan agama-agama', 'Dengan membatasi kebebasan beragama', 'Dengan menciptakan saling pengertian dan toleransi antaragama', 'Dengan memaksa konversi agama', '3'],
-            // Pertanyaan 8
-            ['Apa yang menjadi hambatan dalam menerapkan moderasi beragama di masyarakat?', 'Toleransi dan saling menghormati antaragama', 'Fanatisme agama', 'Menghormati keberagaman agama', 'Mengabaikan perbedaan agama', '2'],
-            // Pertanyaan 9
-            ['Bagaimana pentingnya membangun dialog antaragama dalam mewujudkan moderasi beragama?', 'Tidak ada hubungan antara dialog antaragama dan moderasi beragama', 'Mendiskriminasi agama lain', 'Membatasi kebebasan beragama', 'Menghormati keberagaman agama', '4'],
-            // Pertanyaan 10
-            ['Apa yang dapat dilakukan oleh individu dalam menerapkan moderasi beragama sehari-hari?', 'Menghancurkan tempat ibadah agama lain', 'Mengabaikan keberagaman agama', 'Menghormati dan menghargai agama lain', 'Mengajarkan intoleransi terhadap agama lain', '3'],
-        ];
 
-        $csvData2 = [
-            ['2 + 2 = ?', '3', '4', '5', '6', '2'],
-            ['Siapa presiden Indonesia pertama?', 'Soekarno', 'Soeharto', 'BJ Habibie', 'Megawati Soekarnoputri', '1'],
-            ['Apa ibu kota Indonesia?', 'Jakarta', 'Bandung', 'Surabaya', 'Yogyakarta', '1'],
-            // Pertanyaan 4
-            ['Berapa banyak hari dalam setahun?', '365', '366', '360', '300', '1'],
-            // Pertanyaan 5
-            ['Berapa jumlah provinsi di Indonesia?', '30', '34', '36', '40', '2'],
-            // Pertanyaan 6
-            ['Apa kepanjangan dari HTML?', 'Hyper Text Markup Language', 'High Tech Machine Learning', 'Home Tool Management Language', 'Healthcare Technology Management Laboratory', '1'],
-            // Pertanyaan 7
-            ['Siapa penemu teori relativitas?', 'Isaac Newton', 'Albert Einstein', 'Galileo Galilei', 'Nikola Tesla', '2'],
-            // Pertanyaan 8
-            ['Apa yang menjadi simbol kimia untuk emas?', 'Au', 'Ag', 'Fe', 'Na', '1'],
-            // Pertanyaan 9
-            ['Berapa sisi yang dimiliki oleh kubus?', '4', '5', '6', '8', '3'],
-            // Pertanyaan 10
-            ['Apa yang menjadi simbol kimia untuk air?', 'H2O', 'O2', 'CO2', 'C6H12O6', '1'],
-            // Pertanyaan 1
-            ['Berapakah hasil dari 6 + 3?', '7', '8', '9', '10', '2'],
-            // Pertanyaan 2
-            ['Siapa penulis novel "Laskar Pelangi"?', 'Andrea Hirata', 'Tere Liye', 'Dewi Lestari', 'Agnes Jessica', '1'],
-            // Pertanyaan 3
-            ['Apa bahasa yang paling banyak digunakan di dunia?', 'Bahasa Inggris', 'Bahasa Mandarin', 'Bahasa Spanyol', 'Bahasa Jepang', '2'],
-            // Pertanyaan 4
-            ['Berapa jumlah planet dalam tata surya kita?', '6', '7', '8', '9', '3'],
-            // Pertanyaan 5
-            ['Apa yang menjadi simbol kimia untuk besi?', 'Fe', 'Au', 'Ag', 'Cu', '1'],
-            // Pertanyaan 6
-            ['Siapa pelukis terkenal yang melukis Mona Lisa?', 'Vincent van Gogh', 'Leonardo da Vinci', 'Pablo Picasso', 'Salvador Dali', '2'],
-            // Pertanyaan 7
-            ['Apa ibu kota Jepang?', 'Tokyo', 'Kyoto', 'Osaka', 'Hiroshima', '1'],
-            // Pertanyaan 8
-            ['Berapa jumlah mata dadu yang ada?', '4', '6', '8', '10', '2'],
-            // Pertanyaan 9
-            ['Apa yang menjadi simbol kimia untuk oksigen?', 'O2', 'H2O', 'CO2', 'N2', '1'],
-            ['Siapa penulis drama Romeo dan Juliet?', 'William Shakespeare', 'Charles Dickens', 'Jane Austen', 'Mark Twain', '1'],
-            ['Apa bilangan berikutnya dalam deret: 2, 4, 6, 8, ... ?', '10', '12', '14', '16', '2'],
-            ['Apa pola dalam deret: 1, 4, 9, 16, ... ?', '25', '36', '49', '64', '3'],
-            ['Apa bilangan ke-7 dalam deret Fibonacci: 0, 1, 1, 2, 3, 5, ... ?', '8', '10', '12', '13', '4'],
-            ['Apa bilangan berikutnya dalam deret: 3, 6, 9, 12, ... ?', '15', '16', '18', '21', '1'],
-            ['Jika semua kucing adalah hewan, dan semua hewan adalah mamalia, maka apakah semua kucing mamalia?', 'Ya', 'Tidak', '', '', '1'],
-            ['Jika A = 5, B = 10, dan C = 15, maka berapakah A + B + C ?', '20', '25', '30', '35', '3'],
-            ['Jika 5 + 3 = 28, 9 + 1 = 810, dan 8 + 6 = 214, maka 7 + 5 = ?', '211', '113', '101', '212', '4'],
-            ['Jika semua manusia adalah makhluk hidup, dan semua hewan adalah makhluk hidup, maka apakah semua hewan adalah manusia?', 'Ya', 'Tidak', '-', '-', '2'],
-            ['Apa ibu kota Australia?', 'Sydney', 'Melbourne', 'Canberra', 'Brisbane', '3'],
-            ['Siapa penemu telepon?', 'Thomas Edison', 'Alexander Graham Bell', 'Nikola Tesla', 'Albert Einstein', '2'],
-            ['Berapa banyak benua di dunia?', '4', '5', '6', '7', '4'],
-            ['Apa nama ilmuwan terkenal yang menemukan hukum gravitasi?', 'Isaac Newton', 'Galileo Galilei', 'Albert Einstein', 'Stephen Hawking', '1'],
-            ['Apa yang menjadi simbol kimia untuk natrium?', 'Na', 'K', 'Ca', 'Mg', '1'],
-            ['Apa nama laut terluas di dunia?', 'Laut Pasifik', 'Laut Hindia', 'Laut Atlantik', 'Laut Arktik', '1'],
-            ['Siapa penulis novel "Harry Potter"?', 'J.R.R. Tolkien', 'J.K. Rowling', 'George Orwell', 'Ernest Hemingway', '2'],
-            ['Berapa banyak huruf dalam alfabet bahasa Inggris?', '24', '25', '26', '27', '3'],
-            ['Apa ibu kota Prancis?', 'Paris', 'Roma', 'Berlin', 'London', '1'],
-            ['Siapa pelukis terkenal yang melukis "The Starry Night"?', 'Vincent van Gogh', 'Leonardo da Vinci', 'Pablo Picasso', 'Salvador Dali', '1'],
-        ];
 
         try {
             $validator = Validator::make($request->all(), [
@@ -221,7 +125,7 @@ class ApiController extends Controller
             // Menghapus header file CSV (jika ada)
             unset($csvData[0]);
 
-            // return $csvData;
+            // return $csvData[1];
             $ur = $request->urut;
             foreach ($csvData as $index => $data) {
                 // Buat model Soal
@@ -548,6 +452,63 @@ class ApiController extends Controller
             //     'message' => 'ada kesalahan sistem, mohon coba lagi',
             //     'data' => $th,
             // ], 500);
+        }
+    }
+
+    public function kelompokSoal()
+    {
+        try {
+            $soal = SoalKelompok::with('soal')->find($soalId);
+            return response()->json([
+                'status' => true,
+                'message' => 'data ditemukan',
+                'data' => $soal,
+            ], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'status' => false,
+                'message' => 'gagal',
+                'data' => [],
+            ], 201);
+        }
+    }
+    public function selectSoal($soalId)
+    {
+        try {
+            $soal = Soal::with('opsi')->find($soalId);
+            return response()->json([
+                'status' => true,
+                'message' => 'Soal ditemukan',
+                'data' => $soal,
+            ], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'status' => false,
+                'message' => 'gagal',
+                'data' => [],
+            ], 201);
+        }
+    }
+    public function updateSoal(Request $request, $soalId)
+    {
+        try {
+            $soal = Soal::find($soalId);
+            $soal->soal = $request->soal;
+            $soal->save();
+            return response()->json([
+                'status' => true,
+                'message' => 'Soal diupdate disimpan',
+                'data' => $soal,
+            ], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'status' => false,
+                'message' => 'gagal',
+                'data' => [],
+            ], 201);
         }
     }
 }

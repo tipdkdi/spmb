@@ -22,6 +22,6 @@ class SoalKelompok extends Model
 
     public function ujianSoalBagian()
     {
-        return $this->hasOne('App\Models\UjianSoalBagian');
+        return $this->hasMany('App\Models\UjianSoalBagian');
     }
 }

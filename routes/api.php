@@ -36,4 +36,9 @@ Route::get('/navigasi/{sesiId}', [ApiController::class, 'navigasi'])->name('navi
 Route::post('/soal', [ApiController::class, 'soal'])->name('soal.get');
 Route::post('/jawanan/simpan', [ApiController::class, 'jawabanStore'])->name('jawaban.store');
 Route::get('/bagian/{bagianId}/pertanyaan/terjawab', [ApiController::class, 'pertanyaanTerjawab'])->name('pertanyaan.terjawab');
+
+Route::get('/soal/{id}', [ApiController::class, 'selectSoal'])->name('select.soal');
+Route::get('/soal/{id}/update', [ApiController::class, 'updateSoal'])->name('update.soal');
+
+Route::get('/kelompok-soal', [ApiController::class, 'kelompokSoal'])->name('kelompok.soal');
 // Route::get('/peserta/dashboard', [ApiController::class, 'pertanyaanSave'])->name('pertanyaan.save');
