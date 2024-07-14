@@ -458,7 +458,7 @@ class ApiController extends Controller
     public function kelompokSoal()
     {
         try {
-            $soal = SoalKelompok::with('soal')->find($soalId);
+            $soal = SoalKelompok::with('soal')->get();
             return response()->json([
                 'status' => true,
                 'message' => 'data ditemukan',
