@@ -506,12 +506,22 @@ class ApiController extends Controller
                 'soal_kelompok_id' => $request->soal_kelompok_id,
                 'soal' => $request->soal,
             ]);
-            foreach ($request->opsi as $item) {
-                SoalOpsi::create([
-                    'soal_id' => $item['soal_opsi_id'],
-                    'opsi_text' => $item->opsi_text,
-                    'is_jawaban' => $item->is_jawaban,
-                ]);
+            if ($request->soal_id == null) {
+                foreach ($request->opsi as $item) {
+                    SoalOpsi::create([
+                        'soal_id' => $soal->id,
+                        'opsi_text' => $item->opsi_text,
+                        'is_jawaban' => $item->is_jawaban,
+                    ]);
+                }
+            } else {
+                foreach ($request->opsi as $item) {
+                    SoalOpsi::create([
+                        'soal_id' => $item->id,
+                        'opsi_text' => $item->opsi_text,
+                        'is_jawaban' => $item->is_jawaban,
+                    ]);
+                }
             }
             DB::commit();
 
