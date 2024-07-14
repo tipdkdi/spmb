@@ -496,7 +496,7 @@ class ApiController extends Controller
     }
     public function storeSoal(Request $request)
     {
-        return $request->opsi[0]->soal_opsi_id;
+        return $request->opsi;
         DB::beginTransaction();
 
         try {
