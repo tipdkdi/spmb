@@ -358,7 +358,7 @@
 
         document.querySelector('#question').dataset.current = response.soal_kelompok.soal[0].id
         console.log(`current : ${document.querySelector('#question').dataset.current}`);
-        showPertanyaan.innerText = `${response.soal_kelompok.soal[0].peserta_soal.urutan}. ${response.soal_kelompok.soal[0].soal}`
+        showPertanyaan.innerHTML = `${response.soal_kelompok.soal[0].peserta_soal.urutan}. ${response.soal_kelompok.soal[0].soal}`
         let BagianNext = response.bagian_urutan
         let pertanyaanNext = response.soal_kelompok.soal[0].peserta_soal.urutan + 1
         if (response.soal_kelompok.soal[0].peserta_soal.is_last_urutan_bagian == true) {
