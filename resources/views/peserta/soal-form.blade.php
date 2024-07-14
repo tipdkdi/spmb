@@ -358,7 +358,11 @@
 
         document.querySelector('#question').dataset.current = response.soal_kelompok.soal[0].id
         console.log(`current : ${document.querySelector('#question').dataset.current}`);
-        showPertanyaan.innerHTML = `${response.soal_kelompok.soal[0].peserta_soal.urutan}. ${response.soal_kelompok.soal[0].soal}`
+        var soalHTML = `${response.soal_kelompok.soal[0].peserta_soal.urutan}. ${response.soal_kelompok.soal[0].soal}`;
+
+        // Hilangkan tag <p> tertentu menggunakan regex
+        var modifiedHTML = soalHTML.replace(/<p>(.*?)<\/p>/, '$1');
+        showPertanyaan.innerHTML = `${modifiedHTML}`
         let BagianNext = response.bagian_urutan
         let pertanyaanNext = response.soal_kelompok.soal[0].peserta_soal.urutan + 1
         if (response.soal_kelompok.soal[0].peserta_soal.is_last_urutan_bagian == true) {

@@ -548,28 +548,7 @@ class ApiController extends Controller
             ], 201);
         }
     }
-    public function storeOpsiSoal(Request $request)
-    {
-        try {
-            $data = SoalOpsi::create([
-                'soal_id' => $request->soal_id,
-                'opsi_text' => $request->opsi_text,
-                'is_jawaban' => $request->is_jawaban,
-            ]);
-            return response()->json([
-                'status' => true,
-                'message' => 'data insert',
-                'data' => $data,
-            ], 200);
-        } catch (\Throwable $th) {
-            //throw $th;
-            return response()->json([
-                'status' => false,
-                'message' => 'gagal',
-                'data' => [],
-            ], 201);
-        }
-    }
+
     public function deleteSoal($id)
     {
         try {
