@@ -477,8 +477,9 @@ class ApiController extends Controller
     }
     public function getSoal($kelompokSoalId)
     {
+
         try {
-            $soal = Soal::where('soal_kelompok_id', $kelompokSoalId)->get();
+            $soal = Soal::where('soal_kelompok_id', $kelompokSoalId)->paginate(20);
             return response()->json([
                 'status' => true,
                 'message' => 'data ditemukan',
@@ -495,14 +496,67 @@ class ApiController extends Controller
     }
     public function storeSoal(Request $request)
     {
+        DB::beginTransaction();
+
         try {
             $data = Soal::create([
                 'soal_kelompok_id' => $request->soal_kelompok_id,
                 'soal' => $request->soal,
             ]);
+            foreach ($request->opsi as $item) {
+                SoalOpsi::create([
+                    'soal_id' => $data->id,
+                    'opsi_text' => $item->opsi_text,
+                    'is_jawaban' => $item->is_jawaban,
+                ]);
+            }
+            DB::commit();
+
             return response()->json([
                 'status' => true,
                 'message' => 'data ditemukan',
+                'data' => $data,
+            ], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollback();
+            return response()->json([
+                'status' => false,
+                'message' => 'gagal',
+                'data' => [],
+            ], 201);
+        }
+    }
+    public function storeOpsiSoal(Request $request)
+    {
+        try {
+            $data = SoalOpsi::create([
+                'soal_id' => $request->soal_id,
+                'opsi_text' => $request->opsi_text,
+                'is_jawaban' => $request->is_jawaban,
+            ]);
+            return response()->json([
+                'status' => true,
+                'message' => 'data insert',
+                'data' => $data,
+            ], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'status' => false,
+                'message' => 'gagal',
+                'data' => [],
+            ], 201);
+        }
+    }
+    public function deleteSoal($id)
+    {
+        try {
+            $data = Soal::find($id);
+            $data->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'data dihapus',
                 'data' => $data,
             ], 200);
         } catch (\Throwable $th) {

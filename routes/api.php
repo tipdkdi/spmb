@@ -45,4 +45,5 @@ Route::get('/kelompok-soal/{id}/get-soal', [ApiController::class, 'getSoal'])->n
 
 Route::post('/upload-image', [ApiController::class, 'uploadKontenEditor'])->name('get.soal');
 Route::post('/soal/store', [ApiController::class, 'storeSoal'])->name('soal.store');
+Route::get('/soal/{id}/delete', [ApiController::class, 'deleteSoal'])->name('delete.store');
 // Route::get('/peserta/dashboard', [ApiController::class, 'pertanyaanSave'])->name('pertanyaan.save');
