@@ -521,8 +521,9 @@ class ApiController extends Controller
                 'data' => $soal,
             ], 200);
         } catch (\Throwable $th) {
-            //throw $th;
             DB::rollback();
+            throw $th;
+            return;
             return response()->json([
                 'status' => false,
                 'message' => 'gagal',
