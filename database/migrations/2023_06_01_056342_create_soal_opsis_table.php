@@ -17,7 +17,7 @@ class CreateSoalOpsisTable extends Migration
             $table->id();
             $table->unsignedBigInteger('soal_id');
             // $table->integer('opsi_label'); //a,b,c,d,e
-            $table->string('opsi_text'); //pilihan jawaban misalnya kucing, kerbau
+            $table->text('opsi_text'); //pilihan jawaban misalnya kucing, kerbau
             $table->boolean('is_jawaban')->default(false);
 
             $table->timestamps();
