@@ -473,6 +473,24 @@ class ApiController extends Controller
             ], 201);
         }
     }
+    public function getSoal($kelompokSoalId)
+    {
+        try {
+            $soal = Soal::where('soal_kelompok_id', $kelompokSoalId)->get();
+            return response()->json([
+                'status' => true,
+                'message' => 'data ditemukan',
+                'data' => $soal,
+            ], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'status' => false,
+                'message' => 'gagal',
+                'data' => [],
+            ], 201);
+        }
+    }
     public function selectSoal($soalId)
     {
         try {
@@ -510,5 +528,49 @@ class ApiController extends Controller
                 'data' => [],
             ], 201);
         }
+    }
+
+    public function uploadKontenEditor(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $storagePath = 'editor/images/' . date('Y') . '/' . date('m');
+        $path = $this->uploadFile($request, 'file', $storagePath);
+        $path = url('/' . $path);
+        return response()->json(['success' => 'Image uploaded successfully.', 'image' => $path]);
+    }
+
+
+    function uploadFile($request, $reqFileName = 'file', $storagePath = null, $fileName = null)
+    {
+        $uploadedFile = $request->file($reqFileName);
+        $originalFileName = $uploadedFile->getClientOriginalName();
+        $ukuranFile = $uploadedFile->getSize();
+        $tipeFile = $uploadedFile->getMimeType();
+        if (!$storagePath)
+            $storagePath = 'uploads/' . date('Y') . '/' . date('m');
+
+        if (!File::isDirectory(public_path($storagePath))) {
+            File::makeDirectory(public_path($storagePath), 0755, true);
+        }
+
+        if (!$fileName)
+            $fileName = $this->generateUniqueFileName();
+        else
+            $fileName = $fileName . "." . $uploadedFile->getClientOriginalExtension();
+
+        $uploadedFile->move(public_path($storagePath), $fileName);
+        $fileFullPath = public_path($storagePath . '/' . $fileName);
+        chmod($fileFullPath, 0755);
+        $path = $storagePath . '/' . $fileName;
+        return $path;
+    }
+
+
+    function generateUniqueFileName()
+    {
+        return $randomString = time() . Str::random(22);
     }
 }

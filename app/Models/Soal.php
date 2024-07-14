@@ -17,7 +17,7 @@ class Soal extends Model
     ];
     public function soalKelompok()
     {
-        return $this->belongsTo('App\Models\SoalKelompok', 'soal_kelompok_id');
+        return $this->belongsTo('App\Models\SoalKelompok');
     }
     public function opsi()
     {

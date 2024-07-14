@@ -41,4 +41,7 @@ Route::get('/soal/{id}', [ApiController::class, 'selectSoal'])->name('select.soa
 Route::get('/soal/{id}/update', [ApiController::class, 'updateSoal'])->name('update.soal');
 
 Route::get('/kelompok-soal', [ApiController::class, 'kelompokSoal'])->name('kelompok.soal');
+Route::get('/kelompok-soal/{id}/get-soal', [ApiController::class, 'getSoal'])->name('get.soal');
+
+Route::post('/upload-image', [ApiController::class, 'uploadKontenEditor'])->name('get.soal');
 // Route::get('/peserta/dashboard', [ApiController::class, 'pertanyaanSave'])->name('pertanyaan.save');
