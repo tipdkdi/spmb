@@ -457,24 +457,81 @@ class ApiController extends Controller
         }
     }
 
-    public function kelompokSoal()
+    public function kelompokSoal(Request $request)
     {
-        try {
-            $soal = SoalKelompok::with('soal')->get();
-            return response()->json([
-                'status' => true,
-                'message' => 'data ditemukan',
-                'data' => $soal,
-            ], 200);
-        } catch (\Throwable $th) {
-            //throw $th;
-            return response()->json([
-                'status' => false,
-                'message' => 'gagal',
-                'data' => [],
-            ], 201);
+        $dataQuery = Soal::with([
+            'opsi', 'soalKelompok',
+        ])
+            ->orderBy('soal_kelompok_id', 'ASC')
+            ->orderBy('id', 'DESC');
+
+        if ($request->filled('id')) {
+            $id = $request->input('id');
+            $dataQuery->where('id', $id);
+        } else {
+            if ($request->filled('search')) {
+                $search = $request->input('search');
+                $dataQuery->where('soal', 'LIKE', '%' . $search . '%');
+            }
+
+            if ($request->filled('soal_kelompok_id')) {
+                $soal_kelompok_id = $request->input('soal_kelompok_id');
+                $dataQuery->whereHas('soalKelompok', function ($query) use ($soal_kelompok_id) {
+                    $query->where('id', $soal_kelompok_id);
+                });
+            }
         }
+
+        $data = $dataQuery->paginate(30);
+        // return response()->json($data);
+        return response()->json([
+            'status' => true,
+            'message' => 'Jawaban disimpan',
+            'data' => $data,
+        ], 200);
     }
+
+    // public function kelompokSoal()
+    // {
+    //     try {
+    //         // $query = SoalKelompok::query();
+
+    //         // if ($request->has('soal_kelompok_id')) {
+    //         //     $query->with('soal')->find($request->soal_kelompok_id);
+    //         //     return response()->json([
+    //         //         'status' => true,
+    //         //         'message' => 'Data usulan ditemukan',
+    //         //         'data' => $query->get()
+    //         //     ], 200);
+    //         // }
+    //         // return response()->json([
+    //         //     'status' => true,
+    //         //     'message' => 'Data usulan ditemukan',
+    //         //     'data' => $query->paginate(50)
+    //         // ], 200);
+
+
+
+    //         // return response()->json([
+    //         //     'status' => false,
+    //         //     'message' => 'Data usulan tidak ditemukan',
+    //         //     'data' => $query,
+    //         // ], 404);
+    //         $soal = SoalKelompok::with('soal')->get();
+    //         return response()->json([
+    //             'status' => true,
+    //             'message' => 'data ditemukan',
+    //             'data' => $soal,
+    //         ], 200);
+    //     } catch (\Throwable $th) {
+    //         //throw $th;
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'gagal',
+    //             'data' => [],
+    //         ], 201);
+    //     }
+    // }
     public function getSoal($kelompokSoalId)
     {
 
