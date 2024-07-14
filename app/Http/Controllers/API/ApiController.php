@@ -428,10 +428,9 @@ class ApiController extends Controller
 
             // [1, 2, 3, 4, 5, 6, 7]
             $this->insertSoalTKD(1, $sesiPesertaId, 0, 15);
-            $this->insertSoalTKD(2, $sesiPesertaId, 15, 10);
-            $this->insertSoalTKD(3, $sesiPesertaId, 25, 5);
-            $this->insertSoalTKD(4, $sesiPesertaId, 30, 15);
-            $this->insertSoalTKD(5, $sesiPesertaId, 45, 15);
+            $this->insertSoalTKD(2, $sesiPesertaId, 15, 15);
+            $this->insertSoalTKD(3, $sesiPesertaId, 30, 15);
+            $this->insertSoalTKD(4, $sesiPesertaId, 45, 15);
 
             // return $opsi;
             //ini untuk soal moderasi ID 2
