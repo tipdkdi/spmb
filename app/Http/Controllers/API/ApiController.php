@@ -510,8 +510,8 @@ class ApiController extends Controller
                 foreach ($request->opsi as $item) {
                     SoalOpsi::create([
                         'soal_id' => $soal->id,
-                        'opsi_text' => $item->opsi_text,
-                        'is_jawaban' => $item->is_jawaban,
+                        'opsi_text' => $item['opsi_text'],
+                        'is_jawaban' => $item['is_jawaban'],
                     ]);
                 }
             } else {
