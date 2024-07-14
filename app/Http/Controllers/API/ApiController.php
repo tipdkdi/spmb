@@ -511,7 +511,7 @@ class ApiController extends Controller
                     SoalOpsi::create([
                         'soal_id' => $soal->id,
                         'opsi_text' => $item['opsi_text'],
-                        'is_jawaban' => $item['is_jawaban'],
+                        'is_jawaban' => $item->is_jawaban,
                     ]);
                 }
             } else {
@@ -640,6 +640,8 @@ class ApiController extends Controller
         $originalFileName = $uploadedFile->getClientOriginalName();
         $ukuranFile = $uploadedFile->getSize();
         $tipeFile = $uploadedFile->getMimeType();
+        $ext = $uploadedFile->getClientOriginalExtension();
+
         if (!$storagePath)
             $storagePath = 'uploads/' . date('Y') . '/' . date('m');
 
@@ -651,6 +653,8 @@ class ApiController extends Controller
             $fileName = $this->generateUniqueFileName();
         else
             $fileName = $fileName . "." . $uploadedFile->getClientOriginalExtension();
+
+        $fileName .= '.' . $ext;
 
         $uploadedFile->move(public_path($storagePath), $fileName);
         $fileFullPath = public_path($storagePath . '/' . $fileName);
