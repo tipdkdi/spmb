@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\AdminController;
 Route::post('/reset-login', [ApiController::class, 'resetLogin'])->name('reset.login');
 Route::post('/import-soal', [ApiController::class, 'importSoal'])->name('import.soal');
 Route::get('/ujian/{id}/create-akun-pengawas', [AdminController::class, 'createAkunPengawas'])->name('create.akun.pengawas');
-Route::middleware('throttle:1000,60')->group(function () {
+Route::middleware('throttle:10000,60')->group(function () {
     // Route::get('/api/example', 'ExampleController@index');
     Route::post('/sinkron', [ApiController::class, 'sinkron'])->name('sinkron');
 });

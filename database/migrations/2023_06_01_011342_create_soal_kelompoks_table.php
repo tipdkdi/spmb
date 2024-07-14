@@ -16,7 +16,7 @@ class CreateSoalKelompoksTable extends Migration
         Schema::create('soal_kelompoks', function (Blueprint $table) {
             $table->id();
             $table->string('kelompok_soal_nama');
-            $table->string('keterangan');
+            $table->text('keterangan');
             $table->boolean('is_aktif')->default(true);
             // $table->unsignedBigInteger('upload_by');
             $table->timestamps();

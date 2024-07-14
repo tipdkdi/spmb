@@ -254,9 +254,9 @@
                 var input
 
                 // String yang diinginkan
-                var stringYangDiinginkan = "selesaimi";
+                var stringYangDiinginkan = "tombol menyala";
                 while (true) {
-                    input = prompt("Ketikkan 'selesaimi' untuk mengakhiri: ");
+                    input = prompt("Ketikkan 'tombol menyala' untuk mengakhiri: ");
                     // Memeriksa apakah inputan sama dengan string yang diinginkan
                     if (input === stringYangDiinginkan) {
                         let url = "{{route('update.selesai')}}";
@@ -296,12 +296,11 @@
         console.log(`current di navigasi : ${document.querySelector('#question').dataset.current}`);
         // console.log();
         response.map((data) => {
-            if (data.bagian_urutan == 1 || data.bagian_urutan == 8) {
 
-                content += `<span class="fs-5 badge bg-dark me-2 mb-2 card-rounded">${data.bagian_nama}</span>`
+            content += `<span class="fs-5 badge bg-dark me-2 mb-2 card-rounded">${data.bagian_nama}</span>`
 
-                content += `<table class="question_nav" style="font-size:18px">`
-            }
+            content += `<table class="question_nav" style="font-size:18px">`
+
             let totalSoal = data.soal_kelompok.soal.length
             let current = document.querySelector('#question').dataset.current
             data.soal_kelompok.soal.map((item, index) => {
@@ -324,9 +323,10 @@
                 }
             })
             kelipatan = 6
-            if (data.bagian_urutan == 7 || data.bagian_urutan == 8) {
-                content += `</table><div class="mt-2"></div>`
+            if (data.bagian_urutan == 7) {
+                content += `<div class="mt-5"></div>`
             }
+            content += '</table>'
             total = total + data.soal_kelompok.soal.length
             // content = ''
             console.log(totalSoal);

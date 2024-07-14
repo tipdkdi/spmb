@@ -240,11 +240,11 @@
                 <strong>KONTAK PANITIA</strong><br>
                 Kontak person Panitia Pelaksana SMS, WA Only Selama Jam Kantor 08.00 sd 17.00 WITA : 085394648629, 082113874437<br>
                 <br>
-                <strong>JOIN GRUP TELEGRAM MABA 2023</strong>
+                <strong>JOIN GRUP TELEGRAM MABA 2024</strong>
 
                 <ol>
                     <li>Install Telegram pada smartphone anda;</li>
-                    <li>Wajib untuk bergabung pada grup telegram mahasiswa baru tahun 2023 <a href="https://iainkendari.ac.id/go/maba2023" target="_blank">https://iainkendari.ac.id/go/maba2023</a></li>
+                    <li>Wajib untuk bergabung pada grup telegram mahasiswa baru tahun 2024 <a href="https://iainkendari.ac.id/go/maba2024" target="_blank">https://iainkendari.ac.id/go/maba2024</a></li>
                 </ol>
             </div>
             <div class="modal-footer">

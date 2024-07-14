@@ -228,15 +228,15 @@ class ApiController extends Controller
                 // fputcsv($file, $data, ';');
 
 
-                $soal = Soal::with('opsi')->find($ur);
-                foreach ($soal->opsi as $urut => $item) {
-                    if ($urut == $data[5]) {
-                        $opsi = SoalOpsi::find($item->id);
-                        $opsi->is_jawaban = true;
-                        $opsi->save();
-                    }
-                }
-                $ur = $ur + 1;
+                // $soal = Soal::with('opsi')->find($ur);
+                // foreach ($soal->opsi as $urut => $item) {
+                //     if ($urut == $data[5]) {
+                //         $opsi = SoalOpsi::find($item->id);
+                //         $opsi->is_jawaban = true;
+                //         $opsi->save();
+                //     }
+                // }
+                // $ur = $ur + 1;
                 // Loop untuk membuat SoalOpsi
                 // for ($i = 1; $i <= 4; $i++) {
                 //     $soalOpsi = new SoalOpsi();
@@ -245,19 +245,19 @@ class ApiController extends Controller
                 //     $soalOpsi->is_jawaban = ($i == ($data[5]));
                 //     $soalOpsi->save();
                 // }
-                // $soal = new Soal();
-                // $soal->soal_kelompok_id = $kelompokSoalId;
-                // $soal->soal = $data[0];
-                // $soal->save();
+                $soal = new Soal();
+                $soal->soal_kelompok_id = $kelompokSoalId;
+                $soal->soal = $data[0];
+                $soal->save();
 
-                // // Loop untuk membuat SoalOpsi
-                // for ($i = 1; $i <= 4; $i++) {
-                //     $soalOpsi = new SoalOpsi();
-                //     $soalOpsi->soal_id = $soal->id;
-                //     $soalOpsi->opsi_text = $data[$i];
-                //     $soalOpsi->is_jawaban = ($i == ($data[5]));
-                //     $soalOpsi->save();
-                // }
+                // Loop untuk membuat SoalOpsi
+                for ($i = 1; $i <= 4; $i++) {
+                    $soalOpsi = new SoalOpsi();
+                    $soalOpsi->soal_id = $soal->id;
+                    $soalOpsi->opsi_text = $data[$i];
+                    $soalOpsi->is_jawaban = ($i == ($data[5]));
+                    $soalOpsi->save();
+                }
             }
             return response()->json([
                 'status' => true,
@@ -321,7 +321,7 @@ class ApiController extends Controller
             ]);
 
 
-            $ruang = $data->ruang + 40; // ini 40 dari id terakhir ujian mandiri tahap 1, jadi tahap 2 mulai dari id 40 karena manual wkwkk
+            $ruang = $data->ruang; // ini 40 dari id terakhir ujian mandiri tahap 1, jadi tahap 2 mulai dari id 40 karena manual wkwkk
             $sesi = UjianSesiPeserta::create([
                 'ujian_sesi_ruangan_id' => $ruang,
                 'iddata' => $data->iddata,
@@ -371,19 +371,19 @@ class ApiController extends Controller
                 ->orderBy(PesertaSoal::select('urutan')->where('ujian_sesi_peserta_id', $ujianSesiPesertaId)->whereColumn('soals.id', 'peserta_soals.soal_id')->limit(1));
         }, 'ujian'])
             ->whereHas('ujian', function ($ujian) {
-                $ujian->where('id', 2);
+                $ujian->where('id', 1);
             })
             ->get();
         // return PesertaSoal::where('ujian_sesi_peserta_id', $ujianSesiPesertaId)->get();
         return $data;
     }
 
-    public function insertSoalTKD($id, $sesiPesertaId, $mulaiUrut)
+    public function insertSoalTKD($id, $sesiPesertaId, $mulaiUrut, $jumlahSoal)
     {
-        $soalBagian = UjianSoalBagian::with(['soalKelompok.soal' => function ($soal) {
+        $soalBagian = UjianSoalBagian::with(['soalKelompok.soal' => function ($soal) use ($jumlahSoal) {
             $soal->with(['opsi' => function ($opsi) {
                 $opsi->inRandomOrder();
-            }])->take(5)->inRandomOrder()->get();
+            }])->take($jumlahSoal)->inRandomOrder()->get();
         }])->where([
             // 'ujian_id' => $ujianId
             'id' => $id
@@ -427,41 +427,39 @@ class ApiController extends Controller
             // $ujianId = 1;
 
             // [1, 2, 3, 4, 5, 6, 7]
-            $this->insertSoalTKD(9, $sesiPesertaId, 0);
-            $this->insertSoalTKD(10, $sesiPesertaId, 5);
-            $this->insertSoalTKD(11, $sesiPesertaId, 10);
-            $this->insertSoalTKD(12, $sesiPesertaId, 15);
-            $this->insertSoalTKD(13, $sesiPesertaId, 20);
-            $this->insertSoalTKD(14, $sesiPesertaId, 25);
-            $this->insertSoalTKD(15, $sesiPesertaId, 30);
+            $this->insertSoalTKD(1, $sesiPesertaId, 0, 15);
+            $this->insertSoalTKD(2, $sesiPesertaId, 15, 10);
+            $this->insertSoalTKD(3, $sesiPesertaId, 25, 5);
+            $this->insertSoalTKD(4, $sesiPesertaId, 30, 15);
+            $this->insertSoalTKD(5, $sesiPesertaId, 45, 15);
 
             // return $opsi;
             //ini untuk soal moderasi ID 2
-            $soalBagian = UjianSoalBagian::with(['soalKelompok.soal' => function ($soal) {
-                $soal->with(['opsi' => function ($opsi) {
-                    $opsi->inRandomOrder();
-                }])->inRandomOrder()->take(10)->get();
-            }])->where([
-                // 'ujian_id' => $ujianId
-                'id' => 16
-            ])->get();
-            $opsi = [];
-            $lastIndex = count($soalBagian[0]->soalKelompok->soal) - 1;
-            foreach ($soalBagian[0]->soalKelompok->soal as $index => $item) {
-                $pesertaSoal = PesertaSoal::create([
-                    'ujian_sesi_peserta_id' => $sesiPesertaId,
-                    'soal_id' => $item->id,
-                    'urutan' => 35 + $index + 1,
-                    'is_last_urutan_bagian' => ($lastIndex == $index) ? 1 : 0,
-                ]);
-                foreach ($item->opsi as $index2 => $row) {
-                    $opsi[$index2] = $row->id;
-                };
-                PesertaSoalOpsi::create([
-                    'peserta_soal_id' => $pesertaSoal->id,
-                    'opsis_id' => json_encode($opsi),
-                ]);
-            };
+            // $soalBagian = UjianSoalBagian::with(['soalKelompok.soal' => function ($soal) {
+            //     $soal->with(['opsi' => function ($opsi) {
+            //         $opsi->inRandomOrder();
+            //     }])->inRandomOrder()->take(10)->get();
+            // }])->where([
+            //     // 'ujian_id' => $ujianId
+            //     'id' => 16
+            // ])->get();
+            // $opsi = [];
+            // $lastIndex = count($soalBagian[0]->soalKelompok->soal) - 1;
+            // foreach ($soalBagian[0]->soalKelompok->soal as $index => $item) {
+            //     $pesertaSoal = PesertaSoal::create([
+            //         'ujian_sesi_peserta_id' => $sesiPesertaId,
+            //         'soal_id' => $item->id,
+            //         'urutan' => 35 + $index + 1,
+            //         'is_last_urutan_bagian' => ($lastIndex == $index) ? 1 : 0,
+            //     ]);
+            //     foreach ($item->opsi as $index2 => $row) {
+            //         $opsi[$index2] = $row->id;
+            //     };
+            //     PesertaSoalOpsi::create([
+            //         'peserta_soal_id' => $pesertaSoal->id,
+            //         'opsis_id' => json_encode($opsi),
+            //     ]);
+            // };
 
             $sesiPeserta = UjianSesiPeserta::find($sesiPesertaId);
             $sesiPeserta->status = "1";
@@ -470,7 +468,7 @@ class ApiController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Sukses',
-                'data' => $soalBagian,
+                'data' => $sesiPeserta,
             ], 200);
         } catch (\Throwable $th) {
             // return response()->json([
