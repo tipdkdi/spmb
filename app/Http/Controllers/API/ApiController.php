@@ -496,7 +496,7 @@ class ApiController extends Controller
     }
     public function storeSoal(Request $request)
     {
-        // return $request->opsi;
+        return $request->opsi[0]['soal_opsi_id'];
         DB::beginTransaction();
 
         try {
@@ -508,7 +508,7 @@ class ApiController extends Controller
             ]);
             foreach ($request->opsi as $item) {
                 SoalOpsi::create([
-                    'soal_id' => $item->soal_opsi_id,
+                    'soal_id' => $item['soal_opsi_id'],
                     'opsi_text' => $item->opsi_text,
                     'is_jawaban' => $item->is_jawaban,
                 ]);
