@@ -496,17 +496,19 @@ class ApiController extends Controller
     }
     public function storeSoal(Request $request)
     {
-        return $request->all();
+        // return $request->all();
         DB::beginTransaction();
 
         try {
-            $data = Soal::create([
+            $soal = Soal::updateOrCreate([
+                'id' => $request->soal_id,
+            ], [
                 'soal_kelompok_id' => $request->soal_kelompok_id,
                 'soal' => $request->soal,
             ]);
             foreach ($request->opsi as $item) {
                 SoalOpsi::create([
-                    'soal_id' => $data->id,
+                    'soal_id' => $item->soal_opsi_id,
                     'opsi_text' => $item->opsi_text,
                     'is_jawaban' => $item->is_jawaban,
                 ]);
@@ -516,7 +518,7 @@ class ApiController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'data ditemukan',
-                'data' => $data,
+                'data' => $soal,
             ], 200);
         } catch (\Throwable $th) {
             //throw $th;
