@@ -479,7 +479,7 @@ class ApiController extends Controller
     {
 
         try {
-            $soal = Soal::where('soal_kelompok_id', $kelompokSoalId)->paginate(20);
+            $soal = Soal::with('opsi')->where('soal_kelompok_id', $kelompokSoalId)->paginate(20);
             return response()->json([
                 'status' => true,
                 'message' => 'data ditemukan',
