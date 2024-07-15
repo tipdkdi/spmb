@@ -504,7 +504,7 @@ class ApiController extends Controller
 
         try {
             $dataQuery = Soal::with([
-                'soalOpsi', 'soalKelompok',
+                'opsi', 'soalKelompok',
             ])
                 ->orderBy('soal_kelompok_id', 'ASC')
                 ->orderBy('id', 'DESC');
@@ -526,7 +526,8 @@ class ApiController extends Controller
                 }
             }
 
-            $data = $dataQuery->paginate(30);
+            // $data = $dataQuery->paginate(30);
+            // $dataQuery->paginate(30);
             // return response()->json($data);
 
 
@@ -534,7 +535,7 @@ class ApiController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'data ditemukan',
-                'data' => $data,
+                'data' => $dataQuery->paginate(30),
             ], 200);
         } catch (\Throwable $th) {
             //throw $th;
