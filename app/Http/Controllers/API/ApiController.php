@@ -574,6 +574,8 @@ class ApiController extends Controller
                     ]);
                 }
             } else {
+                $opsi = SoalOpsi::where('soal_id', $request->soal_id);
+                $opsi->delete();
                 foreach ($request->opsi as $item) {
                     SoalOpsi::create([
                         'soal_id' => $item->soal_opsi_id,
