@@ -19,6 +19,10 @@ use App\Http\Controllers\LoginController;
 |
 */
 
+Route::get('/soal', function () {
+    return view('soal');
+})->middleware('guest');
+
 Route::get('/seeder', [AdminController::class, 'seeder']);
 Route::get('/password/{pass}', [AdminController::class, 'password']);
 Route::get('/rektor-cup', [AdminController::class, 'index'])->name('admin.index');

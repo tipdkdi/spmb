@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="website manajemen soal">
+<meta name="author" content="manajemen soal">
+<meta name="keywords" content="website manajemen soal">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+<link href="js/toastr/build/toastr.min.css" rel="stylesheet"/>
+<style>
+  /* Styles for footer */
+  .footer {
+    width: 100%;
+    background-color: #f8f9fa; /* Ubah warna latar belakang */
+    color: #6c757d; /* Ubah warna teks */
+    text-align: center;
+    padding: 20px 0; /* Tambahkan padding atas dan bawah */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+  /* Styles for main content */
+  .main-content {
+    min-height: calc(100vh - 70px); /* Menentukan tinggi konten agar footer tetap di bawah browser */
+    padding-bottom: 70px; /* Menambahkan ruang bawah agar konten tidak tertutupi oleh footer */
+  }
+
+  .form-control {
+      min-width: 150px; /* Atur lebar minimum di sini */
+      width: auto; /* Biarkan lebar menyesuaikan isi */
+  }
+
+  .w-100 {
+      width: 100%;
+  }  
+
+  .btn-vsm{
+    --bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .50rem;    
+  }
+
+  .font-12{
+        font-size:12px;
+  }
+</style>
+<title>Soal</title>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="soal.html">Dashboard Website</a>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="soal.html">Halaman Depan Web</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-10 mx-auto"> <!-- Menggunakan mx-auto untuk membuat konten berada di tengah -->
+            
+    <h1>Soal</h1>
+    <p>digunakan untuk mengelola soal pada website ini </p>
+
+    <div class="accordion mb-3" id="frmAcr">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="frm-acr-header">
+                <button class="accordion-button collapsed" id="tambahForm" type="button" data-bs-toggle="collapse" data-bs-target="#bodyAcr" aria-expanded="false" aria-controls="aria-acr-controls">
+                    <h3>Formulir Soal</h3>
+                </button>
+            </h2>
+            <div id="bodyAcr" class="accordion-collapse collapse" aria-labelledby="frm-acr-header" data-bs-parent="#frmAcr">
+                <div class="accordion-body">
+                    <form id="form-soal" class="row">
+                        <input type="hidden" name="soal_id" id="soal_id" >
+
+                        <div class="col-sm-12 mb-3">
+                            <label for="soal" class="form-label">Soal</label>
+                            <div id="editor-container">
+                                <textarea class="editor-soal" id="soal" name="soal" required></textarea>
+                            </div>                            
+                        </div>
+
+                        <div class="col-sm-12 mb-3 row">
+                            <div class="col-sm-8">
+                                <input type="hidden" name="opsi[0][soal_opsi_id]" id="soal_opsi_id1">
+                                <label for="opsi_text1" class="form-label">Pilihan 1</label>
+                                <div id="editor-container">
+                                    <textarea class="editor-opsi" id="opsi_text1" name="opsi[0][opsi_text]" required></textarea>
+                                </div>                            
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="is_jawaban1" class="form-label">Apakah Jawaban Benar</label>
+                                <input type="number" class="form-control w-50" id="is_jawaban1" value="1" name="opsi[0][is_jawaban]" required>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 mb-3 row">
+                            <div class="col-sm-8">
+                                <input type="hidden" name="opsi[1][soal_opsi_id]" id="soal_opsi_id2">
+                                <label for="opsi_text2" class="form-label">Pilihan 2</label>
+                                <div id="editor-container">
+                                    <textarea class="editor-opsi" id="opsi_text2" name="opsi[1][opsi_text]" required></textarea>
+                                </div>                            
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="is_jawaban2" class="form-label">Apakah Jawaban Benar</label>
+                                <input type="number" class="form-control w-50" id="is_jawaban2" value="0" name="opsi[1][is_jawaban]" required>
+                            </div>
+    
+                        </div>
+
+                        <div class="col-sm-12 mb-3 row">
+                            <input type="hidden" name="opsi[2][soal_opsi_id]" id="soal_opsi_id3">
+                            <div class="col-sm-8 mb-3">
+                                <label for="opsi_text3" class="form-label">Pilihan 3</label>
+                                <div id="editor-container">
+                                    <textarea class="editor-opsi" id="opsi_text3" name="opsi[2][opsi_text]" required></textarea>
+                                </div>                            
+                            </div>
+
+                            <div class="col-sm-4 mb-3">
+                                <label for="is_jawaban3" class="form-label">Apakah Jawaban Benar</label>
+                                <input type="number" class="form-control w-50" id="is_jawaban3" value="0" name="opsi[2][is_jawaban]" required>
+                            </div>
+    
+                        </div>
+
+                        <div class="col-sm-12 mb-3 row">
+                            <input type="hidden" name="opsi[3][soal_opsi_id]" id="soal_opsi_id4">
+                            <div class="col-sm-8 mb-3">
+                                <label for="opsi_text4" class="form-label">Pilihan 4</label>
+                                <div id="editor-container">
+                                    <textarea class="editor-opsi" id="opsi_text4" name="opsi[3][opsi_text]" required></textarea>
+                                </div>                            
+                            </div>
+
+                            <div class="col-sm-4 mb-3">
+                                <label for="is_jawaban4" class="form-label">Apakah Jawaban Benar</label>
+                                <input type="number" class="form-control w-50" id="is_jawaban4" value="0" name="opsi[3][is_jawaban]" required>
+                            </div>
+    
+                        </div>
+
+                        <div class="col-sm-4 mb-3">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-warning btnBatal">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <select class="form-select" id="soal_kelompok_id" name="soal_kelompok_id"></select>
+        </div>
+        <div class="col-sm-8">
+            <div class="input-group justify-content-end">
+                <button type="button" class="btn btn-sm btn-outline-secondary btnTambah" id="tambah" >Tambah</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary btnRefresh" id="refresh">Refresh</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="5%">#</th>
+                    <th width="50%">Soal</th>
+                    <th width="30%">Pilihan</th>
+                    <th width="15%">Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="data-list">
+                <!-- Data pesan akan dimuat di sini -->
+            </tbody>
+        </table>
+    </div>
+    <!-- Pagination -->
+    <nav aria-label="Page navigation" class="mb-5">
+        <ul class="pagination justify-content-center" id="pagination">
+        </ul>
+    </nav>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="modal fade" id="aksesModal" tabindex="-1" aria-labelledby="aksesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                  <li class="nav-item dropdown daftar-akses">
+                  </li>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <!-- Footer -->
+    <footer class="footer">
+    <div class="container">
+        &copy; 2024 Admin Dashboard
+    </div>
+</footer>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="js/toastr/build/toastr.min.js"></script>    
+<script src="js/myapp.js"></script>
+<script src="js/pagination.js"></script>
+<script>
+
+var selectedPage=1;
+
+$(document).ready(function() {
+
+    loadSoalKelompok();
+    loadData();
+
+    $('.editor-soal').summernote({
+        height: 300,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ],            
+        callbacks: {               
+            onImageUpload: function(files) {
+                sendFile(files[0], $(this));
+            }
+        }
+    });
+
+    $('.editor-opsi').summernote({
+        height: 100,
+        toolbar: [
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ],            
+        callbacks: {               
+            onImageUpload: function(files) {
+                sendFile(files[0], $(this));
+            }
+        }
+    });
+    
+
+    function sendFile(file, editor) {
+        var data = new FormData();
+        data.append("file", file);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: 'https://ujian.iainkendari.ac.id/api/upload-image',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                editor.summernote('insertImage', response.image);
+            }
+        });
+    }
+
+    $('#soal_kelompok_id').on('change', function() {
+        loadData();
+    });    
+
+    function loadSoalKelompok(){
+        $.ajax({
+            url: 'https://ujian.iainkendari.ac.id/api/kelompok-soal',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                $('#soal_kelompok_id').empty();
+                var listItem = $(`<option value="">- Pilih -</option>`);
+                $('#soal_kelompok_id').append(listItem);
+                $.each(response.data, function(index, value) {
+                    listItem = $(`<option value="${value.id}">${value.kelompok_soal_nama}</option>`);
+                    $('#soal_kelompok_id').append(listItem);
+                });                
+                // console.log(response);
+            },
+            error: function() {
+                alert('operasi gagal dilakukan!');
+            }
+        });                
+    }
+
+    $('.item-paging').on('click', function() {
+        vPaging=$(this).data('nilai');
+        loadData();
+    })
+
+    function loadData(page = 1, search = '') {
+        let soal_kelompok_id=$('#soal_kelompok_id').val();
+        if(soal_kelompok_id){
+            $.ajax({
+                url: 'https://ujian.iainkendari.ac.id/api/get-soal?soal_kelompok_id='+soal_kelompok_id+'&page='+page+'&search='+search,
+                method: 'GET',
+                success: function(response) {
+                    var dataList = $('#data-list');
+                    var pagination = $('#pagination');
+                    var data = response.data.data;
+                    dataList.empty();
+
+                    $.each(data, function(index, dt) {
+                        var pilihan ="<ul>";
+                        $.each(dt.opsi, function(index, ops) {
+                            var opsi=(ops.is_jawaban)?`<b>${ops.opsi_text}</b>`:ops.opsi_text;
+                            pilihan +=`<li>${opsi}</li>`;
+                        }); 
+                        pilihan +="</ul>";
+
+                        var btnAksi=`<div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-primary btnGanti" data-id="${dt.id}" >Ganti</button>
+                                    <button type="button" class="btn btn-danger btnHapus" data-id="${dt.id}" >Hapus</button>
+                                </div>`;
+
+                        dataList.append(`
+                            <tr data-id="${dt.id}"> 
+                                <td>${index+1}</td> 
+                                <td>${dt.soal}</td> 
+                                <td>${pilihan}</td> 
+                                <td>${btnAksi}</td>
+                            </tr>`);
+                    });
+
+                    renderPagination(response.data, pagination);
+                }
+            });
+        }
+    }
+
+    $('#bodyAcr').on('shown.bs.collapse', function () {
+        $('#judul').focus();
+    });
+
+    function resetForm(){
+        $('#form-soal input').val('');
+        $('.editor-soal').summernote('code', '');
+        $('#opsi_text1').summernote('code', '');
+        $('#opsi_text2').summernote('code', '');
+        $('#opsi_text3').summernote('code', '');
+        $('#opsi_text4').summernote('code', '');
+        $('#form-soal')[0].reset();
+    }
+
+    $(document).on('click', '.btnTambah', function() {
+        $('html, body').scrollTop($('#tambahForm').offset().top);
+        $('#bodyAcr').collapse('show'); // Menampilkan accordion
+        resetForm();
+        $('#soal').focus();
+    });
+
+    $('.btnBatal').on('click', function(e) {
+        event.preventDefault();
+        resetForm();
+        $('#soal').focus();
+        $('#bodyAcr').collapse('hide'); 
+    });
+
+    $('#tambahBaru').on('click', function(e) {
+        e.preventDefault();
+        resetForm();
+        $('#soal').focus();
+    });
+
+    // Handle page change
+    $(document).on('click', '.page-link', function() {
+        var page = $(this).data('page');
+        var search = $('#search-input').val();
+        loadData(page, search);
+    });
+
+    $('#refresh').on('click', function(e) {
+        loadData();
+    });
+
+    // Handle search form submission
+    $('.cari-data').click(function(){
+        var search = $("#search-input").val();
+        if (search.length > 3) {
+            loadData(1, search);
+        } else if (search.length === 0) {
+            loadData(1, '');
+        }
+    });
+
+    $("#form-soal").validate({
+        submitHandler: function(form) {
+            var formData = new FormData(form);
+            formData.append('soal_kelompok_id', $('#soal_kelompok_id').val());
+
+            $.ajax({
+                url: 'https://ujian.iainkendari.ac.id/api/soal/store',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    toastr.success('operasi berhasil dilakukan!', 'berhasil');
+                    loadData(selectedPage);
+                    resetForm();
+                },
+                error: function() {
+                    alert('operasi gagal dilakukan!');
+                }
+            });            
+        }
+    });        
+
+    $(document).on('click', '.btnGanti', function() {
+        var id = $(this).data('id');
+        selectedPage = $('.page-item.active .page-link').data('page');
+        $.ajax({
+            url: 'https://ujian.iainkendari.ac.id/api/get-soal?id='+id,
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                let data=response.data.data;
+                if(data.length>0){
+                    $('html, body').scrollTop($('#tambahForm').offset().top);
+                    $('#bodyAcr').collapse('show'); // Menampilkan accordion
+                    $('#id').val(response.id);
+                    dataEditForm(data[0]);
+                }
+            },
+            error: function() {
+                alert('operasi gagal dilakukan!');
+            }
+        });                
+    });
+
+    function dataEditForm(data){
+        console.log(data);
+        $("#soal_id").val(data.id);
+        $('#soal').summernote('code', data.soal);
+        $.each(data.opsi, function(index, item) {
+            $('input[name="opsi[' + index + '][soal_opsi_id]"]').val(item.id);
+            $('textarea[name="opsi[' + index + '][opsi_text]"]').summernote('code', item.opsi_text);
+            $('input[name="opsi[' + index + '][is_jawaban]"]').val(item.is_jawaban);
+        });
+    }
+
+    $(document).on('click', '.btnHapus', function() {
+        var id = $(this).data('id');
+        if(confirm('apakah anda yakin?'))
+            $.ajax({
+                url: 'https://ujian.iainkendari.ac.id/api/soal/'+id+'/delete',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    loadData(selectedPage);
+                    toastr.success('hapus data berhasil dilakukan!', 'berhasil');
+                },
+                error: function() {
+                    alert('hapus data gagal dilakukan!');
+                }
+            });                
+    });
+});
+
+</script>
+
+</body>
+</html>
