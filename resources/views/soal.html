@@ -1,3 +1,4 @@
+<!-- <link href="/form-soal/js/toastr/build/toastr.min.css" rel="stylesheet"/> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -166,7 +167,13 @@
         <div class="col-sm-4">
             <select class="form-select" id="soal_kelompok_id" name="soal_kelompok_id"></select>
         </div>
-        <div class="col-sm-8">
+
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="search" name="search" placeholder="cari soal...">
+            <div style="font-size:12px;font-style: italic;">enter untuk pencarian</div>
+        </div>
+
+        <div class="col-sm-4">
             <div class="input-group justify-content-end">
                 <button type="button" class="btn btn-sm btn-outline-secondary btnTambah" id="tambah" >Tambah</button>
                 <button type="button" class="btn btn-sm btn-outline-secondary btnRefresh" id="refresh">Refresh</button>
@@ -227,7 +234,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script src="/form-soal/js/toastr/build/toastr.min.js"></script>    
-<script src="/form-soal/js/myapp.js"></script>
 <script src="/form-soal/js/pagination.js"></script>
 <script>
 
@@ -311,13 +317,22 @@ $(document).ready(function() {
         });                
     }
 
+    $('#search').on('keypress', function(e) {
+        if (e.which == 13) { 
+            e.preventDefault(); 
+            var query = $(this).val();
+            loadData(1);
+        }
+    });
+
     $('.item-paging').on('click', function() {
         vPaging=$(this).data('nilai');
         loadData();
     })
 
-    function loadData(page = 1, search = '') {
+    function loadData(page = 1) {
         let soal_kelompok_id=$('#soal_kelompok_id').val();
+        let search=$('#search').val();
         if(soal_kelompok_id){
             $.ajax({
                 url: 'https://ujian.iainkendari.ac.id/api/get-soal?soal_kelompok_id='+soal_kelompok_id+'&page='+page+'&search='+search,
@@ -371,10 +386,15 @@ $(document).ready(function() {
     }
 
     $(document).on('click', '.btnTambah', function() {
-        $('html, body').scrollTop($('#tambahForm').offset().top);
-        $('#bodyAcr').collapse('show'); // Menampilkan accordion
-        resetForm();
-        $('#soal').focus();
+        let pilih_kelompok = $('#soal_kelompok_id').val();
+        if(pilih_kelompok){
+            $('html, body').scrollTop($('#tambahForm').offset().top);
+            $('#bodyAcr').collapse('show'); // Menampilkan accordion
+            resetForm();
+            $('#soal').focus();
+        }else{
+            alert('pilih kelompok terlebih dahulu');
+        }
     });
 
     $('.btnBatal').on('click', function(e) {
@@ -384,54 +404,41 @@ $(document).ready(function() {
         $('#bodyAcr').collapse('hide'); 
     });
 
-    $('#tambahBaru').on('click', function(e) {
-        e.preventDefault();
-        resetForm();
-        $('#soal').focus();
-    });
-
     // Handle page change
     $(document).on('click', '.page-link', function() {
         var page = $(this).data('page');
-        var search = $('#search-input').val();
-        loadData(page, search);
+        loadData(page);
     });
 
     $('#refresh').on('click', function(e) {
         loadData();
     });
 
-    // Handle search form submission
-    $('.cari-data').click(function(){
-        var search = $("#search-input").val();
-        if (search.length > 3) {
-            loadData(1, search);
-        } else if (search.length === 0) {
-            loadData(1, '');
-        }
-    });
-
     $("#form-soal").validate({
         submitHandler: function(form) {
-            var formData = new FormData(form);
-            formData.append('soal_kelompok_id', $('#soal_kelompok_id').val());
-
-            $.ajax({
-                url: 'https://ujian.iainkendari.ac.id/api/soal/store',
-                type: 'POST',
-                data: formData,
-                dataType: 'json',
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    toastr.success('operasi berhasil dilakukan!', 'berhasil');
-                    loadData(selectedPage);
-                    resetForm();
-                },
-                error: function() {
-                    alert('operasi gagal dilakukan!');
-                }
-            });            
+            let pilih_kelompok = $('#soal_kelompok_id').val();
+            if(pilih_kelompok){
+                var formData = new FormData(form);
+                formData.append('soal_kelompok_id', $('#soal_kelompok_id').val());
+                $.ajax({
+                    url: 'https://ujian.iainkendari.ac.id/api/soal/store',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        toastr.success('operasi berhasil dilakukan!', 'berhasil');
+                        loadData(selectedPage);
+                        resetForm();
+                    },
+                    error: function() {
+                        alert('operasi gagal dilakukan!');
+                    }
+                });            
+            }else{
+                alert('pilih kelompok terlebih dahulu');
+            }
         }
     });        
 
