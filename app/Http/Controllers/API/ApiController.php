@@ -578,7 +578,7 @@ class ApiController extends Controller
                 $opsi->delete();
                 foreach ($request->opsi as $item) {
                     SoalOpsi::create([
-                        'soal_id' => $item->soal_opsi_id,
+                        'soal_id' => $request->soal_id,
                         'opsi_text' => $item['opsi_text'],
                         'is_jawaban' => $item['is_jawaban'],
                     ]);
