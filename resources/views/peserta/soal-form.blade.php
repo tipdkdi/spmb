@@ -254,9 +254,9 @@
                 var input
 
                 // String yang diinginkan
-                var stringYangDiinginkan = "tombol menyala";
+                var stringYangDiinginkan = "selesaimi";
                 while (true) {
-                    input = prompt("Ketikkan 'tombol menyala' untuk mengakhiri: ");
+                    input = prompt("Ketikkan 'selesaimi' untuk mengakhiri: ");
                     // Memeriksa apakah inputan sama dengan string yang diinginkan
                     if (input === stringYangDiinginkan) {
                         let url = "{{route('update.selesai')}}";
