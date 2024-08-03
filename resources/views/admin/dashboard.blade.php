@@ -17,7 +17,8 @@
                 <!-- <div class="row "> -->
                 <select id="jalur" class="form-select mb-3" aria-label="Default select example">
                     <option value="">Pilih Jalur Penerimaan</option>
-                    <option value="20243">Mandiri Lokal 2024</option>
+                    <option value="20241">Pasca Sarjana</option>
+                    <!-- <option value="20243">Mandiri Lokal 2024</option> -->
                     <!-- <option value="20236">Bina Mandiri</option> -->
                 </select>
 
@@ -33,7 +34,8 @@
             <div class="col-sm-3">
                 <select id="ujian" class="form-select mb-3" aria-label="Default select example">
                     <option value="">Pilih Ujian</option>
-                    <option value="1">Mandiri Lokal 2024</option>
+                    <option value="1">Pascasarjana 2024</option>
+                    <!-- <option value="1">Mandiri Lokal 2024</option> -->
                     <!-- <option value="4">Bina Mandiri</option> -->
                 </select>
                 <button class="btn btn-primary" onclick="buatAkunPengawas()">Buat akun pengawas</button>
@@ -45,10 +47,15 @@
         <!-- <form> -->
         <select class="form-control" id="kelompok_soal">
             <option value="1">TPA</option>
+            <option value="2">Bahasa Inggris</option>
+            <option value="3">Bahasa Arab</option>
+        </select> <br>
+        <!-- <select class="form-control" id="kelompok_soal">
+            <option value="1">TPA</option>
             <option value="2">Penalaran Matematika</option>
             <option value="3">Literasi membaca</option>
             <option value="4">Literasi Ajaran Islam</option>
-        </select> <br>
+        </select> <br> -->
         <input type="file" name="csv_file" id="csv_file"><br>
         <br>
         <button class="btn btn-primary" onclick="uploadSoal()">Upload Soal</button>

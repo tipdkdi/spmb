@@ -19,9 +19,9 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-// Route::get('/soal', function () {
-//     return view('soal');
-// });
+Route::get('/soal', function () {
+    return view('soal');
+});
 
 Route::get('/seeder', [AdminController::class, 'seeder']);
 Route::get('/password/{pass}', [AdminController::class, 'password']);

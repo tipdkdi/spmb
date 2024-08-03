@@ -299,6 +299,7 @@ $(document).ready(function() {
     function loadSoalKelompok(){
         $.ajax({
             url: 'https://ujian.iainkendari.ac.id/api/kelompok-soal',
+            // url: 'http://127.0.0.1:8000/api/kelompok-soal',
             method: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -335,6 +336,7 @@ $(document).ready(function() {
         let search=$('#search').val();
         if(soal_kelompok_id){
             $.ajax({
+                // url: 'http://127.0.0.1:8000/api/get-soal?soal_kelompok_id='+soal_kelompok_id+'&page='+page+'&search='+search,
                 url: 'https://ujian.iainkendari.ac.id/api/get-soal?soal_kelompok_id='+soal_kelompok_id+'&page='+page+'&search='+search,
                 method: 'GET',
                 success: function(response) {
@@ -422,6 +424,7 @@ $(document).ready(function() {
                 formData.append('soal_kelompok_id', $('#soal_kelompok_id').val());
                 $.ajax({
                     url: 'https://ujian.iainkendari.ac.id/api/soal/store',
+                    // url: 'http://127.0.0.1:8000/api/soal/store',
                     type: 'POST',
                     data: formData,
                     dataType: 'json',
@@ -446,6 +449,7 @@ $(document).ready(function() {
         var id = $(this).data('id');
         selectedPage = $('.page-item.active .page-link').data('page');
         $.ajax({
+            // url: 'http://127.0.0.1:8000/api/get-soal?id='+id,
             url: 'https://ujian.iainkendari.ac.id/api/get-soal?id='+id,
             method: 'GET',
             dataType: 'json',
@@ -479,6 +483,7 @@ $(document).ready(function() {
         var id = $(this).data('id');
         if(confirm('apakah anda yakin?'))
             $.ajax({
+                // url: 'ttp://127.0.0.1:8080/api/soal/'+id+'/delete',
                 url: 'https://ujian.iainkendari.ac.id/api/soal/'+id+'/delete',
                 method: 'GET',
                 dataType: 'json',
