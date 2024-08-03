@@ -11,20 +11,15 @@
 <body>
     <div class="container">
         <h1 class="text-center mb-5">DASHBOARD ADMIN</h1>
-        <div class="card card-body">
+        <!-- <div class="card card-body">
             <h3>1. IMPORT PESERTA DARI SIA</h3>
             <div class="col-sm-3">
-                <!-- <div class="row "> -->
                 <select id="jalur" class="form-select mb-3" aria-label="Default select example">
                     <option value="">Pilih Jalur Penerimaan</option>
                     <option value="20241">Pasca Sarjana</option>
-                    <!-- <option value="20243">Mandiri Lokal 2024</option> -->
-                    <!-- <option value="20236">Bina Mandiri</option> -->
                 </select>
 
                 <button class="btn btn-secondary" onclick="importData()">Import Data SIA</button>
-                <!-- </div> -->
-
             </div>
 
         </div>
@@ -35,8 +30,6 @@
                 <select id="ujian" class="form-select mb-3" aria-label="Default select example">
                     <option value="">Pilih Ujian</option>
                     <option value="1">Pascasarjana 2024</option>
-                    <!-- <option value="1">Mandiri Lokal 2024</option> -->
-                    <!-- <option value="4">Bina Mandiri</option> -->
                 </select>
                 <button class="btn btn-primary" onclick="buatAkunPengawas()">Buat akun pengawas</button>
 
@@ -44,31 +37,28 @@
         </div>
 
         <h3 class="mt-3">3. UPLOAD SOAL</h3>
-        <!-- <form> -->
         <select class="form-control" id="kelompok_soal">
             <option value="1">TPA</option>
             <option value="2">Bahasa Inggris</option>
             <option value="3">Bahasa Arab</option>
         </select> <br>
-        <!-- <select class="form-control" id="kelompok_soal">
-            <option value="1">TPA</option>
-            <option value="2">Penalaran Matematika</option>
-            <option value="3">Literasi membaca</option>
-            <option value="4">Literasi Ajaran Islam</option>
         </select> <br> -->
-        <input type="file" name="csv_file" id="csv_file"><br>
+        <!-- <input type="file" name="csv_file" id="csv_file"><br>
         <br>
         <button class="btn btn-primary" onclick="uploadSoal()">Upload Soal</button>
-        <!-- </form> -->
 
-        <hr>
+        <hr>  -->
         <div class="card card-body">
 
-            <h3 class="mt-3">4. CETAK</h3>
+            <h3 class="mt-3">CETAK</h3>
             <div class="col-sm-3">
                 <!-- <option value="">Pilih Ujian</option>
                 <option value="3">Pasca</option>
                 <option value="4">Bina Mandiri</option> -->
+                <select id="ujian" class="form-select mb-3" aria-label="Default select example">
+                    <option value="">Pilih Ujian</option>
+                    <option value="1">Pascasarjana 2024</option>
+                </select>
                 <button class="btn btn-primary" id="cetak-pengawas">Cetak Pengawas</button><br><br>
                 <button class="btn btn-dark" id="cetak-peserta">Cetak Peserta</button>
             </div>
