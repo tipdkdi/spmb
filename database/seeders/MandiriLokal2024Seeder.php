@@ -30,7 +30,7 @@ class MandiriLokal2024Seeder extends Seeder
 
             DB::table('pmbs')->insert([
                 [
-                    "pmb_nama" => "Mandiri Lokal 2024",
+                    "pmb_nama" => "Mandiri Lokal Tahap 2 2024",
                     "tahun_akademik" => "2024/Ganjil",
                     "biaya_pendaftaran" => 250000,
                     "daftar_mulai" => "2024-01-01",
@@ -43,7 +43,7 @@ class MandiriLokal2024Seeder extends Seeder
             ]);
             DB::table('ujians')->insert([
                 [
-                    "ujian_nama" => "Ujian Penerimaan Mahasiswa Jalur Mandiri Lokal 2024",
+                    "ujian_nama" => "Ujian Penerimaan Mahasiswa Jalur Mandiri Lokal 2024 Tahap 2",
                     "tempat" => "IAIN Kendari",
                     "waktu_pengerjaan" => "01:00:00",
                     "is_soal_random" => 1
@@ -78,35 +78,6 @@ class MandiriLokal2024Seeder extends Seeder
                     "jam_selesai" => "11:45:00",
                     "sesi_tanggal" => "2024-07-16",
                 ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "4",
-                    "jam_mulai" => "13:00:00",
-                    "jam_selesai" => "14:00:00",
-                    "sesi_tanggal" => "2024-07-16",
-                ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "5",
-                    "jam_mulai" => "14:15:00",
-                    "jam_selesai" => "15:15:00",
-                    "sesi_tanggal" => "2024-07-16",
-                ],
-
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "6",
-                    "jam_mulai" => "08:15:00",
-                    "jam_selesai" => "09:15:00",
-                    "sesi_tanggal" => "2024-07-17",
-                ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "7",
-                    "jam_mulai" => "09:30:00",
-                    "jam_selesai" => "10:30:00",
-                    "sesi_tanggal" => "2024-07-17",
-                ],
 
 
             ]);
@@ -130,7 +101,7 @@ class MandiriLokal2024Seeder extends Seeder
             ];
 
             $array = [];
-            for ($i = 1; $i <= 7; $i++) {
+            for ($i = 1; $i <= 3; $i++) {
                 foreach ($info as $index => $value) {
                     $array[] = [
                         "ujian_sesi_id" => $i,

@@ -11,12 +11,12 @@
 <body>
     <div class="container">
         <h1 class="text-center mb-5">DASHBOARD ADMIN</h1>
-        <!-- <div class="card card-body">
+        <div class="card card-body">
             <h3>1. IMPORT PESERTA DARI SIA</h3>
             <div class="col-sm-3">
                 <select id="jalur" class="form-select mb-3" aria-label="Default select example">
                     <option value="">Pilih Jalur Penerimaan</option>
-                    <option value="20241">Pasca Sarjana</option>
+                    <option value="20244">Mandiri</option>
                 </select>
 
                 <button class="btn btn-secondary" onclick="importData()">Import Data SIA</button>
@@ -29,7 +29,7 @@
             <div class="col-sm-3">
                 <select id="ujian" class="form-select mb-3" aria-label="Default select example">
                     <option value="">Pilih Ujian</option>
-                    <option value="1">Pascasarjana 2024</option>
+                    <option value="1">Mandiri</option>
                 </select>
                 <button class="btn btn-primary" onclick="buatAkunPengawas()">Buat akun pengawas</button>
 
@@ -42,7 +42,7 @@
             <option value="2">Bahasa Inggris</option>
             <option value="3">Bahasa Arab</option>
         </select> <br>
-        </select> <br> -->
+        </select> <br>
         <!-- <input type="file" name="csv_file" id="csv_file"><br>
         <br>
         <button class="btn btn-primary" onclick="uploadSoal()">Upload Soal</button>
@@ -55,10 +55,10 @@
                 <!-- <option value="">Pilih Ujian</option>
                 <option value="3">Pasca</option>
                 <option value="4">Bina Mandiri</option> -->
-                <select id="ujian" class="form-select mb-3" aria-label="Default select example">
+                <!-- <select id="ujian" class="form-select mb-3" aria-label="Default select example">
                     <option value="">Pilih Ujian</option>
                     <option value="1">Pascasarjana 2024</option>
-                </select>
+                </select> -->
                 <button class="btn btn-primary" id="cetak-pengawas">Cetak Pengawas</button><br><br>
                 <button class="btn btn-dark" id="cetak-peserta">Cetak Peserta</button>
             </div>
