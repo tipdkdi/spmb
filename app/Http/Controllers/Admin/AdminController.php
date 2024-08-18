@@ -295,7 +295,7 @@ class AdminController extends Controller
         $content .= "<tbody>";
         foreach ($sesiPeserta as $index => $row) {
             $jumlahBenar = count($row->pesertaSoal);
-            $totalNilai = number_format(($jumlahBenar / 100) * 100, 1);
+            $totalNilai = number_format(($jumlahBenar / 60) * 100, 1);
             $urut = $index + 1;
             $peserta = $row->dataDiri->nama_lengkap;
             $noUjian = $row->no_test;

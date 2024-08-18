@@ -30,7 +30,7 @@ class MandiriLokal2024Seeder extends Seeder
 
             DB::table('pmbs')->insert([
                 [
-                    "pmb_nama" => "Mandiri Lokal Tahap 2 2024",
+                    "pmb_nama" => "SMBK 2024",
                     "tahun_akademik" => "2024/Ganjil",
                     "biaya_pendaftaran" => 250000,
                     "daftar_mulai" => "2024-01-01",
@@ -43,7 +43,7 @@ class MandiriLokal2024Seeder extends Seeder
             ]);
             DB::table('ujians')->insert([
                 [
-                    "ujian_nama" => "Ujian Penerimaan Mahasiswa Jalur Mandiri Lokal 2024 Tahap 2",
+                    "ujian_nama" => "Ujian Seleksi Masuk Berbasis Komputer",
                     "tempat" => "IAIN Kendari",
                     "waktu_pengerjaan" => "01:00:00",
                     "is_soal_random" => 1
@@ -62,23 +62,8 @@ class MandiriLokal2024Seeder extends Seeder
                     "sesi" => "1",
                     "jam_mulai" => "08:15:00",
                     "jam_selesai" => "09:15:00",
-                    "sesi_tanggal" => "2024-07-16",
+                    "sesi_tanggal" => "2024-08-19",
                 ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "2",
-                    "jam_mulai" => "09:30:00",
-                    "jam_selesai" => "10:30:00",
-                    "sesi_tanggal" => "2024-07-16",
-                ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "3",
-                    "jam_mulai" => "10:45:00",
-                    "jam_selesai" => "11:45:00",
-                    "sesi_tanggal" => "2024-07-16",
-                ],
-
 
             ]);
 
@@ -88,20 +73,10 @@ class MandiriLokal2024Seeder extends Seeder
                     "kode_ruangan" => "LAB-01",
                     "ruangan" => "LAB 01",
                 ],
-                [
-                    "gedung" => "LAB TIPD",
-                    "kode_ruangan" => "LAB-02",
-                    "ruangan" => "LAB 02",
-                ],
-                [
-                    "gedung" => "LAB TIPD",
-                    "kode_ruangan" => "LAB-03",
-                    "ruangan" => "Lab Bahasa",
-                ],
             ];
 
             $array = [];
-            for ($i = 1; $i <= 3; $i++) {
+            for ($i = 1; $i <= 1; $i++) {
                 foreach ($info as $index => $value) {
                     $array[] = [
                         "ujian_sesi_id" => $i,
