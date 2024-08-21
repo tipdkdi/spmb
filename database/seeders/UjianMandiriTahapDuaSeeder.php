@@ -22,8 +22,8 @@ class UjianMandiriTahapDuaSeeder extends Seeder
 
             DB::table('pmbs')->insert([
                 [
-                    "pmb_nama" => "PMB Jalur Mandiri Tahap 2",
-                    "tahun_akademik" => "2023/Ganjil",
+                    "pmb_nama" => "SMBK",
+                    "tahun_akademik" => "2024/Ganjil",
                     "biaya_pendaftaran" => 250000,
                     "daftar_mulai" => "2023-01-01",
                     "daftar_selesai" => "2023-01-01",
@@ -35,7 +35,7 @@ class UjianMandiriTahapDuaSeeder extends Seeder
             ]);
             DB::table('ujians')->insert([
                 [
-                    "ujian_nama" => "Ujian Penerimaan Mahasiswa Baru Jalur Mandiri 2023 Tahap 2",
+                    "ujian_nama" => "Ujian Seleksi Masuk Berbasis Komputer",
                     "tempat" => "IAIN Kendari",
                     "waktu_pengerjaan" => "01:00:00",
                     "is_soal_random" => 1

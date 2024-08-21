@@ -64,6 +64,13 @@ class MandiriLokal2024Seeder extends Seeder
                     "jam_selesai" => "09:15:00",
                     "sesi_tanggal" => "2024-08-19",
                 ],
+                [
+                    "ujian_id" => 1,
+                    "sesi" => "2",
+                    "jam_mulai" => "08:15:00",
+                    "jam_selesai" => "09:15:00",
+                    "sesi_tanggal" => "2024-08-19",
+                ],
 
             ]);
 
@@ -73,10 +80,15 @@ class MandiriLokal2024Seeder extends Seeder
                     "kode_ruangan" => "LAB-01",
                     "ruangan" => "LAB 01",
                 ],
+                [
+                    "gedung" => "LAB TIPD",
+                    "kode_ruangan" => "LAB-01",
+                    "ruangan" => "LAB 01",
+                ],
             ];
 
             $array = [];
-            for ($i = 1; $i <= 1; $i++) {
+            for ($i = 1; $i <= 2; $i++) {
                 foreach ($info as $index => $value) {
                     $array[] = [
                         "ujian_sesi_id" => $i,
