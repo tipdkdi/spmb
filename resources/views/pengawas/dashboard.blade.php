@@ -91,8 +91,8 @@
                         <tbody>
                             @foreach ($data->peserta as $index => $item)
                             <tr>
-                                <td>{{$item->no_urut}}</td>
-                                <!-- <td>{{$index + 1}}</td> -->
+                                <!-- <td>{{$item->no_urut}}</td> -->
+                                <td>{{$index + 1}}</td>
                                 <td><img src="{{$item->dataDiri->foto}}" width="80"></td>
                                 <td>{{$item->no_test}}</td>
                                 <td>{{$item->dataDiri->nama_lengkap}}</td>
