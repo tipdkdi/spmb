@@ -14,7 +14,8 @@ class PengawasController extends Controller
     {
         $title = 'Pengawas Ruang';
         $data = UjianSesiRuangan::with(['ujianSesi', 'peserta' => function ($peserta) {
-            $peserta->with(['dataDiri', 'userPeserta.user'])->orderBy('no_urut', 'ASC');
+            $peserta->with(['dataDiri', 'userPeserta.user'])->orderBy('no_test', 'ASC'); //khusus pasca ujian ke 2
+            // $peserta->with(['dataDiri', 'userPeserta.user'])->orderBy('no_urut', 'ASC');
         }])->find(Auth::user()->userPengawas->ujianSesiRuangan->id);
         // return $data;
         return view('pengawas.dashboard', compact(['data', 'title']));
