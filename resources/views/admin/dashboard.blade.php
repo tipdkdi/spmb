@@ -16,8 +16,7 @@
             <div class="col-sm-3">
                 <select id="jalur" class="form-select mb-3" aria-label="Default select example">
                     <option value="">Pilih Jalur Penerimaan</option>
-                    <option value="20241">PASCASARJANA 1</option>
-                    <option value="20246">PASCASARJANA 2</option>
+                    <option value="20251">PASCASARJANA S3</option>
                 </select>
 
                 <button class="btn btn-secondary" onclick="importData()">Import Data SIA</button>
