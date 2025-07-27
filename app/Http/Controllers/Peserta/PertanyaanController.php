@@ -14,17 +14,13 @@ class PertanyaanController extends Controller
     public function index()
     {
         $title = "Soal Ujian";
-        $data['info'] = 'Ujian PASCASARJANA IAIN Kendari Tahun 2024';
+        $data['info'] = 'Ujian MANDIRI LOKAL IAIN Kendari Tahun 2025';
         // $pertanyaan = Ujian::with('pertanyaanBagian.pertanyaan') Pertanyaan::with('bagian')->get();
         // return $pertanyaan;
         // return view('peserta.soal-form', compact(['data', 'title']));
     }
 
-    public function createListPertanyaanPeserta()
-    {
-    }
+    public function createListPertanyaanPeserta() {}
 
-    public function showPertanyaan($pertanyaanId)
-    {
-    }
+    public function showPertanyaan($pertanyaanId) {}
 }

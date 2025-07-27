@@ -287,22 +287,22 @@ class ApiController extends Controller
     public function insertSoalTKD($id, $sesiPesertaId, $mulaiUrut, $jumlahSoal)
     {
         //INI SOAL RANDOM
-        // $soalBagian = UjianSoalBagian::with(['soalKelompok.soal' => function ($soal) use ($jumlahSoal) {
-        //     $soal->with(['opsi' => function ($opsi) {
-        //         $opsi->inRandomOrder();
-        //     }])->take($jumlahSoal)->inRandomOrder()->get();
-        // }])->where([
-        //     'id' => $id
-        // ])->get();
-
-        //INI SOAL TIDAK RANDOM
         $soalBagian = UjianSoalBagian::with(['soalKelompok.soal' => function ($soal) use ($jumlahSoal) {
             $soal->with(['opsi' => function ($opsi) {
                 $opsi->inRandomOrder();
-            }])->take($jumlahSoal)->get();
+            }])->take($jumlahSoal)->inRandomOrder()->get();
         }])->where([
             'id' => $id
         ])->get();
+
+        //INI SOAL TIDAK RANDOM
+        // $soalBagian = UjianSoalBagian::with(['soalKelompok.soal' => function ($soal) use ($jumlahSoal) {
+        //     $soal->with(['opsi' => function ($opsi) {
+        //         $opsi->inRandomOrder();
+        //     }])->take($jumlahSoal)->get();
+        // }])->where([
+        //     'id' => $id
+        // ])->get();
         $opsi = [];
         $lastIndex = count($soalBagian[0]->soalKelompok->soal) - 1;
         foreach ($soalBagian[0]->soalKelompok->soal as $index => $item) {
@@ -347,9 +347,10 @@ class ApiController extends Controller
             // $this->insertSoalTKD(3, $sesiPesertaId, 30, 15);
             // $this->insertSoalTKD(4, $sesiPesertaId, 45, 15);
 
-            $this->insertSoalTKD(1, $sesiPesertaId, 0, 50);
-            $this->insertSoalTKD(2, $sesiPesertaId, 50, 25);
-            $this->insertSoalTKD(3, $sesiPesertaId, 75, 25);
+            $this->insertSoalTKD(1, $sesiPesertaId, 0, 25);
+            $this->insertSoalTKD(2, $sesiPesertaId, 25, 25);
+            $this->insertSoalTKD(3, $sesiPesertaId, 50, 25);
+            $this->insertSoalTKD(4, $sesiPesertaId, 75, 25);
             // return $opsi;
             //ini untuk soal moderasi ID 2
             // $soalBagian = UjianSoalBagian::with(['soalKelompok.soal' => function ($soal) {
@@ -438,9 +439,7 @@ class ApiController extends Controller
         return $data[0];
     }
 
-    public function pertanyaanTerjawab($bagianId)
-    {
-    }
+    public function pertanyaanTerjawab($bagianId) {}
 
     public function jawabanStore(Request $request)
     {
@@ -516,7 +515,8 @@ class ApiController extends Controller
 
         try {
             $dataQuery = Soal::with([
-                'opsi', 'soalKelompok',
+                'opsi',
+                'soalKelompok',
             ])
                 ->orderBy('soal_kelompok_id', 'ASC')
                 ->orderBy('id', 'ASC');

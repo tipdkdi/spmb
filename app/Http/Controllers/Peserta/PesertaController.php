@@ -13,7 +13,7 @@ class PesertaController extends Controller
     public function index()
     {
         $title = "Dashboard";
-        $info = 'Ujian PASCASARJANA Program Doktor IAIN Kendari Tahun 2025';
+        $info = 'Ujian MANDIRI LOKAL Kendari Tahun 2025';
         $data = UjianSesiPeserta::with(['ujianSesiRuangan.ujianSesi.ujian', 'dataDiri'])->where([
             'id' => Auth::user()->userPeserta->ujian_sesi_peserta_id,
         ])
@@ -24,8 +24,8 @@ class PesertaController extends Controller
 
     public function formUjian($ujianId)
     {
-        $title = "Ujian PASCASARJANA Program Doktor IAIN Kendari Tahun 2025";
-        $info = 'Ujian PASCASARJANA Program Doktor IAIN Kendari Tahun 2025';
+        $title = "Ujian MANDIRI LOKAL Kendari Tahun 2025";
+        $info = 'Ujian MANDIRI LOKAL Kendari Tahun 2025';
         $sesi = UjianSesiPeserta::with(['dataDiri', 'ujianSesiRuangan' => function ($ujianSesiRuangan) use ($ujianId) {
             // $ujianSesiRuangan->where('ujian_id', $ujianId);
         }])
