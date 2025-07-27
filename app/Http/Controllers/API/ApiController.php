@@ -348,9 +348,9 @@ class ApiController extends Controller
             // $this->insertSoalTKD(4, $sesiPesertaId, 45, 15);
 
             $this->insertSoalTKD(1, $sesiPesertaId, 0, 25);
-            $this->insertSoalTKD(2, $sesiPesertaId, 25, 25);
-            $this->insertSoalTKD(3, $sesiPesertaId, 50, 25);
-            $this->insertSoalTKD(4, $sesiPesertaId, 75, 25);
+            $this->insertSoalTKD(2, $sesiPesertaId, 25, 15);
+            $this->insertSoalTKD(3, $sesiPesertaId, 40, 15);
+            $this->insertSoalTKD(4, $sesiPesertaId, 55, 20);
             // return $opsi;
             //ini untuk soal moderasi ID 2
             // $soalBagian = UjianSoalBagian::with(['soalKelompok.soal' => function ($soal) {
