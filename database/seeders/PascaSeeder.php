@@ -28,7 +28,7 @@ class PascaSeeder extends Seeder
 
             DB::table('pmbs')->insert([
                 [
-                    "pmb_nama" => "Penerimaan Pascasarjana Program Magister (S2)",
+                    "pmb_nama" => "Penerimaan Pascasarjana Program Doktoral (S3)",
                     "tahun_akademik" => "2025/Ganjil",
                     "biaya_pendaftaran" => 250000,
                     "daftar_mulai" => "2025-01-01",
@@ -41,7 +41,7 @@ class PascaSeeder extends Seeder
             ]);
             DB::table('ujians')->insert([
                 [
-                    "ujian_nama" => "Ujian Penerimaan Jalur Mandiri Pascasarjana Program Magister (S2)",
+                    "ujian_nama" => "Ujian Penerimaan Jalur Mandiri Pascasarjana Program Doktoral (S3)",
                     "tempat" => "IAIN Kendari",
                     "waktu_pengerjaan" => "01:00:00",
                     "is_soal_random" => 1
@@ -60,21 +60,7 @@ class PascaSeeder extends Seeder
                     "sesi" => "1",
                     "jam_mulai" => "08:00:00",
                     "jam_selesai" => "09:30:00",
-                    "sesi_tanggal" => "2025-08-19",
-                ],
-                [
-                    "ujian_id" => 1,  ///ini diganti2 sesuai ujian id yang ingin dilaksanakan
-                    "sesi" => "2",
-                    "jam_mulai" => "10:00:00",
-                    "jam_selesai" => "11:30:00",
-                    "sesi_tanggal" => "2025-08-19",
-                ],
-                [
-                    "ujian_id" => 1,  ///ini diganti2 sesuai ujian id yang ingin dilaksanakan
-                    "sesi" => "3",
-                    "jam_mulai" => "13:30:00",
-                    "jam_selesai" => "15:00:00",
-                    "sesi_tanggal" => "2025-08-19",
+                    "sesi_tanggal" => "2025-08-20",
                 ],
                 // [
                 //     "ujian_id" => 1,
@@ -99,11 +85,11 @@ class PascaSeeder extends Seeder
                     "kode_ruangan" => "LAB-01",
                     "ruangan" => "LAB 01",
                 ],
-                [
-                    "gedung" => "LAB TIPD",
-                    "kode_ruangan" => "LAB-02",
-                    "ruangan" => "LAB 02",
-                ],
+                // [
+                //     "gedung" => "LAB TIPD",
+                //     "kode_ruangan" => "LAB-02",
+                //     "ruangan" => "LAB 02",
+                // ],
                 // [
                 //     "gedung" => "LAB TIPD",
                 //     "kode_ruangan" => "LAB-03",
@@ -114,7 +100,7 @@ class PascaSeeder extends Seeder
             $array = [];
             $sesi = 0;
 
-            for ($i = 1; $i <= 3; $i++) { //ini id sesi, jadi contoh ujian id 1 sampai 10 sesi, jadi skrg di sini jadi dari 11 -15 karena sampe 5 sesu
+            for ($i = 1; $i <= 1; $i++) { //ini id sesi, jadi contoh ujian id 1 sampai 10 sesi, jadi skrg di sini jadi dari 11 -15 karena sampe 5 sesu
                 $sesi = 1;
 
                 foreach ($info as $index => $value) {
