@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
             DB::table('pmbs')->insert([
                 [
-                    "pmb_nama" => "PMB Jalur Mandiri",
+                    "pmb_nama" => "PMB Jalur Mandiri Tahap 2",
                     "tahun_akademik" => "2025/Ganjil",
                     "biaya_pendaftaran" => 250000,
                     "daftar_mulai" => "2025-01-01",
@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             ]);
             DB::table('ujians')->insert([
                 [
-                    "ujian_nama" => "Ujian Penerimaan Mahasiswa Baru Jalur Mandiri 2025",
+                    "ujian_nama" => "Ujian Penerimaan Mahasiswa Baru Jalur Mandiri 2025 Tahap 2",
                     "tempat" => "IAIN Kendari",
                     "waktu_pengerjaan" => "01:30:00",
                     "is_soal_random" => 1
@@ -68,72 +68,72 @@ class DatabaseSeeder extends Seeder
                     "sesi" => "1",
                     "jam_mulai" => "08:00:00",
                     "jam_selesai" => "09:30:00",
-                    "sesi_tanggal" => "2025-07-28",
+                    "sesi_tanggal" => "2025-08-22",
                 ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "2",
-                    "jam_mulai" => "10:00:00",
-                    "jam_selesai" => "11:30:00",
-                    "sesi_tanggal" => "2025-07-28",
-                ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "3",
-                    "jam_mulai" => "13:00:00",
-                    "jam_selesai" => "14:30:00",
-                    "sesi_tanggal" => "2025-07-28",
-                ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "4",
-                    "jam_mulai" => "08:00:00",
-                    "jam_selesai" => "09:30:00",
-                    "sesi_tanggal" => "2025-07-29",
-                ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "5",
-                    "jam_mulai" => "10:00:00",
-                    "jam_selesai" => "11:30:00",
-                    "sesi_tanggal" => "2025-07-29",
-                ],
+                // [
+                //     "ujian_id" => 1,
+                //     "sesi" => "2",
+                //     "jam_mulai" => "10:00:00",
+                //     "jam_selesai" => "11:30:00",
+                //     "sesi_tanggal" => "2025-07-28",
+                // ],
+                // [
+                //     "ujian_id" => 1,
+                //     "sesi" => "3",
+                //     "jam_mulai" => "13:00:00",
+                //     "jam_selesai" => "14:30:00",
+                //     "sesi_tanggal" => "2025-07-28",
+                // ],
+                // [
+                //     "ujian_id" => 1,
+                //     "sesi" => "4",
+                //     "jam_mulai" => "08:00:00",
+                //     "jam_selesai" => "09:30:00",
+                //     "sesi_tanggal" => "2025-07-29",
+                // ],
+                // [
+                //     "ujian_id" => 1,
+                //     "sesi" => "5",
+                //     "jam_mulai" => "10:00:00",
+                //     "jam_selesai" => "11:30:00",
+                //     "sesi_tanggal" => "2025-07-29",
+                // ],
 
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "6",
-                    "jam_mulai" => "13:00:00",
-                    "jam_selesai" => "14:30:00",
-                    "sesi_tanggal" => "2025-07-29",
-                ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "7",
-                    "jam_mulai" => "08:00:00",
-                    "jam_selesai" => "09:30:00",
-                    "sesi_tanggal" => "2025-07-30",
-                ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "8",
-                    "jam_mulai" => "10:00:00",
-                    "jam_selesai" => "11:30:00",
-                    "sesi_tanggal" => "2025-07-30",
-                ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "9",
-                    "jam_mulai" => "13:00:00",
-                    "jam_selesai" => "14:30:00",
-                    "sesi_tanggal" => "2025-07-30",
-                ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "10",
-                    "jam_mulai" => "08:00:00",
-                    "jam_selesai" => "09:30:00",
-                    "sesi_tanggal" => "2025-07-31",
-                ],
+                // [
+                //     "ujian_id" => 1,
+                //     "sesi" => "6",
+                //     "jam_mulai" => "13:00:00",
+                //     "jam_selesai" => "14:30:00",
+                //     "sesi_tanggal" => "2025-07-29",
+                // ],
+                // [
+                //     "ujian_id" => 1,
+                //     "sesi" => "7",
+                //     "jam_mulai" => "08:00:00",
+                //     "jam_selesai" => "09:30:00",
+                //     "sesi_tanggal" => "2025-07-30",
+                // ],
+                // [
+                //     "ujian_id" => 1,
+                //     "sesi" => "8",
+                //     "jam_mulai" => "10:00:00",
+                //     "jam_selesai" => "11:30:00",
+                //     "sesi_tanggal" => "2025-07-30",
+                // ],
+                // [
+                //     "ujian_id" => 1,
+                //     "sesi" => "9",
+                //     "jam_mulai" => "13:00:00",
+                //     "jam_selesai" => "14:30:00",
+                //     "sesi_tanggal" => "2025-07-30",
+                // ],
+                // [
+                //     "ujian_id" => 1,
+                //     "sesi" => "10",
+                //     "jam_mulai" => "08:00:00",
+                //     "jam_selesai" => "09:30:00",
+                //     "sesi_tanggal" => "2025-07-31",
+                // ],
 
             ]);
 
@@ -143,20 +143,20 @@ class DatabaseSeeder extends Seeder
                     "kode_ruangan" => "LAB-01",
                     "ruangan" => "LAB 01",
                 ],
-                [
-                    "gedung" => "LAB TIPD",
-                    "kode_ruangan" => "LAB-02",
-                    "ruangan" => "LAB 02",
-                ],
-                [
-                    "gedung" => "LAB TIPD",
-                    "kode_ruangan" => "LAB-03",
-                    "ruangan" => "Lab Bahasa",
-                ],
+                // [
+                //     "gedung" => "LAB TIPD",
+                //     "kode_ruangan" => "LAB-02",
+                //     "ruangan" => "LAB 02",
+                // ],
+                // [
+                //     "gedung" => "LAB TIPD",
+                //     "kode_ruangan" => "LAB-03",
+                //     "ruangan" => "Lab Bahasa",
+                // ],
             ];
 
             $array = [];
-            for ($i = 1; $i <= 10; $i++) {
+            for ($i = 1; $i <= 1; $i++) {
                 foreach ($info as $index => $value) {
                     $array[] = [
                         "ujian_sesi_id" => $i,
