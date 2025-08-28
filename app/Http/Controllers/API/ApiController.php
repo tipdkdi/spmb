@@ -347,14 +347,14 @@ class ApiController extends Controller
             // $this->insertSoalTKD(3, $sesiPesertaId, 30, 15);
             // $this->insertSoalTKD(4, $sesiPesertaId, 45, 15);
             //MANDIRI LOKAL
-            $this->insertSoalTKD(1, $sesiPesertaId, 0, 25);
-            $this->insertSoalTKD(2, $sesiPesertaId, 25, 15);
-            $this->insertSoalTKD(3, $sesiPesertaId, 40, 15);
-            $this->insertSoalTKD(4, $sesiPesertaId, 55, 20);
+            // $this->insertSoalTKD(1, $sesiPesertaId, 0, 25);
+            // $this->insertSoalTKD(2, $sesiPesertaId, 25, 15);
+            // $this->insertSoalTKD(3, $sesiPesertaId, 40, 15);
+            // $this->insertSoalTKD(4, $sesiPesertaId, 55, 20);
             //PASCA S2
-            // $this->insertSoalTKD(1, $sesiPesertaId, 0, 50);
-            // $this->insertSoalTKD(2, $sesiPesertaId, 50, 25);
-            // $this->insertSoalTKD(3, $sesiPesertaId, 75, 25);
+            $this->insertSoalTKD(1, $sesiPesertaId, 0, 50);
+            $this->insertSoalTKD(2, $sesiPesertaId, 50, 25);
+            $this->insertSoalTKD(3, $sesiPesertaId, 75, 25);
             // return $opsi;
             //ini untuk soal moderasi ID 2
             // $soalBagian = UjianSoalBagian::with(['soalKelompok.soal' => function ($soal) {
