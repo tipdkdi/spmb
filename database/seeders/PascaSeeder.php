@@ -28,11 +28,11 @@ class PascaSeeder extends Seeder
 
             DB::table('pmbs')->insert([
                 [
-                    "pmb_nama" => "Penerimaan Pascasarjana Program Doktoral (S3)",
-                    "tahun_akademik" => "2025/Ganjil",
+                    "pmb_nama" => "Penerimaan Pascasarjana Program Doktor (S3) Studi Islam",
+                    "tahun_akademik" => "2026/Ganjil",
                     "biaya_pendaftaran" => 250000,
-                    "daftar_mulai" => "2025-01-01",
-                    "daftar_selesai" => "2025-01-01",
+                    "daftar_mulai" => "2026-01-01",
+                    "daftar_selesai" => "2026-01-01",
                     "jenis_ujian" => "offline",
                     "ruang_per_sesi" => 3,
                     "peserta_per_ruang" => 20,
@@ -41,7 +41,7 @@ class PascaSeeder extends Seeder
             ]);
             DB::table('ujians')->insert([
                 [
-                    "ujian_nama" => "Ujian Penerimaan Jalur Mandiri Pascasarjana Program Doktoral (S3)",
+                    "ujian_nama" => "Ujian Penerimaan Jalur Mandiri Pascasarjana Program Doktor (S3) Studi Islam",
                     "tempat" => "IAIN Kendari",
                     "waktu_pengerjaan" => "01:00:00",
                     "is_soal_random" => 1
@@ -60,22 +60,8 @@ class PascaSeeder extends Seeder
                     "sesi" => "1",
                     "jam_mulai" => "08:00:00",
                     "jam_selesai" => "09:30:00",
-                    "sesi_tanggal" => "2025-08-20",
+                    "sesi_tanggal" => "2026-08-20",
                 ],
-                // [
-                //     "ujian_id" => 1,
-                //     "sesi" => "2",
-                //     "jam_mulai" => "09:30:00",
-                //     "jam_selesai" => "10:30:00",
-                //     "sesi_tanggal" => "2024-08-24",
-                // ],
-                // [
-                //     "ujian_id" => 1,
-                //     "sesi" => "3",
-                //     "jam_mulai" => "09:30:00",
-                //     "jam_selesai" => "10:30:00",
-                //     "sesi_tanggal" => "2024-08-24",
-                // ]
 
             ]);
 
@@ -85,16 +71,6 @@ class PascaSeeder extends Seeder
                     "kode_ruangan" => "LAB-01",
                     "ruangan" => "LAB 01",
                 ],
-                // [
-                //     "gedung" => "LAB TIPD",
-                //     "kode_ruangan" => "LAB-02",
-                //     "ruangan" => "LAB 02",
-                // ],
-                // [
-                //     "gedung" => "LAB TIPD",
-                //     "kode_ruangan" => "LAB-03",
-                //     "ruangan" => "Lab Bahasa",
-                // ],
             ];
 
             $array = [];

@@ -16,8 +16,7 @@
             <div class="col-sm-3">
                 <select id="jalur" class="form-select mb-3" aria-label="Default select example">
                     <option value="">Pilih Jalur Penerimaan</option>
-                    <option value="20253">S3 Gelombang 2</option>
-                    <option value="20258">Mandiri Tahap 2</option>
+                    <option value="20261">S3 Studi Islam</option>
                 </select>
 
                 <button class="btn btn-secondary" onclick="importData()">Import Data SIA</button>
@@ -30,7 +29,7 @@
             <div class="col-sm-3">
                 <select id="ujian" class="form-select mb-3" aria-label="Default select example">
                     <option value="">Pilih Ujian</option>
-                    <option value="1">2025</option>
+                    <option value="1">2026</option>
                 </select>
                 <button class="btn btn-primary" onclick="buatAkunPengawas()">Buat akun pengawas</button>
 
