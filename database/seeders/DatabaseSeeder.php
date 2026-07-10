@@ -29,11 +29,11 @@ class DatabaseSeeder extends Seeder
 
             DB::table('pmbs')->insert([
                 [
-                    "pmb_nama" => "PMB Jalur Mandiri Tahap 2",
+                    "pmb_nama" => "PMB Jalur Mandiri Tahap",
                     "tahun_akademik" => "2025/Ganjil",
                     "biaya_pendaftaran" => 250000,
-                    "daftar_mulai" => "2025-01-01",
-                    "daftar_selesai" => "2025-01-01",
+                    "daftar_mulai" => "2026-01-01",
+                    "daftar_selesai" => "2026-01-01",
                     "jenis_ujian" => "offline",
                     "ruang_per_sesi" => 3,
                     "peserta_per_ruang" => 20,
@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             ]);
             DB::table('ujians')->insert([
                 [
-                    "ujian_nama" => "Ujian Penerimaan Mahasiswa Baru Jalur Mandiri 2025 Tahap 2",
+                    "ujian_nama" => "Ujian Penerimaan Mahasiswa Baru Jalur Mandiri 2026",
                     "tempat" => "IAIN Kendari",
                     "waktu_pengerjaan" => "01:30:00",
                     "is_soal_random" => 1
@@ -68,29 +68,29 @@ class DatabaseSeeder extends Seeder
                     "sesi" => "1",
                     "jam_mulai" => "08:00:00",
                     "jam_selesai" => "09:30:00",
-                    "sesi_tanggal" => "2025-08-22",
+                    "sesi_tanggal" => "2026-07-13",
                 ],
-                // [
-                //     "ujian_id" => 1,
-                //     "sesi" => "2",
-                //     "jam_mulai" => "10:00:00",
-                //     "jam_selesai" => "11:30:00",
-                //     "sesi_tanggal" => "2025-07-28",
-                // ],
-                // [
-                //     "ujian_id" => 1,
-                //     "sesi" => "3",
-                //     "jam_mulai" => "13:00:00",
-                //     "jam_selesai" => "14:30:00",
-                //     "sesi_tanggal" => "2025-07-28",
-                // ],
-                // [
-                //     "ujian_id" => 1,
-                //     "sesi" => "4",
-                //     "jam_mulai" => "08:00:00",
-                //     "jam_selesai" => "09:30:00",
-                //     "sesi_tanggal" => "2025-07-29",
-                // ],
+                [
+                    "ujian_id" => 1,
+                    "sesi" => "2",
+                    "jam_mulai" => "10:00:00",
+                    "jam_selesai" => "11:30:00",
+                    "sesi_tanggal" => "2026-07-13",
+                ],
+                [
+                    "ujian_id" => 1,
+                    "sesi" => "3",
+                    "jam_mulai" => "13:00:00",
+                    "jam_selesai" => "14:30:00",
+                    "sesi_tanggal" => "2026-07-13",
+                ],
+                [
+                    "ujian_id" => 1,
+                    "sesi" => "4",
+                    "jam_mulai" => "08:00:00",
+                    "jam_selesai" => "09:30:00",
+                    "sesi_tanggal" => "2026-07-14",
+                ],
                 // [
                 //     "ujian_id" => 1,
                 //     "sesi" => "5",
@@ -143,20 +143,20 @@ class DatabaseSeeder extends Seeder
                     "kode_ruangan" => "LAB-01",
                     "ruangan" => "LAB 01",
                 ],
-                // [
-                //     "gedung" => "LAB TIPD",
-                //     "kode_ruangan" => "LAB-02",
-                //     "ruangan" => "LAB 02",
-                // ],
-                // [
-                //     "gedung" => "LAB TIPD",
-                //     "kode_ruangan" => "LAB-03",
-                //     "ruangan" => "Lab Bahasa",
-                // ],
+                [
+                    "gedung" => "LAB TIPD",
+                    "kode_ruangan" => "LAB-02",
+                    "ruangan" => "LAB 02",
+                ],
+                [
+                    "gedung" => "LAB TIPD",
+                    "kode_ruangan" => "LAB-03",
+                    "ruangan" => "Lab Bahasa",
+                ],
             ];
 
             $array = [];
-            for ($i = 1; $i <= 1; $i++) {
+            for ($i = 1; $i <= 4; $i++) {
                 foreach ($info as $index => $value) {
                     $array[] = [
                         "ujian_sesi_id" => $i,

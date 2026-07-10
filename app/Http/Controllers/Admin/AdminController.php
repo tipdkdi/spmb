@@ -24,11 +24,11 @@ class AdminController extends Controller
 
             DB::table('pmbs')->insert([
                 [
-                    "pmb_nama" => "PMB Jalur Mandiri Tahap 2",
-                    "tahun_akademik" => "2023/Ganjil",
+                    "pmb_nama" => "PMB Jalur Mandiri Tahap",
+                    "tahun_akademik" => "2026/Ganjil",
                     "biaya_pendaftaran" => 250000,
-                    "daftar_mulai" => "2023-01-01",
-                    "daftar_selesai" => "2023-01-01",
+                    "daftar_mulai" => "2026-01-01",
+                    "daftar_selesai" => "2026-01-01",
                     "jenis_ujian" => "offline",
                     "ruang_per_sesi" => 3,
                     "peserta_per_ruang" => 20,
