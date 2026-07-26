@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
             DB::table('pmbs')->insert([
                 [
-                    "pmb_nama" => "PMB Jalur Mandiri Tahap",
+                    "pmb_nama" => "PMB Jalur Mandiri Tahap 2",
                     "tahun_akademik" => "2025/Ganjil",
                     "biaya_pendaftaran" => 250000,
                     "daftar_mulai" => "2026-01-01",
@@ -68,29 +68,29 @@ class DatabaseSeeder extends Seeder
                     "sesi" => "1",
                     "jam_mulai" => "08:00:00",
                     "jam_selesai" => "09:30:00",
-                    "sesi_tanggal" => "2026-07-13",
+                    "sesi_tanggal" => "2026-07-27",
                 ],
                 [
                     "ujian_id" => 1,
                     "sesi" => "2",
                     "jam_mulai" => "10:00:00",
                     "jam_selesai" => "11:30:00",
-                    "sesi_tanggal" => "2026-07-13",
+                    "sesi_tanggal" => "2026-07-27",
                 ],
                 [
                     "ujian_id" => 1,
                     "sesi" => "3",
                     "jam_mulai" => "13:00:00",
                     "jam_selesai" => "14:30:00",
-                    "sesi_tanggal" => "2026-07-13",
+                    "sesi_tanggal" => "2026-07-27",
                 ],
-                [
-                    "ujian_id" => 1,
-                    "sesi" => "4",
-                    "jam_mulai" => "08:00:00",
-                    "jam_selesai" => "09:30:00",
-                    "sesi_tanggal" => "2026-07-14",
-                ],
+                // [
+                //     "ujian_id" => 1,
+                //     "sesi" => "4",
+                //     "jam_mulai" => "08:00:00",
+                //     "jam_selesai" => "09:30:00",
+                //     "sesi_tanggal" => "2026-07-14",
+                // ],
                 // [
                 //     "ujian_id" => 1,
                 //     "sesi" => "5",
@@ -148,15 +148,15 @@ class DatabaseSeeder extends Seeder
                     "kode_ruangan" => "LAB-02",
                     "ruangan" => "LAB 02",
                 ],
-                [
-                    "gedung" => "LAB TIPD",
-                    "kode_ruangan" => "LAB-03",
-                    "ruangan" => "Lab Bahasa",
-                ],
+                // [
+                //     "gedung" => "LAB TIPD",
+                //     "kode_ruangan" => "LAB-03",
+                //     "ruangan" => "Lab Bahasa",
+                // ],
             ];
 
             $array = [];
-            for ($i = 1; $i <= 4; $i++) {
+            for ($i = 1; $i <= 3; $i++) {
                 foreach ($info as $index => $value) {
                     $array[] = [
                         "ujian_sesi_id" => $i,

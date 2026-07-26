@@ -14,7 +14,7 @@ class PertanyaanController extends Controller
     public function index()
     {
         $title = "Soal Ujian";
-        $data['info'] = 'Ujian Mandiri Tahap 1 2026';
+        $data['info'] = 'Ujian Mandiri Tahap 2 2026';
         // $pertanyaan = Ujian::with('pertanyaanBagian.pertanyaan') Pertanyaan::with('bagian')->get();
         // return $pertanyaan;
         // return view('peserta.soal-form', compact(['data', 'title']));
